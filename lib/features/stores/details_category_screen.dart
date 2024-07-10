@@ -38,23 +38,24 @@ class _DetailsCategoryScreenState extends State<DetailsCategoryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(actions: [
-        IconButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const FavoriteScreen(),
-              ),
-            );
-          },
-          icon: Icon(
-            Icons.favorite_border_outlined,
-            size: 30.h,
-            color: Colors.black,
+      appBar: AppBar(
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const FavoriteScreen(),
+                ),
+              );
+            },
+            icon: Icon(
+              Icons.favorite_border_outlined,
+              size: 30.h,
+              color: Colors.black,
+            ),
           ),
-        ),
-      ],
+        ],
         centerTitle: true,
         title: FutureBuilder<String>(
           future: categoryNameFuture,
@@ -112,8 +113,6 @@ class _DetailsCategoryScreenState extends State<DetailsCategoryScreen> {
                     ),
                   );
                 },
-
-
                 child: Card(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
