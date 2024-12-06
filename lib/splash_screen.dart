@@ -24,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
-    return Scaffold(
+    return Scaffold(backgroundColor: Color(0xFF041A31),
       body: Stack(
         children: [
           Positioned.fill(
@@ -44,3 +44,4 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 }
+
