@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'core/theming/styles.dart';
+
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
 
@@ -12,7 +14,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("data"),
+        title: Text("data",style: TextStyles.font16RegularGray,),
       ),
     );
   }

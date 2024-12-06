@@ -43,14 +43,18 @@ dependencies:
   google_sign_in: ^6.1.6
   awesome_dialog:
   image_picker:
+  flutter_screenutil: ^5.6.0
+  flutter_bloc: ^8.1.6
+  bloc: ^8.1.4
+  http: ^1.2.2
+  equatable: ^2.0.3
+  shared_preferences: ^2.3.3
+  easy_localization: ^3.0.7
+  path: ^1.9.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_native_splash: ^2.4.3
-flutter_native_splash:
-  color: "#42a5f5"
-  image: assets/splash.png
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
