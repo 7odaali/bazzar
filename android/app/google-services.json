@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "142037389077",
+    "project_id": "pazzar-36917",
+    "storage_bucket": "pazzar-36917.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:142037389077:android:7e7f243581c99f7ae7231c",
+        "android_client_info": {
+          "package_name": "com.example.bazzar"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnU8U_Gv64o9Ik-AeXPY_mXZwIFgRe7mk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
