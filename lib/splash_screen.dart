@@ -1,5 +1,7 @@
+import 'package:bazzar/core/theming/colors.dart';
+import 'package:bazzar/features/set_up_screen.dart';
 import 'package:flutter/material.dart';
-import 'my_home_page.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -16,15 +18,14 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(const Duration(seconds: 3), () {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const MyHomePage()),
+        MaterialPageRoute(builder: (context) => const SetUpScreen()),
       );
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    double w = MediaQuery.of(context).size.width;
-    return Scaffold(backgroundColor: Color(0xFF041A31),
+    return Scaffold(backgroundColor: Colors.black,
       body: Stack(
         children: [
           Positioned.fill(
@@ -36,7 +37,7 @@ class _SplashScreenState extends State<SplashScreen> {
           Center(
               child: Image.asset(
             "assets/Logo.png",
-            width: 0.3 * w,
+            width: 120.w,
             fit: BoxFit.cover,
           )),
         ],
