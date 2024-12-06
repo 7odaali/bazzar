@@ -34,8 +34,8 @@ class TextStyles {
   );
 
 
-  static TextStyle font20boldYellow = TextStyle(
-    fontSize: 20.sp,
+  static TextStyle font17boldYellow = TextStyle(
+    fontSize: 17.sp,
     fontWeight: FontWeightHelper.medium,
     color: ColorsManager.yellow,
   );

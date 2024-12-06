@@ -4,6 +4,8 @@ import 'package:bazzar/my_home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'onboarding/onboarding_screen.dart';
+
 class SetUpScreen extends StatefulWidget {
   const SetUpScreen({super.key});
 
@@ -36,7 +38,7 @@ class _SetUpScreenState extends State<SetUpScreen> {
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const MyHomePage(),
+                    builder: (context) => const OnboardingScreen(),
                   ),
                 );
               },
