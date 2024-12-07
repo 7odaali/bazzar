@@ -1,14 +1,32 @@
+/*
 
 import 'package:firebase_core/firebase_core.dart';
 
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     return const FirebaseOptions(
-      apiKey: "AIzaSyBaoz7nOjANU6wBVF6AlT5v_jobb2iyI-o",
-      appId: "1:649847193786:android:4c4c7671aa5eccc6ce8283",
-      messagingSenderId: "649847193786",
-      projectId: "untitledfirebase-1bfca",
-      storageBucket: "untitledfirebase-1bfca.firebasestorage.app",
+      apiKey: "AIzaSyDnU8U_Gv64o9Ik-AeXPY_mXZwIFgRe7mk",
+      appId: "1:142037389077:android:7e7f243581c99f7ae7231c",
+      messagingSenderId: "142037389077",
+      projectId: "pazzar-36917",
+      storageBucket: "pazzar-36917.firebasestorage.app",
     );
   }
+}*/
+// lib/firebase_options.dart
+
+import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
+
+class DefaultFirebaseOptions {
+  static FirebaseOptions get currentPlatform {
+    return android; // اختر منصة التطبيق
+  }
+
+  static const FirebaseOptions android = FirebaseOptions(
+    apiKey: 'AIzaSyDnU8U_Gv64o9Ik-AeXPY_mXZwIFgRe7mk',
+    appId: '1:142037389077:android:7e7f243581c99f7ae7231c',
+    messagingSenderId: '142037389077',
+    projectId: 'pazzar-36917',
+    storageBucket: 'pazzar-36917.appspot.com',
+  );
 }
