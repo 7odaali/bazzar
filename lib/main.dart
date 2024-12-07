@@ -1,4 +1,3 @@
-import 'package:bazzar/my_home_page.dart';
 import 'package:bazzar/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';

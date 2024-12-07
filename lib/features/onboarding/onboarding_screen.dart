@@ -122,9 +122,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       itemBuilder: (context, i) {
                         return Padding(
                           padding: EdgeInsets.symmetric(horizontal: 8.0.w),
-                          child: Image.network(
-                            _images[i],
-                            fit: BoxFit.fill,
+                          child: ClipRRect(borderRadius: BorderRadius.circular(25.w),
+                            child: Image.network(
+                              _images[i],
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         );
                       },

@@ -1,6 +1,5 @@
 import 'package:bazzar/core/theming/colors.dart';
 import 'package:bazzar/core/theming/styles.dart';
-import 'package:bazzar/my_home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
