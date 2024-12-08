@@ -26,7 +26,7 @@ class LangScreen extends StatefulWidget {
 }
 
 class _LangScreenState extends State<LangScreen> {
-  String selectedLanguage = 'English'; // Default language
+  String selectedLanguage = 'English';
 
   @override
   Widget build(BuildContext context) {
@@ -54,12 +54,10 @@ class _LangScreenState extends State<LangScreen> {
                 setState(() {
                   selectedLanguage = 'العربية';
                 });
-                // Handle logic for Arabic
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: selectedLanguage == 'العربية'
-                    ? Colors.blue
-                    : Colors.grey,
+                backgroundColor:
+                    selectedLanguage == 'العربية' ? Colors.blue : Colors.grey,
                 minimumSize: const Size(double.infinity, 50),
               ),
               child: const Text(
@@ -73,12 +71,10 @@ class _LangScreenState extends State<LangScreen> {
                 setState(() {
                   selectedLanguage = 'English';
                 });
-                // Handle logic for English
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: selectedLanguage == 'English'
-                    ? Colors.blue
-                    : Colors.grey,
+                backgroundColor:
+                    selectedLanguage == 'English' ? Colors.blue : Colors.grey,
                 minimumSize: const Size(double.infinity, 50),
               ),
               child: const Text(
