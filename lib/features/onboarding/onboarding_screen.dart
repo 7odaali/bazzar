@@ -58,7 +58,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   Future<void> _fetchImages() async {
     try {
       final snapshot =
-          await FirebaseFirestore.instance.collection('onboarding').get();
+      await FirebaseFirestore.instance.collection('onboarding').get();
 
       List<String> images = [];
       for (var doc in snapshot.docs) {
@@ -112,43 +112,44 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               child: _images.isEmpty
                   ? const Center(child: CircularProgressIndicator())
                   : PageView.builder(
-                      controller: _pageController,
-                      itemCount: _images.length,
-                      onPageChanged: (index) {
-                        setState(() {
-                          _currentPage = index;
-                        });
-                      },
-                      itemBuilder: (context, i) {
-                        return Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 8.0.w),
-                          child: ClipRRect(borderRadius: BorderRadius.circular(25.w),
-                            child: Image.network(
-                              _images[i],
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        );
-                      },
+                controller: _pageController,
+                itemCount: _images.length,
+                onPageChanged: (index) {
+                  setState(() {
+                    _currentPage = index;
+                  });
+                },
+                itemBuilder: (context, i) {
+                  return Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 8.0.w),
+                    child: ClipRRect(borderRadius: BorderRadius.circular(25.w),
+                      child: Image.network(
+                        _images[i],
+                        fit: BoxFit.cover,
+                      ),
                     ),
+                  );
+                },
+              ),
             ),
             verticalSpace(10),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: List.generate(
                 _images.length,
-                (index) => AnimatedContainer(
-                  duration: const Duration(milliseconds: 100),
-                  margin: EdgeInsets.symmetric(horizontal: 4.w),
-                  width: _currentPage == index ? 14.w : 8.w,
-                  height: 8.h,
-                  decoration: BoxDecoration(
-                    color: _currentPage == index
-                        ? ColorsManager.yellow
-                        : ColorsManager.darkBlue,
-                    borderRadius: BorderRadius.circular(4.r),
-                  ),
-                ),
+                    (index) =>
+                    AnimatedContainer(
+                      duration: const Duration(milliseconds: 100),
+                      margin: EdgeInsets.symmetric(horizontal: 4.w),
+                      width: _currentPage == index ? 14.w : 8.w,
+                      height: 8.h,
+                      decoration: BoxDecoration(
+                        color: _currentPage == index
+                            ? ColorsManager.yellow
+                            : ColorsManager.darkBlue,
+                        borderRadius: BorderRadius.circular(4.r),
+                      ),
+                    ),
               ),
             ),
             verticalSpace(50),
