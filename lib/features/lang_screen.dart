@@ -83,10 +83,8 @@ class _LangScreenState extends State<LangScreen> {
               ),
             ),
             const Spacer(),
-            // Confirmation button
             ElevatedButton(
               onPressed: () {
-                // Save selected language logic here
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                   content: Text("تم اختيار اللغة: $selectedLanguage"),
                 ));
