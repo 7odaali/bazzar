@@ -31,23 +31,18 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     _pageController.dispose();
     super.dispose();
   }
-
   /*Future<void> _fetchImages() async {
     try {
       final snapshot = await FirebaseFirestore.instance
           .collection('onboarding')
           .doc('rkwrWVNiUIAvJd5ENYvd')
           .get();
-
       final data = snapshot.data();
-
-
       if (data != null && data['images'] is List) {
         setState(() {
           _images = List<String>.from(
               data['images']);
         });
-
       }
     } catch (e) {
 
