@@ -1,22 +1,8 @@
-/*
+import 'package:bazzar/core/helpers/spacing.dart';
 import 'package:flutter/material.dart';
-class LangScreen extends StatefulWidget {
-  const LangScreen({super.key});
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-  @override
-  State<LangScreen> createState() => _LangScreenState();
-}
-
-class _LangScreenState extends State<LangScreen> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(appBar: AppBar(),
-      body: Container(),
-    );
-  }
-}
-*/
-import 'package:flutter/material.dart';
+import '../core/theming/styles.dart';
 
 class LangScreen extends StatefulWidget {
   const LangScreen({super.key});
@@ -31,74 +17,109 @@ class _LangScreenState extends State<LangScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("اختر اللغة"),
-        centerTitle: true,
-      ),
+      backgroundColor: const Color(0xFFFAFAFA),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const Text(
-              "الرجاء اختيار اللغة:",
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
+        padding: EdgeInsets.symmetric(horizontal: 15.0.w),
+        child: SafeArea(
+          child: Column(
+            children: [
+              verticalSpace(50),
+              Center(
+                child: Image.asset(
+                  "assets/LOGO1.png",
+                  height: 120.h,
+                ),
               ),
-            ),
-            const SizedBox(height: 20),
-            // Language buttons
-            ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  selectedLanguage = 'العربية';
-                });
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor:
-                    selectedLanguage == 'العربية' ? Colors.blue : Colors.grey,
-                minimumSize: const Size(double.infinity, 50),
+              verticalSpace(50),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    "Choose Language",
+                    style: TextStyles.font22boldDarkBlue
+                        .copyWith(color: Colors.black),
+                  ),
+                ],
               ),
-              child: const Text(
-                "العربية",
-                style: TextStyle(fontSize: 18),
+              verticalSpace(5),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    "Please Choose your Language",
+                    style: TextStyles.font15boldDarkBlue.copyWith(
+                      color: Colors.black,
+                      fontWeight: FontWeight.normal,
+                    ),
+                  ),
+                ],
               ),
-            ),
-            const SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  selectedLanguage = 'English';
-                });
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor:
-                    selectedLanguage == 'English' ? Colors.blue : Colors.grey,
-                minimumSize: const Size(double.infinity, 50),
+              verticalSpace(20),
+              MaterialButton(
+                elevation: 0,
+                onPressed: () {
+                  setState(() {
+                    selectedLanguage = 'English';
+                  });
+                },
+                color: selectedLanguage == 'English'
+                    ? Colors.yellow
+                    : Colors.white,
+                minWidth: double.infinity,
+                height: 45.h,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5.w),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "English",
+                      style: TextStyle(
+                          fontSize: 14.w, fontWeight: FontWeight.bold),
+                    ),
+                    Icon(
+                      Icons.arrow_forward_ios,
+                      color: Colors.grey,
+                      size: 17.w,
+                    )
+                  ],
+                ),
               ),
-              child: const Text(
-                "English",
-                style: TextStyle(fontSize: 18),
+              verticalSpace(20),
+              MaterialButton(
+                elevation: 0,
+                onPressed: () {
+                  setState(() {
+                    selectedLanguage = 'العربية';
+                  });
+                },
+                color: selectedLanguage == 'العربية'
+                    ? Colors.yellow
+                    : Colors.white,
+                minWidth: double.infinity,
+                height: 45.h,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5.w),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "العربية",
+                      style: TextStyle(
+                          fontSize: 14.w, fontWeight: FontWeight.bold),
+                    ),
+                    Icon(
+                      Icons.arrow_forward_ios,
+                      color: Colors.grey,
+                      size: 17.w,
+                    )
+                  ],
+                ),
               ),
-            ),
-            const Spacer(),
-            ElevatedButton(
-              onPressed: () {
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  content: Text("تم اختيار اللغة: $selectedLanguage"),
-                ));
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.green,
-                minimumSize: const Size(double.infinity, 50),
-              ),
-              child: const Text(
-                "تأكيد",
-                style: TextStyle(fontSize: 18, color: Colors.white),
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
