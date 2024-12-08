@@ -1,5 +1,7 @@
 import 'package:bazzar/core/theming/colors.dart';
 import 'package:bazzar/core/theming/styles.dart';
+import 'package:bazzar/features/lang_screen.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -42,7 +44,7 @@ class _SetUpScreenState extends State<SetUpScreen> {
                 );
               },
               child: Text(
-                "Skip",
+                "skip".tr(),
                 style: TextStyles.font20boldDarkWhite,
               ),
             ),

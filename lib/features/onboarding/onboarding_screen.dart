@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -58,7 +59,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   Future<void> _fetchImages() async {
     try {
       final snapshot =
-      await FirebaseFirestore.instance.collection('onboarding').get();
+          await FirebaseFirestore.instance.collection('onboarding').get();
 
       List<String> images = [];
       for (var doc in snapshot.docs) {
@@ -112,44 +113,44 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               child: _images.isEmpty
                   ? const Center(child: CircularProgressIndicator())
                   : PageView.builder(
-                controller: _pageController,
-                itemCount: _images.length,
-                onPageChanged: (index) {
-                  setState(() {
-                    _currentPage = index;
-                  });
-                },
-                itemBuilder: (context, i) {
-                  return Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 8.0.w),
-                    child: ClipRRect(borderRadius: BorderRadius.circular(25.w),
-                      child: Image.network(
-                        _images[i],
-                        fit: BoxFit.cover,
-                      ),
+                      controller: _pageController,
+                      itemCount: _images.length,
+                      onPageChanged: (index) {
+                        setState(() {
+                          _currentPage = index;
+                        });
+                      },
+                      itemBuilder: (context, i) {
+                        return Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 8.0.w),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(25.w),
+                            child: Image.network(
+                              _images[i],
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        );
+                      },
                     ),
-                  );
-                },
-              ),
             ),
             verticalSpace(10),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: List.generate(
                 _images.length,
-                    (index) =>
-                    AnimatedContainer(
-                      duration: const Duration(milliseconds: 100),
-                      margin: EdgeInsets.symmetric(horizontal: 4.w),
-                      width: _currentPage == index ? 14.w : 8.w,
-                      height: 8.h,
-                      decoration: BoxDecoration(
-                        color: _currentPage == index
-                            ? ColorsManager.yellow
-                            : ColorsManager.darkBlue,
-                        borderRadius: BorderRadius.circular(4.r),
-                      ),
-                    ),
+                (index) => AnimatedContainer(
+                  duration: const Duration(milliseconds: 100),
+                  margin: EdgeInsets.symmetric(horizontal: 4.w),
+                  width: _currentPage == index ? 14.w : 8.w,
+                  height: 8.h,
+                  decoration: BoxDecoration(
+                    color: _currentPage == index
+                        ? ColorsManager.yellow
+                        : ColorsManager.darkBlue,
+                    borderRadius: BorderRadius.circular(4.r),
+                  ),
+                ),
               ),
             ),
             verticalSpace(50),
@@ -172,7 +173,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     );
                   },
                   child: Text(
-                    "Skip",
+                    "skip".tr(),
                     style: TextStyles.font17boldYellow,
                   ),
                 ),
@@ -185,7 +186,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   color: ColorsManager.yellow,
                   onPressed: _nextPage,
                   child: Text(
-                    _currentPage == _images.length - 1 ? "Start" : "Next",
+                    _currentPage == _images.length - 1 ? "start".tr() : "next".tr(),
                     style: TextStyles.font17boldDarkBlue,
                   ),
                 ),
