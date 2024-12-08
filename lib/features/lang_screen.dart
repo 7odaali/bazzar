@@ -128,8 +128,7 @@ class _LangScreenState extends State<LangScreen> {
                 height: 40.h,
                 minWidth: 1000.w,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(5.w)
-                  ),
+                  borderRadius: BorderRadius.all(Radius.circular(5.w)),
                 ),
                 color: ColorsManager.darkBlue,
                 onPressed: () {

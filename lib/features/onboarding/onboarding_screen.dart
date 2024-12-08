@@ -186,7 +186,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   color: ColorsManager.yellow,
                   onPressed: _nextPage,
                   child: Text(
-                    _currentPage == _images.length - 1 ? "start".tr() : "next".tr(),
+                    _currentPage == _images.length - 1
+                        ? "start".tr()
+                        : "next".tr(),
                     style: TextStyles.font17boldDarkBlue,
                   ),
                 ),
