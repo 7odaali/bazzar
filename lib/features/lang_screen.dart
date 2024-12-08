@@ -3,7 +3,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../core/helpers/spacing.dart';
+import '../core/theming/colors.dart';
 import '../core/theming/styles.dart';
+import 'login/login_screen.dart';
 
 class LangScreen extends StatefulWidget {
   const LangScreen({super.key});
@@ -121,6 +123,29 @@ class _LangScreenState extends State<LangScreen> {
                   ],
                 ),
               ),
+              const Spacer(),
+              MaterialButton(
+                height: 40.h,
+                minWidth: 1000.w,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(5.w)
+                  ),
+                ),
+                color: ColorsManager.darkBlue,
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const LoginScreen(),
+                    ),
+                  );
+                },
+                child: Text(
+                  "start".tr(),
+                  style: TextStyles.font20boldDarkWhite,
+                ),
+              ),
+              verticalSpace(50)
             ],
           ),
         ),
