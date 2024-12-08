@@ -40,20 +40,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           .get();
 
       final data = snapshot.data();
-      print(
-          '=======================================Fetched data: $data');
+
 
       if (data != null && data['images'] is List) {
         setState(() {
           _images = List<String>.from(
               data['images']);
         });
-        print(
-            '==========================================Images list: $_images');
+
       }
     } catch (e) {
-      print(
-          '====================================================Error fetching images: $e');
+
     }
   }*/
   Future<void> _fetchImages() async {
