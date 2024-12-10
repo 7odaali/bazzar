@@ -127,7 +127,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                         verticalSpace(20),
-                      /*  Text(
+                        /*  Text(
                           "Login through Social media",
                           style: TextStyles.font15boldDarkBlue
                               .copyWith(color: Colors.black),
@@ -151,8 +151,11 @@ class _LoginScreenState extends State<LoginScreen> {
                           width: 400.w,
                           height: 50.h,
                           child: ElevatedButton(
-                            onPressed: (){
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=>SignUpScreen()));
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const SignUpScreen()));
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: ColorsManager.darkBlue,

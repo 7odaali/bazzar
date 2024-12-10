@@ -1,3 +1,4 @@
+import 'package:bazzar/features/login/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -106,7 +107,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           width: 400.w,
                           height: 50.h,
                           child: ElevatedButton(
-                            onPressed: (){},
+                            onPressed: () {},
                             style: ElevatedButton.styleFrom(
                               backgroundColor: ColorsManager.yellow,
                               shape: RoundedRectangleBorder(
@@ -121,13 +122,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ),
                         ),
                         verticalSpace(50),
-                        Text("Already have an account?",style: TextStyles.font15boldDarkBlue,),
+                        Text(
+                          "Already have an account?",
+                          style: TextStyles.font15boldDarkBlue,
+                        ),
                         verticalSpace(20),
                         SizedBox(
                           width: 400.w,
                           height: 50.h,
                           child: ElevatedButton(
-                            onPressed: (){},
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const LoginScreen()));
+                            },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: ColorsManager.darkBlue,
                               shape: RoundedRectangleBorder(
@@ -141,7 +151,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ),
                         ),
                       ],
-        
                     ),
                   ),
                 ],
