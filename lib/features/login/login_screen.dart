@@ -1,4 +1,9 @@
+import 'package:bazzar/core/helpers/spacing.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../core/theming/colors.dart';
+import '../../core/theming/styles.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -24,53 +29,107 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text("Login Screen"),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              TextFormField(
-                controller: _usernameController,
-                decoration: const InputDecoration(
-                  labelText: "Username",
-                  border: OutlineInputBorder(),
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your username';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 16),
-              TextFormField(
-                controller: _passwordController,
-                obscureText: true,
-                decoration: const InputDecoration(
-                  labelText: "Password",
-                  border: OutlineInputBorder(),
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your password';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: _submitForm,
-                child: const Text("Login"),
-              ),
-            ],
+      backgroundColor: Color(0xFFFAFAFA),
+      body: Column(
+        children: [
+          Container(
+            height: 250.h,
+            width: 10000000000.w,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30.w),
+              color: ColorsManager.darkBlue,
+            ),
+            child: Image.asset("assets/Logo.png"),
           ),
-        ),
+          verticalSpace(22),
+          Padding(
+            padding: EdgeInsets.all(14.0.w),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("Login", style: TextStyles.font22boldDarkBlue),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("Login into your Account!",
+                        style: TextStyles.font15boldDarkBlue),
+                  ],
+                ),
+                verticalSpace(30),
+                Form(
+                  key: _formKey,
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        TextFormField(
+                          controller: _usernameController,
+                          decoration: const InputDecoration(
+                            labelText: "Username",
+                            border: OutlineInputBorder(),
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter your username';
+                            }
+                            return null;
+                          },
+                        ),
+                        verticalSpace(30),
+                        TextFormField(
+                          controller: _passwordController,
+                          obscureText: true,
+                          decoration: const InputDecoration(
+                            labelText: "Password",
+                            border: OutlineInputBorder(),
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter your password';
+                            }
+                            return null;
+                          },
+                        ),
+                        verticalSpace(20),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            TextButton(
+                              onPressed: () {},
+                              child: Text("Forgot Password?",
+                                  style: TextStyles.font15boldDarkBlue
+                                      .copyWith(color: Colors.black)),
+                            ),
+                          ],
+                        ),
+                        verticalSpace(20),
+                        SizedBox(
+                          width: 400.w,
+                          height: 50.h,
+                          child: ElevatedButton(
+                            onPressed: _submitForm,
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: ColorsManager.yellow,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20.w),
+                              ),
+                            ),
+                            child: Text(
+                              "Login",
+                              style: TextStyles.font22boldDarkBlue
+                                  .copyWith(color: Colors.black, fontSize: 20),
+                            ),
+                          ),
+                        )
+                      ]),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
