@@ -29,40 +29,41 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFFAFAFA),
-      body: Column(
-        children: [
-          Container(
-            height: 250.h,
-            width: 10000000000.w,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(30.w),
-              color: ColorsManager.darkBlue,
+      backgroundColor: const Color(0xFFFAFAFA),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              height: 250.h,
+              width: 10000000000.w,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30.w),
+                color: ColorsManager.darkBlue,
+              ),
+              child: Image.asset("assets/Logo.png"),
             ),
-            child: Image.asset("assets/Logo.png"),
-          ),
-          verticalSpace(22),
-          Padding(
-            padding: EdgeInsets.all(14.0.w),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text("Login", style: TextStyles.font22boldDarkBlue),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text("Login into your Account!",
-                        style: TextStyles.font15boldDarkBlue),
-                  ],
-                ),
-                verticalSpace(30),
-                Form(
-                  key: _formKey,
-                  child: Column(
+            verticalSpace(22),
+            Padding(
+              padding: EdgeInsets.all(14.0.w),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text("Login", style: TextStyles.font22boldDarkBlue),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text("Login into your Account!",
+                          style: TextStyles.font15boldDarkBlue),
+                    ],
+                  ),
+                  verticalSpace(30),
+                  Form(
+                    key: _formKey,
+                    child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         TextFormField(
@@ -123,13 +124,41 @@ class _LoginScreenState extends State<LoginScreen> {
                                   .copyWith(color: Colors.black, fontSize: 20),
                             ),
                           ),
-                        )
-                      ]),
-                ),
-              ],
+                        ),
+                        verticalSpace(20),
+                        Text(
+                          "Login through Social media",
+                          style: TextStyles.font15boldDarkBlue
+                              .copyWith(color: Colors.black),
+                        ),
+                        verticalSpace(20),
+                        Text("Don’t have an account?",style: TextStyles.font15boldDarkBlue
+                            .copyWith(color: Colors.black),),                        verticalSpace(20),
+                        SizedBox(
+                          width: 400.w,
+                          height: 50.h,
+                          child: ElevatedButton(
+                            onPressed: _submitForm,
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: ColorsManager.darkBlue,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20.w),
+                              ),
+                            ),
+                            child: Text(
+                              "Create An Account",
+                              style: TextStyles.font17boldYellow
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
