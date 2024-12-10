@@ -132,8 +132,20 @@ class _LoginScreenState extends State<LoginScreen> {
                               .copyWith(color: Colors.black),
                         ),
                         verticalSpace(20),
-                        Text("Don’t have an account?",style: TextStyles.font15boldDarkBlue
-                            .copyWith(color: Colors.black),),                        verticalSpace(20),
+                        Row(
+                          children: [
+                            Image.asset("assets/White-Logo-Square-.png"),
+                            Image.asset("assets/Google.png"),
+                            Image.asset("assets/facebook.png"),
+                          ],
+                        ),
+                        verticalSpace(20),
+                        Text(
+                          "Don’t have an account?",
+                          style: TextStyles.font15boldDarkBlue
+                              .copyWith(color: Colors.black),
+                        ),
+                        verticalSpace(20),
                         SizedBox(
                           width: 400.w,
                           height: 50.h,
@@ -145,10 +157,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                 borderRadius: BorderRadius.circular(20.w),
                               ),
                             ),
-                            child: Text(
-                              "Create An Account",
-                              style: TextStyles.font17boldYellow
-                            ),
+                            child: Text("Create An Account",
+                                style: TextStyles.font17boldYellow),
                           ),
                         ),
                       ],
