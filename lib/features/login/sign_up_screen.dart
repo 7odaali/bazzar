@@ -133,10 +133,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           child: ElevatedButton(
                             onPressed: () {
                               Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const LoginScreen()));
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const LoginScreen(),
+                                ),
+                              );
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: ColorsManager.darkBlue,
