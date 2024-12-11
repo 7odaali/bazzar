@@ -1,5 +1,7 @@
 import 'package:bazzar/core/helpers/spacing.dart';
 import 'package:bazzar/features/login/sign_up_screen.dart';
+import 'package:bazzar/home_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -15,17 +17,17 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  void _submitForm() {
+  /* void _submitForm() {
     if (_formKey.currentState?.validate() ?? false) {
       String username = _usernameController.text;
       String password = _passwordController.text;
 
       print("Username: $username, Password: $password");
     }
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -68,9 +70,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         TextFormField(
-                          controller: _usernameController,
+                          controller: _emailController,
                           decoration: const InputDecoration(
-                            labelText: "Username",
+                            labelText: "Email",
                             border: OutlineInputBorder(),
                           ),
                           validator: (value) {
@@ -112,7 +114,27 @@ class _LoginScreenState extends State<LoginScreen> {
                           width: 400.w,
                           height: 50.h,
                           child: ElevatedButton(
-                            onPressed: _submitForm,
+                            onPressed: () async {
+                              try {
+                                final credential = await FirebaseAuth.instance
+                                    .signInWithEmailAndPassword(
+                                        email: _emailController.text,
+                                        password: _passwordController.text);
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const HomeScreen(),
+                                  ),
+                                );
+                              } on FirebaseAuthException catch (e) {
+                                if (e.code == 'user-not-found') {
+                                  print('No user found for that email.');
+                                } else if (e.code == 'wrong-password') {
+                                  print(
+                                      'Wrong password provided for that user.');
+                                }
+                              }
+                            } /*_submitForm*/,
                             style: ElevatedButton.styleFrom(
                               backgroundColor: ColorsManager.yellow,
                               shape: RoundedRectangleBorder(
