@@ -16,18 +16,10 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  bool _obscurePassword = true;
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-
-  /* void _submitForm() {
-    if (_formKey.currentState?.validate() ?? false) {
-      String username = _usernameController.text;
-      String password = _passwordController.text;
-
-      print("Username: $username, Password: $password");
-    }
-  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -85,10 +77,22 @@ class _LoginScreenState extends State<LoginScreen> {
                         verticalSpace(30),
                         TextFormField(
                           controller: _passwordController,
-                          obscureText: true,
-                          decoration: const InputDecoration(
+                          obscureText: _obscurePassword,
+                          decoration: InputDecoration(
                             labelText: "Password",
-                            border: OutlineInputBorder(),
+                            border: const OutlineInputBorder(),
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                _obscurePassword
+                                    ? Icons.visibility
+                                    : Icons.visibility_off,
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  _obscurePassword = !_obscurePassword;
+                                });
+                              },
+                            ),
                           ),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
@@ -115,26 +119,80 @@ class _LoginScreenState extends State<LoginScreen> {
                           height: 50.h,
                           child: ElevatedButton(
                             onPressed: () async {
-                              try {
-                                final credential = await FirebaseAuth.instance
-                                    .signInWithEmailAndPassword(
-                                        email: _emailController.text,
-                                        password: _passwordController.text);
-                                Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const HomeScreen(),
+                              if (_formKey.currentState?.validate() ?? false) {
+                                try {
+                                  final credential = await FirebaseAuth.instance
+                                      .signInWithEmailAndPassword(
+                                          email: _emailController.text,
+                                          password: _passwordController.text);
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text('Login successful!'),
+                                      backgroundColor: Colors.green,
+                                    ),
+                                  );
+
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const HomeScreen(),
+                                    ),
+                                  );
+                                } on FirebaseAuthException catch (e) {
+                                  String errorMessage;
+
+                                  switch (e.code) {
+                                    case 'user-not-found':
+                                      errorMessage =
+                                          'No user found for that email.';
+                                      break;
+                                    case 'wrong-password':
+                                      errorMessage =
+                                          'Wrong password provided for that user.';
+                                      break;
+                                    case 'invalid-email':
+                                      errorMessage =
+                                          'The email address is not valid.';
+                                      break;
+                                    case 'user-disabled':
+                                      errorMessage =
+                                          'This user account has been disabled.';
+                                      break;
+                                    case 'too-many-requests':
+                                      errorMessage =
+                                          'Too many requests. Please try again later.';
+                                      break;
+                                    default:
+                                      errorMessage =
+                                          'An unexpected error occurred. Please try again.';
+                                      break;
+                                  }
+
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(errorMessage),
+                                      backgroundColor: Colors.red,
+                                    ),
+                                  );
+                                } catch (e) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text(
+                                          'An error occurred. Please try again later.'),
+                                      backgroundColor: Colors.red,
+                                    ),
+                                  );
+                                }
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text(
+                                        'Please fill out all fields correctly.'),
+                                    backgroundColor: Colors.orange,
                                   ),
                                 );
-                              } on FirebaseAuthException catch (e) {
-                                if (e.code == 'user-not-found') {
-                                  print('No user found for that email.');
-                                } else if (e.code == 'wrong-password') {
-                                  print(
-                                      'Wrong password provided for that user.');
-                                }
                               }
-                            } /*_submitForm*/,
+                            },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: ColorsManager.yellow,
                               shape: RoundedRectangleBorder(
@@ -149,20 +207,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                         verticalSpace(20),
-                        /*  Text(
-                          "Login through Social media",
-                          style: TextStyles.font15boldDarkBlue
-                              .copyWith(color: Colors.black),
-                        ),
-                        verticalSpace(20),
-                        Row(
-                          children: [
-                            Image.asset("assets/White-Logo-Square-.png"),
-                            Image.asset("assets/Google.png"),
-                            Image.asset("assets/facebook.png"),
-                          ],
-                        ),
-                        verticalSpace(20),*/
                         Text(
                           "Don’t have an account?",
                           style: TextStyles.font15boldDarkBlue
