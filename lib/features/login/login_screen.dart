@@ -75,6 +75,23 @@ class _LoginScreenState extends State<LoginScreen> {
                           },
                         ),
                         verticalSpace(30),
+/*
+                        TextFormField(
+                          controller: _passwordController,
+                          obscureText: true,
+                          decoration: const InputDecoration(
+                            labelText: "Password",
+                            border: OutlineInputBorder(),
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter your password';
+                            }
+                            return null;
+                          },
+                        ),
+*/
+
                         TextFormField(
                           controller: _passwordController,
                           obscureText: _obscurePassword,
@@ -89,7 +106,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                               onPressed: () {
                                 setState(() {
-                                  _obscurePassword = !_obscurePassword;
+                                  _obscurePassword =
+                                      !_obscurePassword;
                                 });
                               },
                             ),
@@ -106,7 +124,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             TextButton(
-                              onPressed: () async {
+                              onPressed: ()async {
                                 if (_emailController.text == "") {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
@@ -160,30 +178,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                       .signInWithEmailAndPassword(
                                           email: _emailController.text,
                                           password: _passwordController.text);
-                                  if (credential.user!.emailVerified) {
-                                    Navigator.of(context)
-                                        .pushNamedAndRemoveUntil(
-                                            "homepage", (route) => false);
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text(
-                                          "welcom in app",
-                                        ),
-                                        backgroundColor: Colors.green,
-                                      ),
-                                    );
-                                  } else {
-                                    FirebaseAuth.instance.currentUser!
-                                        .sendEmailVerification();
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text(
-                                          "Email not verified. Verification email sent.",
-                                        ),
-                                        backgroundColor: Colors.orange,
-                                      ),
-                                    );
-                                  }
+
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const HomeScreen(),
+                                    ),
+                                  );
                                 } on FirebaseAuthException catch (e) {
                                   String errorMessage;
 
