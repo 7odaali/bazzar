@@ -106,7 +106,42 @@ class _LoginScreenState extends State<LoginScreen> {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             TextButton(
-                              onPressed: () {},
+                              onPressed: () async {
+                                if (_emailController.text == "") {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text(
+                                        "add your email...",
+                                      ),
+                                      backgroundColor: Colors.red,
+                                    ),
+                                  );
+                                  return;
+                                }
+                                try {
+                                  await FirebaseAuth.instance
+                                      .sendPasswordResetEmail(
+                                          email: _emailController.text);
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text(
+                                        "تم ارسال لينك لاعادة تعبن كلمة المرور",
+                                      ),
+                                      backgroundColor: Colors.orange,
+                                    ),
+                                  );
+                                } catch (e) {
+                                  print("e");
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text(
+                                        "add correct email...",
+                                      ),
+                                      backgroundColor: Colors.red,
+                                    ),
+                                  );
+                                }
+                              },
                               child: Text("Forgot Password?",
                                   style: TextStyles.font15boldDarkBlue
                                       .copyWith(color: Colors.black)),
@@ -151,7 +186,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                   }
                                 } on FirebaseAuthException catch (e) {
                                   String errorMessage;
-
 
                                   switch (e.code) {
                                     case 'user-not-found':
