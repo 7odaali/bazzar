@@ -13,13 +13,12 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(),
       body: Container(
-          color: Colors.black,
-          child: MaterialButton(
-            onPressed: () {
-
-            },
-            child: const Text("Signout"),
-          )),
+        color: Colors.black,
+        child: MaterialButton(
+          onPressed: () {},
+          child: const Text("Signout"),
+        ),
+      ),
     );
   }
 }
