@@ -1,3 +1,4 @@
+import 'package:bazzar/home_screen.dart';
 import 'package:bazzar/splash_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -58,7 +59,7 @@ class _MyAppState extends State<MyApp> {
           supportedLocales: context.supportedLocales,
           locale: context.locale,
           debugShowCheckedModeBanner: false,
-          home: const SplashScreen(),
+          home:FirebaseAuth.instance.currentUser==null? const SplashScreen():HomeScreen(),
         );
       },
     );
