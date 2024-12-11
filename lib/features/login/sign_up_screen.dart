@@ -87,7 +87,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Please enter your email';
-                              } else if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
+                              } else if (!RegExp(r'^[^@]+@[^@]+\.[^@]+')
+                                  .hasMatch(value)) {
                                 return 'Please enter a valid email address';
                               }
                               return null;
@@ -118,32 +119,56 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               onPressed: () async {
                                 if (_formKey.currentState!.validate()) {
                                   try {
-                                    final credential = await FirebaseAuth.instance
+                                    final credential = await FirebaseAuth
+                                        .instance
                                         .createUserWithEmailAndPassword(
                                       email: _emailController.text,
                                       password: _passwordController.text,
                                     );
-/*
-                                    FirebaseAuth.instance.currentUser!.sendEmailVerification();
-*/
+
+                                    await credential.user!
+                                        .sendEmailVerification();
+
+                                    _showSnackBar(
+                                      'Account created successfully! A verification email has been sent to ${_emailController.text}.',
+                                    );
+
                                     Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => const LoginScreen(),
+                                        builder: (context) =>
+                                            const LoginScreen(),
                                       ),
                                     );
                                   } on FirebaseAuthException catch (e) {
-                                    if (e.code == 'weak-password') {
-                                      _showSnackBar('The password provided is too weak.');
-                                    } else if (e.code == 'email-already-in-use') {
-                                      _showSnackBar(
-                                          'The account already exists for that email.');
-                                    } else {
-                                      _showSnackBar('Error: ${e.message}');
+                                    String errorMessage;
+
+                                    switch (e.code) {
+                                      case 'weak-password':
+                                        errorMessage =
+                                            'The password provided is too weak.';
+                                        break;
+                                      case 'email-already-in-use':
+                                        errorMessage =
+                                            'The account already exists for that email.';
+                                        break;
+                                      case 'invalid-email':
+                                        errorMessage =
+                                            'The email address is invalid.';
+                                        break;
+                                      default:
+                                        errorMessage = 'Error: ${e.message}';
+                                        break;
                                     }
+
+                                    _showSnackBar(errorMessage);
                                   } catch (e) {
-                                    _showSnackBar('Error: $e');
+                                    _showSnackBar(
+                                        'An unexpected error occurred. Please try again later.');
                                   }
+                                } else {
+                                  _showSnackBar(
+                                      'Please fill out all fields correctly.');
                                 }
                               },
                               style: ElevatedButton.styleFrom(
@@ -154,8 +179,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               ),
                               child: Text(
                                 "Register",
-                                style: TextStyles.font22boldDarkBlue
-                                    .copyWith(color: Colors.black, fontSize: 20),
+                                style: TextStyles.font22boldDarkBlue.copyWith(
+                                    color: Colors.black, fontSize: 20),
                               ),
                             ),
                           ),
