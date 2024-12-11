@@ -123,10 +123,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                       email: _emailController.text,
                                       password: _passwordController.text,
                                     );
+/*
+                                    FirebaseAuth.instance.currentUser!.sendEmailVerification();
+*/
                                     Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => const HomeScreen(),
+                                        builder: (context) => const LoginScreen(),
                                       ),
                                     );
                                   } on FirebaseAuthException catch (e) {

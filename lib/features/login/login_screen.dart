@@ -125,19 +125,30 @@ class _LoginScreenState extends State<LoginScreen> {
                                       .signInWithEmailAndPassword(
                                           email: _emailController.text,
                                           password: _passwordController.text);
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text('Login successful!'),
-                                      backgroundColor: Colors.green,
-                                    ),
-                                  );
-
-                                  Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => const HomeScreen(),
-                                    ),
-                                  );
+                                  if (credential.user!.emailVerified) {
+                                    Navigator.of(context)
+                                        .pushNamedAndRemoveUntil(
+                                            "homepage", (route) => false);
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text(
+                                          "welcom in app",
+                                        ),
+                                        backgroundColor: Colors.green,
+                                      ),
+                                    );
+                                  } else {
+                                    FirebaseAuth.instance.currentUser!
+                                        .sendEmailVerification();
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text(
+                                          "Email not verified. Verification email sent.",
+                                        ),
+                                        backgroundColor: Colors.orange,
+                                      ),
+                                    );
+                                  }
                                 } on FirebaseAuthException catch (e) {
                                   String errorMessage;
 
