@@ -13,6 +13,7 @@ class DetailsCategoryScreen extends StatefulWidget {
 
 class _DetailsCategoryScreenState extends State<DetailsCategoryScreen> {
   late CollectionReference detailsRef;
+  late Future<String> categoryNameFuture;
 
   @override
   void initState() {
@@ -21,13 +22,39 @@ class _DetailsCategoryScreenState extends State<DetailsCategoryScreen> {
         .collection('categories')
         .doc(widget.categoryId)
         .collection('detailscategory');
+
+    categoryNameFuture = FirebaseFirestore.instance
+        .collection('categories')
+        .doc(widget.categoryId)
+        .get()
+        .then((doc) {
+      return doc['name'];
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Category Details'),
+        centerTitle: true,
+        title: FutureBuilder<String>(
+          future: categoryNameFuture,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Text("loading...");
+            }
+
+            if (snapshot.hasError) {
+              return const Text("Error fetching category name");
+            }
+
+            if (snapshot.hasData) {
+              return Text(snapshot.data!);
+            }
+
+            return const Text('Category Details');
+          },
+        ),
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: detailsRef.snapshots(),
@@ -37,10 +64,10 @@ class _DetailsCategoryScreenState extends State<DetailsCategoryScreen> {
           }
 
           if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-            return const Center(child: Text("No products available"));
+            return const Center(child: Text("No detailsCategories available"));
           }
 
-          final products = snapshot.data!.docs;
+          final detailsCategories = snapshot.data!.docs;
 
           return GridView.builder(
             padding: const EdgeInsets.all(8.0),
@@ -50,9 +77,9 @@ class _DetailsCategoryScreenState extends State<DetailsCategoryScreen> {
               mainAxisSpacing: 10,
               childAspectRatio: 0.75,
             ),
-            itemCount: products.length,
+            itemCount: detailsCategories.length,
             itemBuilder: (context, index) {
-              final product = products[index];
+              final detailsCategory = detailsCategories[index];
 
               return Card(
                 child: Column(
@@ -60,9 +87,10 @@ class _DetailsCategoryScreenState extends State<DetailsCategoryScreen> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: ClipRRect(borderRadius: BorderRadius.circular(10.w),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10.w),
                         child: Image.network(
-                          product['image'],
+                          detailsCategory['image'],
                           fit: BoxFit.cover,
                           height: 200.h,
                           width: double.infinity,
@@ -76,7 +104,7 @@ class _DetailsCategoryScreenState extends State<DetailsCategoryScreen> {
                       padding: const EdgeInsets.all(8.0),
                       child: Center(
                         child: Text(
-                          product['name'],
+                          detailsCategory['name'],
                           style: const TextStyle(fontSize: 16),
                           overflow: TextOverflow.ellipsis,
                         ),
