@@ -1,12 +1,13 @@
 import 'package:bazzar/core/helpers/spacing.dart';
 import 'package:bazzar/features/login/sign_up_screen.dart';
-import 'package:bazzar/home_screen.dart';
+import 'package:bazzar/features/home/home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../core/theming/colors.dart';
 import '../../core/theming/styles.dart';
+import '../../core/widgets/custom_bottom_navigation_bar.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -182,7 +183,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => const HomeScreen(),
+                                      builder: (context) => const BottomNavigationBarScreen(),
                                     ),
                                   );
                                 } on FirebaseAuthException catch (e) {

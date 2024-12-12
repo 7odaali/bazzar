@@ -122,66 +122,66 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   onPressed: isLoading
                                       ? null
                                       : () async {
-                                    if (_formKey.currentState!
-                                        .validate()) {
-                                      setState(() => isLoading = true);
-                                      try {
-                                        final credential =
-                                        await FirebaseAuth.instance
-                                            .createUserWithEmailAndPassword(
-                                          email: _emailController.text,
-                                          password: _passwordController
-                                              .text,
-                                        );
+                                          if (_formKey.currentState!
+                                              .validate()) {
+                                            setState(() => isLoading = true);
+                                            try {
+                                              final credential = await FirebaseAuth
+                                                  .instance
+                                                  .createUserWithEmailAndPassword(
+                                                email: _emailController.text,
+                                                password:
+                                                    _passwordController.text,
+                                              );
 
-                                        await credential.user!
-                                            .sendEmailVerification();
+                                              await credential.user!
+                                                  .sendEmailVerification();
 
-                                        _showSnackBar(
-                                          'Account created successfully! A verification email has been sent to ${_emailController.text}.',
-                                        );
+                                              _showSnackBar(
+                                                'Account created successfully! A verification email has been sent to ${_emailController.text}.',
+                                              );
 
-                                        Navigator.pushReplacement(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                            const LoginScreen(),
-                                          ),
-                                        );
-                                      } on FirebaseAuthException catch (e) {
-                                        String errorMessage;
+                                              Navigator.pushReplacement(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const LoginScreen(),
+                                                ),
+                                              );
+                                            } on FirebaseAuthException catch (e) {
+                                              String errorMessage;
 
-                                        switch (e.code) {
-                                          case 'weak-password':
-                                            errorMessage =
-                                            'The password provided is too weak.';
-                                            break;
-                                          case 'email-already-in-use':
-                                            errorMessage =
-                                            'The account already exists for that email.';
-                                            break;
-                                          case 'invalid-email':
-                                            errorMessage =
-                                            'The email address is invalid.';
-                                            break;
-                                          default:
-                                            errorMessage =
-                                            'Error: ${e.message}';
-                                            break;
-                                        }
+                                              switch (e.code) {
+                                                case 'weak-password':
+                                                  errorMessage =
+                                                      'The password provided is too weak.';
+                                                  break;
+                                                case 'email-already-in-use':
+                                                  errorMessage =
+                                                      'The account already exists for that email.';
+                                                  break;
+                                                case 'invalid-email':
+                                                  errorMessage =
+                                                      'The email address is invalid.';
+                                                  break;
+                                                default:
+                                                  errorMessage =
+                                                      'Error: ${e.message}';
+                                                  break;
+                                              }
 
-                                        _showSnackBar(errorMessage);
-                                      } catch (e) {
-                                        _showSnackBar(
-                                            'An unexpected error occurred. Please try again later.');
-                                      } finally {
-                                        setState(() => isLoading = false);
-                                      }
-                                    } else {
-                                      _showSnackBar(
-                                          'Please fill out all fields correctly.');
-                                    }
-                                  },
+                                              _showSnackBar(errorMessage);
+                                            } catch (e) {
+                                              _showSnackBar(
+                                                  'An unexpected error occurred. Please try again later.');
+                                            } finally {
+                                              setState(() => isLoading = false);
+                                            }
+                                          } else {
+                                            _showSnackBar(
+                                                'Please fill out all fields correctly.');
+                                          }
+                                        },
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: ColorsManager.yellow,
                                     shape: RoundedRectangleBorder(
@@ -192,7 +192,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     "Register",
                                     style: TextStyles.font22boldDarkBlue
                                         .copyWith(
-                                        color: Colors.black, fontSize: 20),
+                                            color: Colors.black, fontSize: 20),
                                   ),
                                 ),
                               ),
@@ -209,14 +209,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   onPressed: isLoading
                                       ? null
                                       : () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                        const LoginScreen(),
-                                      ),
-                                    );
-                                  },
+                                          Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const LoginScreen(),
+                                            ),
+                                          );
+                                        },
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: ColorsManager.darkBlue,
                                     shape: RoundedRectangleBorder(

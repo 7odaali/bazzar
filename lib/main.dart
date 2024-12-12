@@ -1,5 +1,5 @@
 import 'package:bazzar/features/login/login_screen.dart';
-import 'package:bazzar/home_screen.dart';
+import 'package:bazzar/features/home/home_screen.dart';
 import 'package:bazzar/splash_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -7,6 +7,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'core/widgets/custom_bottom_navigation_bar.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -62,10 +63,11 @@ class _MyAppState extends State<MyApp> {
           debugShowCheckedModeBanner: false,
           home:FirebaseAuth.instance.currentUser != null &&
               FirebaseAuth.instance.currentUser!.emailVerified
-              ? const HomeScreen()
+              ? const BottomNavigationBarScreen()
               : const SplashScreen(),
           routes: {
             "homescreen": (context) => const HomeScreen(),
+            "BottomNavigationBarScreen": (context) => const BottomNavigationBarScreen(),
           },
 
         );
