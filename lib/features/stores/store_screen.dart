@@ -1,9 +1,10 @@
 import 'package:bazzar/core/helpers/spacing.dart';
+import 'package:bazzar/features/stores/details_category_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../core/theming/colors.dart';
+import '../../core/theming/colors.dart';
 
 class StoreScreen extends StatefulWidget {
   const StoreScreen({super.key});
@@ -14,7 +15,7 @@ class StoreScreen extends StatefulWidget {
 
 class _StoreScreenState extends State<StoreScreen> {
   final CollectionReference productsRef =
-      FirebaseFirestore.instance.collection('categories');
+  FirebaseFirestore.instance.collection('categories');
 
   @override
   Widget build(BuildContext context) {
@@ -70,37 +71,48 @@ class _StoreScreenState extends State<StoreScreen> {
                     ),
                     itemBuilder: (context, i) {
                       final category = categories[i];
-                      return Card(
-                        elevation: 0,
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: SizedBox(
-                                height: 150.h,
-                                width: 200.w,
-                                child: Image.network(
-                                  category['image'],
-                                  fit: BoxFit.contain,
-                                  errorBuilder: (context, error, stackTrace) {
-                                    return Center(
-                                      child: Icon(
-                                        Icons.broken_image,
-                                        color: Colors.grey,
-                                        size: 50.h,
-                                      ),
-                                    );
-                                  },
-                                ),
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => DetailsCategoryScreen(
+                                categoryId: category.id,
                               ),
                             ),
-                            SizedBox(height: 40.h),
-                            Text(
-                              category['name'],
-                              style: TextStyle(fontSize: 14.sp),
-                            ),
-                            SizedBox(height: 10.h),
-                          ],
+                          );
+                        },
+                        child: Card(
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: SizedBox(
+                                  height: 150.h,
+                                  width: 200.w,
+                                  child: Image.network(
+                                    category['image'],
+                                    fit: BoxFit.contain,
+                                    errorBuilder: (context, error, stackTrace) {
+                                      return Center(
+                                        child: Icon(
+                                          Icons.broken_image,
+                                          color: Colors.grey,
+                                          size: 50.h,
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: 40.h),
+                              Text(
+                                category['name'],
+                                style: TextStyle(fontSize: 14.sp),
+                              ),
+                              SizedBox(height: 10.h),
+                            ],
+                          ),
                         ),
                       );
                     },
