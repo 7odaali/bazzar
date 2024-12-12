@@ -114,24 +114,26 @@ class _HomeScreenState extends State<HomeScreen> {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: SizedBox(
-                                height: 100.h,
+                                height: 130.h,
                                 width: 200.w,
-                                child: Image.network(
-                                  product['image'],
-                                  fit: BoxFit.contain,
-                                  errorBuilder: (context, error, stackTrace) {
-                                    return Center(
-                                      child: Icon(
-                                        Icons.broken_image,
-                                        color: Colors.grey,
-                                        size: 50.h,
-                                      ),
-                                    );
-                                  },
+                                child: ClipRRect(borderRadius: BorderRadius.circular(10.w),
+                                  child: Image.network(
+                                    product['image'],
+                                    fit: BoxFit.cover,
+                                    errorBuilder: (context, error, stackTrace) {
+                                      return Center(
+                                        child: Icon(
+                                          Icons.broken_image,
+                                          color: Colors.grey,
+                                          size: 50.h,
+                                        ),
+                                      );
+                                    },
+                                  ),
                                 ),
                               ),
                             ),
-                            SizedBox(height: 40.h),
+                            SizedBox(height: 10.h),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
