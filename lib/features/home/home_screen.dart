@@ -42,7 +42,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const LoginScreen()),
+                            builder: (context) => const LoginScreen(),
+                          ),
                           (Route<dynamic> route) => false,
                         );
                       },

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../features/home/home_screen.dart';
+import '../../features/store_screen.dart';
 
 class BottomNavigationBarScreen extends StatefulWidget {
   const BottomNavigationBarScreen({super.key});
@@ -14,13 +15,8 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
   int _currentIndex = 0;
 
   final List<Widget> _screens = [
-    const Center(child: HomeScreen()),
-    const Center(
-      child: Text(
-        'Stores Screen',
-        style: TextStyle(fontSize: 24),
-      ),
-    ),
+    const HomeScreen(),
+    const StoreScreen(),
     const Center(
       child: Text(
         'Search Screen',
