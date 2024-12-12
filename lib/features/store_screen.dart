@@ -1,4 +1,5 @@
 import 'package:bazzar/core/helpers/spacing.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -12,6 +13,9 @@ class StoreScreen extends StatefulWidget {
 }
 
 class _StoreScreenState extends State<StoreScreen> {
+  final CollectionReference productsRef =
+      FirebaseFirestore.instance.collection('categories');
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,28 +44,69 @@ class _StoreScreenState extends State<StoreScreen> {
             ),
             verticalSpace(30),
             SizedBox(
-              height: 700.h,
-              child: GridView.builder(
-                  /*shrinkWrap: false,physics: const NeverScrollableScrollPhysics(),*/
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              height: 800.h,
+              child: StreamBuilder<QuerySnapshot>(
+                stream: productsRef.snapshots(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+
+                  if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                    return const Center(child: Text("No categories available"));
+                  }
+
+                  final categories = snapshot.data!.docs;
+
+                  return GridView.builder(
+                    shrinkWrap: false,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: categories.length,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
-                      childAspectRatio: 1,
+                      crossAxisSpacing: 10.w,
                       mainAxisSpacing: 10.h,
-                      crossAxisSpacing: 10.w),
-                  itemCount: 7,
-                  itemBuilder: (context, i) {
-                    return Card(
-                      child: Column(
-                        children: [
-                          SizedBox(
-                              height: 140.h,
-                              child: Image.asset("assets/LOGO1.png")),
-                          verticalSpace(20),
-                          const Text("name"),
-                        ],
-                      ),
-                    );
-                  }),
+                      childAspectRatio: 0.8,
+                    ),
+                    itemBuilder: (context, i) {
+                      final category = categories[i];
+                      return Card(
+                        elevation: 0,
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: SizedBox(
+                                height: 150.h,
+                                width: 200.w,
+                                child: Image.network(
+                                  category['image'],
+                                  fit: BoxFit.contain,
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return Center(
+                                      child: Icon(
+                                        Icons.broken_image,
+                                        color: Colors.grey,
+                                        size: 50.h,
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: 40.h),
+                            Text(
+                              category['name'],
+                              style: TextStyle(fontSize: 14.sp),
+                            ),
+                            SizedBox(height: 10.h),
+                          ],
+                        ),
+                      );
+                    },
+                  );
+                },
+              ),
             ),
             verticalSpace(20)
           ],
