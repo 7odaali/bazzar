@@ -3,6 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'Favorite_screen.dart';
+
 class DetailsCategoryScreen extends StatefulWidget {
   final String categoryId;
 
@@ -36,7 +38,23 @@ class _DetailsCategoryScreenState extends State<DetailsCategoryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: AppBar(actions: [
+        IconButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const FavoriteScreen(),
+              ),
+            );
+          },
+          icon: Icon(
+            Icons.favorite_border_outlined,
+            size: 30.h,
+            color: Colors.black,
+          ),
+        ),
+      ],
         centerTitle: true,
         title: FutureBuilder<String>(
           future: categoryNameFuture,

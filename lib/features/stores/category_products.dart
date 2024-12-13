@@ -1,6 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import 'Favorite_screen.dart';
+import 'cubit/favorite_cubit.dart';
 
 class CategoryProducts extends StatefulWidget {
   final String categoryId;
@@ -35,6 +39,23 @@ class _CategoryProductsState extends State<CategoryProducts> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const FavoriteScreen(),
+                ),
+              );
+            },
+            icon: Icon(
+              Icons.favorite_border_outlined,
+              size: 30.h,
+              color: Colors.black,
+            ),
+          ),
+        ],
         title: const Text('Category Products'),
         centerTitle: true,
       ),
@@ -55,11 +76,12 @@ class _CategoryProductsState extends State<CategoryProducts> {
             }
 
             final products = snapshot.data!.docs;
-
-            return SizedBox(height: 800.h,
+            final favorites = context.watch<FavoritesCubit>().state;
+            return SizedBox(
+              height: 800.h,
               child: GridView.builder(
                 padding: const EdgeInsets.all(8.0),
-                gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   crossAxisSpacing: 10.w,
                   mainAxisSpacing: 10.h,
@@ -68,33 +90,66 @@ class _CategoryProductsState extends State<CategoryProducts> {
                 itemCount: products.length,
                 itemBuilder: (context, index) {
                   final product = products[index];
+                  bool isFavorite =
+                      favorites.any((item) => item['name'] == product['name']);
 
-                  return SizedBox(height: 600.h,
+                  return SizedBox(
                     child: Card(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: SizedBox( height: 130.h,
-                              width: 200.w,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(10.w),
-                                child: Image.network(
-                                  product['image'],
-                                  fit: BoxFit.cover,
-                                  width: double.infinity,
-                                  errorBuilder: (context, error, stackTrace) {
-                                    return const Icon(Icons.broken_image);
-                                  },
+                            child: Stack(
+                              children: [
+                                SizedBox(
+                                  height: 130.h,
+                                  width: 200.w,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(10.w),
+                                    child: Image.network(
+                                      product['image'],
+                                      fit: BoxFit.cover,
+                                      width: double.infinity,
+                                      errorBuilder:
+                                          (context, error, stackTrace) {
+                                        return const Icon(Icons.broken_image);
+                                      },
+                                    ),
+                                  ),
                                 ),
-                              ),
+                                Positioned(
+                                  bottom: 0,
+                                  right: 0,
+                                  child: IconButton(
+                                    onPressed: () {
+                                      context
+                                          .read<FavoritesCubit>()
+                                          .updateFavorite({
+                                        'name': product['name'],
+                                        'price': product['price'],
+                                        'image': product['image'],
+                                      });
+                                    },
+                                    icon: Icon(
+                                      isFavorite
+                                          ? Icons.favorite
+                                          : Icons.favorite_border_outlined,
+                                      color: isFavorite
+                                          ? Colors.red
+                                          : Colors.green,
+                                      size: 30.h,
+                                    ),
+                                  ),
+                                )
+                              ],
                             ),
                           ),
                           SizedBox(height: 10.h),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 Text(
                                   product['name'],
@@ -103,7 +158,9 @@ class _CategoryProductsState extends State<CategoryProducts> {
                                 ),
                                 Text(
                                   "\$${product['price']}",
-                                  style: const TextStyle(fontSize: 14, ),
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                  ),
                                 ),
                               ],
                             ),

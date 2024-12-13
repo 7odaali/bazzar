@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../core/theming/colors.dart';
+import 'Favorite_screen.dart';
 
 class StoreScreen extends StatefulWidget {
   const StoreScreen({super.key});
@@ -30,17 +31,36 @@ class _StoreScreenState extends State<StoreScreen> {
                 borderRadius: BorderRadius.circular(30.w),
                 color: ColorsManager.darkBlue,
               ),
-              child: Center(
-                child: SizedBox(
-                  height: 50.h,
-                  width: 50.w,
-                  child: Image.asset(
-                    "assets/Logo.png",
-                    height: 10.h,
-                    width: 10.w,
-                    fit: BoxFit.contain,
+              child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [SizedBox(width: 50.w,),
+                  Center(
+                    child: SizedBox(
+                      height: 50.h,
+                      width: 50.w,
+                      child: Image.asset(
+                        "assets/Logo.png",
+                        height: 10.h,
+                        width: 10.w,
+                        fit: BoxFit.contain,
+                      ),
+                    ),
                   ),
-                ),
+                  IconButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const FavoriteScreen(),
+                        ),
+                      );
+                    },
+                    icon: Icon(
+                      Icons.favorite_border_outlined,
+                      size: 30.h,
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
               ),
             ),
             verticalSpace(30),

@@ -19,7 +19,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final Query productsQuery =
-      FirebaseFirestore.instance.collectionGroup('products');
+  FirebaseFirestore.instance.collectionGroup('products');
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           MaterialPageRoute(
                             builder: (context) => const LoginScreen(),
                           ),
-                          (Route<dynamic> route) => false,
+                              (Route<dynamic> route) => false,
                         );
                       },
                       style: TextButton.styleFrom(
@@ -112,6 +112,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   }
 
                   final products = snapshot.data!.docs;
+                  final favorites = context.watch<FavoritesCubit>().state;
 
                   return GridView.builder(
                     shrinkWrap: true,
@@ -125,6 +126,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     itemBuilder: (context, index) {
                       final product = products[index];
+                      bool isFavorite = favorites.any((item) =>
+                      item['name'] == product['name']);
+
                       return Card(
                         child: Column(
                           children: [
@@ -158,17 +162,17 @@ class _HomeScreenState extends State<HomeScreen> {
                                     right: 0,
                                     child: IconButton(
                                       onPressed: () {
-                                        context
-                                            .read<FavoritesCubit>()
-                                            .addProduct({
+                                        context.read<FavoritesCubit>().updateFavorite({
                                           'name': product['name'],
                                           'price': product['price'],
                                           'image': product['image'],
                                         });
                                       },
                                       icon: Icon(
-                                        Icons.favorite_border_outlined,
-                                        color: Colors.green,
+                                        isFavorite
+                                            ? Icons.favorite
+                                            : Icons.favorite_border_outlined,
+                                        color: isFavorite ? Colors.red : Colors.green,
                                         size: 30.h,
                                       ),
                                     ),
