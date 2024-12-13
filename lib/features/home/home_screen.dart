@@ -2,11 +2,13 @@ import 'package:bazzar/features/stores/Favorite_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../core/helpers/spacing.dart';
 import '../../core/theming/colors.dart';
 import '../login/login_screen.dart';
+import '../stores/cubit/favorite_cubit.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -155,7 +157,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                     bottom: 0,
                                     right: 0,
                                     child: IconButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        context
+                                            .read<FavoritesCubit>()
+                                            .addProduct({
+                                          'name': product['name'],
+                                          'price': product['price'],
+                                          'image': product['image'],
+                                        });
+                                      },
                                       icon: Icon(
                                         Icons.favorite_border_outlined,
                                         color: Colors.green,
