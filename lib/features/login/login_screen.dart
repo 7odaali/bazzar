@@ -107,8 +107,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                               onPressed: () {
                                 setState(() {
-                                  _obscurePassword =
-                                      !_obscurePassword;
+                                  _obscurePassword = !_obscurePassword;
                                 });
                               },
                             ),
@@ -125,7 +124,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             TextButton(
-                              onPressed: ()async {
+                              onPressed: () async {
                                 if (_emailController.text == "") {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
@@ -183,7 +182,14 @@ class _LoginScreenState extends State<LoginScreen> {
                                   Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => const BottomNavigationBarScreen(),
+                                      builder: (context) =>
+                                          const BottomNavigationBarScreen(),
+                                    ),
+                                  );
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text("Welcom....."),
+                                      backgroundColor: Colors.green,
                                     ),
                                   );
                                 } on FirebaseAuthException catch (e) {
