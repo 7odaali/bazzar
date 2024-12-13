@@ -1,11 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../core/helpers/spacing.dart';
 import '../../core/theming/colors.dart';
-import '../login/login_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -15,8 +13,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final CollectionReference productsRef =
-      FirebaseFirestore.instance.collection('products');
+  final Query productsQuery = FirebaseFirestore.instance.collectionGroup('products'); // Query all 'products' subcollections
 
   @override
   Widget build(BuildContext context) {
@@ -36,35 +33,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    TextButton(
-                      onPressed: () async {
-                        await FirebaseAuth.instance.signOut();
-                        Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const LoginScreen(),
-                          ),
-                          (Route<dynamic> route) => false,
-                        );
-                      },
-                      style: TextButton.styleFrom(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 20.w,
-                          vertical: 10.h,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.w),
-                        ),
-                      ),
-                      child: Text(
-                        "Exit",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 11.sp,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
                     SizedBox(
                       height: 50.h,
                       width: 50.w,
@@ -84,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
             SizedBox(
               height: 800.h,
               child: StreamBuilder<QuerySnapshot>(
-                stream: productsRef.snapshots(),
+                stream: productsQuery.snapshots(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(child: CircularProgressIndicator());
@@ -97,8 +65,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   final products = snapshot.data!.docs;
 
                   return GridView.builder(
-                    shrinkWrap: false,
-                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    physics: const BouncingScrollPhysics(),
                     itemCount: products.length,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
@@ -106,8 +74,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       mainAxisSpacing: 10.h,
                       childAspectRatio: 1,
                     ),
-                    itemBuilder: (context, i) {
-                      final product = products[i];
+                    itemBuilder: (context, index) {
+                      final product = products[index];
                       return Card(
                         child: Column(
                           children: [
@@ -116,7 +84,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: SizedBox(
                                 height: 130.h,
                                 width: 200.w,
-                                child: ClipRRect(borderRadius: BorderRadius.circular(10.w),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(10.w),
                                   child: Image.network(
                                     product['image'],
                                     fit: BoxFit.cover,

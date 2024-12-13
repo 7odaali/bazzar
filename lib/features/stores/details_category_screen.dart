@@ -1,3 +1,4 @@
+import 'package:bazzar/features/stores/category_products.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -81,36 +82,51 @@ class _DetailsCategoryScreenState extends State<DetailsCategoryScreen> {
             itemBuilder: (context, index) {
               final detailsCategory = detailsCategories[index];
 
-              return Card(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10.w),
-                        child: Image.network(
-                          detailsCategory['image'],
-                          fit: BoxFit.cover,
-                          height: 200.h,
-                          width: double.infinity,
-                          errorBuilder: (context, error, stackTrace) {
-                            return const Icon(Icons.broken_image);
-                          },
-                        ),
+              return GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => CategoryProducts(
+                        categoryId: widget.categoryId,
+                        detailsCategoryId: detailsCategory.id,
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Center(
-                        child: Text(
-                          detailsCategory['name'],
-                          style: const TextStyle(fontSize: 16),
-                          overflow: TextOverflow.ellipsis,
+                  );
+                },
+
+
+                child: Card(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10.w),
+                          child: Image.network(
+                            detailsCategory['image'],
+                            fit: BoxFit.cover,
+                            height: 200.h,
+                            width: double.infinity,
+                            errorBuilder: (context, error, stackTrace) {
+                              return const Icon(Icons.broken_image);
+                            },
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Center(
+                          child: Text(
+                            detailsCategory['name'],
+                            style: const TextStyle(fontSize: 16),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               );
             },
