@@ -1,3 +1,4 @@
+import 'package:bazzar/features/stores/Favorite_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final Query productsQuery = FirebaseFirestore.instance.collectionGroup('products');
+  final Query productsQuery =
+      FirebaseFirestore.instance.collectionGroup('products');
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           MaterialPageRoute(
                             builder: (context) => const LoginScreen(),
                           ),
-                              (Route<dynamic> route) => false,
+                          (Route<dynamic> route) => false,
                         );
                       },
                       style: TextButton.styleFrom(
@@ -59,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         "Exit",
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 11.sp,
+                          fontSize: 14.sp,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -74,7 +76,21 @@ class _HomeScreenState extends State<HomeScreen> {
                         fit: BoxFit.contain,
                       ),
                     ),
-                    SizedBox(width: 50.w),
+                    IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const FavoriteScreen(),
+                          ),
+                        );
+                      },
+                      icon: Icon(
+                        Icons.favorite_border_outlined,
+                        size: 30.h,
+                        color: Colors.white,
+                      ),
+                    )
                   ],
                 ),
               ),
@@ -112,25 +128,42 @@ class _HomeScreenState extends State<HomeScreen> {
                           children: [
                             Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: SizedBox(
-                                height: 130.h,
-                                width: 200.w,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(10.w),
-                                  child: Image.network(
-                                    product['image'],
-                                    fit: BoxFit.cover,
-                                    errorBuilder: (context, error, stackTrace) {
-                                      return Center(
-                                        child: Icon(
-                                          Icons.broken_image,
-                                          color: Colors.grey,
-                                          size: 50.h,
-                                        ),
-                                      );
-                                    },
+                              child: Stack(
+                                children: [
+                                  SizedBox(
+                                    height: 130.h,
+                                    width: 200.w,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10.w),
+                                      child: Image.network(
+                                        product['image'],
+                                        fit: BoxFit.fill,
+                                        errorBuilder:
+                                            (context, error, stackTrace) {
+                                          return Center(
+                                            child: Icon(
+                                              Icons.broken_image,
+                                              color: Colors.grey,
+                                              size: 50.h,
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ),
                                   ),
-                                ),
+                                  Positioned(
+                                    bottom: 0,
+                                    right: 0,
+                                    child: IconButton(
+                                      onPressed: () {},
+                                      icon: Icon(
+                                        Icons.favorite_border_outlined,
+                                        color: Colors.green,
+                                        size: 30.h,
+                                      ),
+                                    ),
+                                  )
+                                ],
                               ),
                             ),
                             SizedBox(height: 10.h),
