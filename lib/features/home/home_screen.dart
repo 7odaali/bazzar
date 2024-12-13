@@ -15,7 +15,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final Query productsQuery = FirebaseFirestore.instance.collectionGroup('products'); // Query all 'products' subcollections
+  final Query productsQuery = FirebaseFirestore.instance.collectionGroup('products');
 
   @override
   Widget build(BuildContext context) {
