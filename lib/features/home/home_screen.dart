@@ -137,7 +137,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   }).toList();
 
                   if (products.isEmpty) {
-                    return const Center(child: Text("No matching products"));
+                    return const Center(child: Text("No products available"));
                   }
 
                   final favorites = context.watch<FavoritesCubit>().state;
