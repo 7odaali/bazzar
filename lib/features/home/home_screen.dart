@@ -1,3 +1,4 @@
+import 'package:bazzar/features/search/filter_search_screen.dart';
 import 'package:bazzar/features/stores/Favorite_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -101,20 +102,42 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Padding(
               padding: EdgeInsets.all(20.w),
-              child: TextField(
-                controller: _searchController,
-                onChanged: (value) {
-                  setState(() {
-                    _searchText = value.toLowerCase();
-                  });
-                },
-                decoration: InputDecoration(
-                  prefixIcon: const Icon(Icons.search),
-                  hintText: "Search for products...",
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20.w),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const FilterSearchScreen(),
+                          ),
+                        );
+                      },
+                      icon: Icon(
+                        Icons.menu,
+                        size: 30.w,
+                      )),
+                  SizedBox(
+                    height: 45.h,
+                    width: 320.w,
+                    child: TextField(
+                      controller: _searchController,
+                      onChanged: (value) {
+                        setState(() {
+                          _searchText = value.toLowerCase();
+                        });
+                      },
+                      decoration: InputDecoration(
+                        prefixIcon: const Icon(Icons.search),
+                        hintText: "Search for products...",
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20.w),
+                        ),
+                      ),
+                    ),
                   ),
-                ),
+                ],
               ),
             ),
             verticalSpace(22),
@@ -143,7 +166,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   final favorites = context.watch<FavoritesCubit>().state;
 
                   return GridView.builder(
-                    shrinkWrap: true,
+                    shrinkWrap: false,
                     physics: const BouncingScrollPhysics(),
                     itemCount: products.length,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

@@ -186,6 +186,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../search/filter_search_screen.dart';
 import 'Favorite_screen.dart';
 import 'cubit/favorite_cubit.dart';
 
@@ -247,21 +248,43 @@ class _CategoryProductsState extends State<CategoryProducts> {
       body: Column(
         children: [
           Padding(
-            padding: EdgeInsets.all(8.0),
-            child: TextField(
-              controller: _searchController,
-              onChanged: (value) {
-                setState(() {
-                  _searchText = value.toLowerCase();
-                });
-              },
-              decoration: InputDecoration(
-                prefixIcon: const Icon(Icons.search),
-                hintText: "Search for products...",
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20.w),
+            padding: EdgeInsets.all(20.w),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                IconButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const FilterSearchScreen(),
+                        ),
+                      );
+                    },
+                    icon: Icon(
+                      Icons.menu,
+                      size: 30.w,
+                    )),
+                SizedBox(
+                  height: 45.h,
+                  width: 320.w,
+                  child: TextField(
+                    controller: _searchController,
+                    onChanged: (value) {
+                      setState(() {
+                        _searchText = value.toLowerCase();
+                      });
+                    },
+                    decoration: InputDecoration(
+                      prefixIcon: const Icon(Icons.search),
+                      hintText: "Search for products...",
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20.w),
+                      ),
+                    ),
+                  ),
                 ),
-              ),
+              ],
             ),
           ),
           Expanded(
@@ -362,7 +385,8 @@ class _CategoryProductsState extends State<CategoryProducts> {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
                                 children: [
                                   Text(
                                     product['name'],
