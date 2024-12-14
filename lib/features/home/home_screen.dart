@@ -19,7 +19,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final Query productsQuery =
-  FirebaseFirestore.instance.collectionGroup('products');
+      FirebaseFirestore.instance.collectionGroup('products');
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           MaterialPageRoute(
                             builder: (context) => const LoginScreen(),
                           ),
-                              (Route<dynamic> route) => false,
+                          (Route<dynamic> route) => false,
                         );
                       },
                       style: TextButton.styleFrom(
@@ -126,8 +126,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     itemBuilder: (context, index) {
                       final product = products[index];
-                      bool isFavorite = favorites.any((item) =>
-                      item['name'] == product['name']);
+                      bool isFavorite = favorites
+                          .any((item) => item['name'] == product['name']);
 
                       return Card(
                         child: Column(
@@ -162,7 +162,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                     right: 0,
                                     child: IconButton(
                                       onPressed: () {
-                                        context.read<FavoritesCubit>().updateFavorite({
+                                        context
+                                            .read<FavoritesCubit>()
+                                            .updateFavorite({
                                           'name': product['name'],
                                           'price': product['price'],
                                           'image': product['image'],
@@ -172,7 +174,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                         isFavorite
                                             ? Icons.favorite
                                             : Icons.favorite_border_outlined,
-                                        color: isFavorite ? Colors.red : Colors.green,
+                                        color: isFavorite
+                                            ? Colors.red
+                                            : Colors.green,
                                         size: 30.h,
                                       ),
                                     ),
