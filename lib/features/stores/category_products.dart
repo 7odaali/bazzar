@@ -262,7 +262,7 @@ class _CategoryProductsState extends State<CategoryProducts> {
                       );
                     },
                     icon: Icon(
-                      Icons.menu,
+                      Icons.filter_list,
                       size: 30.w,
                     )),
                 SizedBox(
@@ -303,7 +303,6 @@ class _CategoryProductsState extends State<CategoryProducts> {
                   return const Center(child: Text("No products available"));
                 }
 
-                // Filter products based on search query
                 final products = snapshot.data!.docs.where((product) {
                   final name = (product['name'] as String).toLowerCase();
                   return name.contains(_searchText);
