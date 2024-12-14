@@ -20,6 +20,9 @@ class _HomeScreenState extends State<HomeScreen> {
   final Query productsQuery =
       FirebaseFirestore.instance.collectionGroup('products');
 
+  final TextEditingController _searchController = TextEditingController();
+  String _searchText = "";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -96,6 +99,24 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
+            Padding(
+              padding: EdgeInsets.all(20.w),
+              child: TextField(
+                controller: _searchController,
+                onChanged: (value) {
+                  setState(() {
+                    _searchText = value.toLowerCase();
+                  });
+                },
+                decoration: InputDecoration(
+                  prefixIcon: const Icon(Icons.search),
+                  hintText: "Search for products...",
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20.w),
+                  ),
+                ),
+              ),
+            ),
             verticalSpace(22),
             SizedBox(
               height: 800.h,
@@ -110,7 +131,15 @@ class _HomeScreenState extends State<HomeScreen> {
                     return const Center(child: Text("No products available"));
                   }
 
-                  final products = snapshot.data!.docs;
+                  final products = snapshot.data!.docs.where((product) {
+                    final name = (product['name'] as String).toLowerCase();
+                    return name.contains(_searchText);
+                  }).toList();
+
+                  if (products.isEmpty) {
+                    return const Center(child: Text("No matching products"));
+                  }
+
                   final favorites = context.watch<FavoritesCubit>().state;
 
                   return GridView.builder(

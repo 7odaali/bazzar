@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'cubit/favorite_cubit.dart';
 
 class FavoriteScreen extends StatelessWidget {
@@ -24,13 +25,17 @@ class FavoriteScreen extends StatelessWidget {
               final product = favorites[index];
               return Card(
                 child: ListTile(
-                  leading: Image.network(
-                    product['image'],
-                    fit: BoxFit.cover,
-                    width: 50,
-                    errorBuilder: (context, error, stackTrace) {
-                      return const Icon(Icons.broken_image, size: 50);
-                    },
+                  leading: ClipRRect(borderRadius: BorderRadius.circular(10.w),
+                    child: SizedBox(height: 100.h,
+                      child: Image.network(
+                        product['image'],
+                        fit: BoxFit.cover,
+                        width: 70.w,height: 80.h,
+                        errorBuilder: (context, error, stackTrace) {
+                          return const Icon(Icons.broken_image, size: 50);
+                        },
+                      ),
+                    ),
                   ),
                   title: Text(product['name']),
                   subtitle: Text("\$${product['price']}"),
