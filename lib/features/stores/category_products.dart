@@ -118,7 +118,6 @@ class _CategoryProductsState extends State<CategoryProducts> {
               ],
             ),
           ),
-          // Product List
           Expanded(
             child: StreamBuilder<QuerySnapshot>(
               stream: productsRef.snapshots(),
