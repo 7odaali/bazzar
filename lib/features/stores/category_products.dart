@@ -1,8 +1,8 @@
+import 'package:bazzar/features/stores/product_details_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../search/filter_search_screen.dart';
 import 'Favorite_screen.dart';
 import 'cubit/favorite_cubit.dart';
@@ -169,81 +169,100 @@ class _CategoryProductsState extends State<CategoryProducts> {
                     bool isFavorite = favorites
                         .any((item) => item['name'] == product['name']);
 
-                    return SizedBox(
-                      child: Card(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Stack(
-                                children: [
-                                  SizedBox(
-                                    height: 130.h,
-                                    width: 200.w,
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(10.w),
-                                      child: Image.network(
-                                        product['image'],
-                                        fit: BoxFit.cover,
-                                        width: double.infinity,
-                                        errorBuilder:
-                                            (context, error, stackTrace) {
-                                          return const Icon(Icons.broken_image);
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ProductDetailsScreen(
+                              productDetails: {
+                                'name': product['name'],
+                                'price': product['price'],
+                                'image': product['image'],
+                                'oldprice': product['oldprice'],
+                              },
+                            ),
+                          ),
+                        );
+                      },
+                      child: SizedBox(
+                        child: Card(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Stack(
+                                  children: [
+                                    SizedBox(
+                                      height: 130.h,
+                                      width: 200.w,
+                                      child: ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(10.w),
+                                        child: Image.network(
+                                          product['image'],
+                                          fit: BoxFit.cover,
+                                          width: double.infinity,
+                                          errorBuilder:
+                                              (context, error, stackTrace) {
+                                            return const Icon(
+                                                Icons.broken_image);
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                    Positioned(
+                                      bottom: 0,
+                                      right: 0,
+                                      child: IconButton(
+                                        onPressed: () {
+                                          context
+                                              .read<FavoritesCubit>()
+                                              .updateFavorite({
+                                            'name': product['name'],
+                                            'price': product['price'],
+                                            'image': product['image'],
+                                          });
                                         },
+                                        icon: Icon(
+                                          isFavorite
+                                              ? Icons.favorite
+                                              : Icons.favorite_border_outlined,
+                                          color: isFavorite
+                                              ? Colors.red
+                                              : Colors.green,
+                                          size: 30.h,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              SizedBox(height: 10.h),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Text(
+                                      product['name'],
+                                      style: const TextStyle(fontSize: 16),
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                    Text(
+                                      "\$${product['price']}",
+                                      style: const TextStyle(
+                                        fontSize: 14,
                                       ),
                                     ),
-                                  ),
-                                  Positioned(
-                                    bottom: 0,
-                                    right: 0,
-                                    child: IconButton(
-                                      onPressed: () {
-                                        context
-                                            .read<FavoritesCubit>()
-                                            .updateFavorite({
-                                          'name': product['name'],
-                                          'price': product['price'],
-                                          'image': product['image'],
-                                        });
-                                      },
-                                      icon: Icon(
-                                        isFavorite
-                                            ? Icons.favorite
-                                            : Icons.favorite_border_outlined,
-                                        color: isFavorite
-                                            ? Colors.red
-                                            : Colors.green,
-                                        size: 30.h,
-                                      ),
-                                    ),
-                                  )
-                                ],
+                                  ],
+                                ),
                               ),
-                            ),
-                            SizedBox(height: 10.h),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                MainAxisAlignment.spaceAround,
-                                children: [
-                                  Text(
-                                    product['name'],
-                                    style: const TextStyle(fontSize: 16),
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                  Text(
-                                    "\$${product['price']}",
-                                    style: const TextStyle(
-                                      fontSize: 14,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(height: 10.h),
-                          ],
+                              SizedBox(height: 10.h),
+                            ],
+                          ),
                         ),
                       ),
                     );

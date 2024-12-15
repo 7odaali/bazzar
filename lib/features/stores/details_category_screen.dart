@@ -1,3 +1,4 @@
+import 'package:bazzar/core/theming/colors.dart';
 import 'package:bazzar/features/stores/category_products.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -95,7 +96,7 @@ class _DetailsCategoryScreenState extends State<DetailsCategoryScreen> {
               crossAxisCount: 2,
               crossAxisSpacing: 10,
               mainAxisSpacing: 10,
-              childAspectRatio: 0.75,
+              childAspectRatio: 0.68,
             ),
             itemCount: detailsCategories.length,
             itemBuilder: (context, index) {
@@ -134,12 +135,23 @@ class _DetailsCategoryScreenState extends State<DetailsCategoryScreen> {
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Center(
-                          child: Text(
-                            detailsCategory['name'],
-                            style: const TextStyle(fontSize: 16),
-                            overflow: TextOverflow.ellipsis,
-                          ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Text(
+                              detailsCategory['name'],
+                              style: TextStyle(
+                                  fontSize: 16.w,
+                                  color: ColorsManager.darkBlue),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            Text(
+                              "Number Ptoducts : ${detailsCategory['number']} product",
+                              style:
+                                  TextStyle(fontSize: 10.w, color: Colors.grey),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ],
                         ),
                       ),
                     ],

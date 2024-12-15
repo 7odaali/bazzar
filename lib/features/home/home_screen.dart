@@ -9,6 +9,7 @@ import '../login/login_screen.dart';
 import '../search/filter_search_screen.dart';
 import '../stores/cubit/favorite_cubit.dart';
 import '../stores/Favorite_screen.dart';
+import '../stores/product_details_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -17,9 +18,10 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
+
 class _HomeScreenState extends State<HomeScreen> {
   final Query productsQuery =
-      FirebaseFirestore.instance.collectionGroup('products');
+  FirebaseFirestore.instance.collectionGroup('products');
 
   final TextEditingController _searchController = TextEditingController();
   String _searchText = "";
@@ -71,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           MaterialPageRoute(
                             builder: (context) => const LoginScreen(),
                           ),
-                          (Route<dynamic> route) => false,
+                              (Route<dynamic> route) => false,
                         );
                       },
                       child: Text(
@@ -105,7 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         size: 30.h,
                         color: Colors.white,
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -198,77 +200,94 @@ class _HomeScreenState extends State<HomeScreen> {
                       bool isFavorite = favorites
                           .any((item) => item['name'] == product['name']);
 
-                      return Card(
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Stack(
-                                children: [
-                                  SizedBox(
-                                    height: 130.h,
-                                    width: 200.w,
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(10.w),
-                                      child: Image.network(
-                                        product['image'],
-                                        fit: BoxFit.fill,
-                                        errorBuilder:
-                                            (context, error, stackTrace) {
-                                          return Center(
-                                            child: Icon(
-                                              Icons.broken_image,
-                                              color: Colors.grey,
-                                              size: 50.h,
-                                            ),
-                                          );
-                                        },
-                                      ),
-                                    ),
-                                  ),
-                                  Positioned(
-                                    bottom: 0,
-                                    right: 0,
-                                    child: IconButton(
-                                      onPressed: () {
-                                        context
-                                            .read<FavoritesCubit>()
-                                            .updateFavorite({
-                                          'name': product['name'],
-                                          'price': product['price'],
-                                          'image': product['image'],
-                                        });
-                                      },
-                                      icon: Icon(
-                                        isFavorite
-                                            ? Icons.favorite
-                                            : Icons.favorite_border_outlined,
-                                        color: isFavorite
-                                            ? Colors.red
-                                            : Colors.green,
-                                        size: 30.h,
-                                      ),
-                                    ),
-                                  )
-                                ],
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ProductDetailsScreen(
+                                productDetails: {
+                                  'name': product['name'],
+                                  'price': product['price'],
+                                  'image': product['image'],
+                                  'oldprice': product['oldprice'],
+                                },
                               ),
                             ),
-                            SizedBox(height: 10.h),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Text(
-                                  product['name'],
-                                  style: TextStyle(fontSize: 14.sp),
+                          );
+                        },
+                        child: Card(
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Stack(
+                                  children: [
+                                    SizedBox(
+                                      height: 130.h,
+                                      width: 200.w,
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(10.w),
+                                        child: Image.network(
+                                          product['image'],
+                                          fit: BoxFit.fill,
+                                          errorBuilder:
+                                              (context, error, stackTrace) {
+                                            return Center(
+                                              child: Icon(
+                                                Icons.broken_image,
+                                                color: Colors.grey,
+                                                size: 50.h,
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                    Positioned(
+                                      bottom: 0,
+                                      right: 0,
+                                      child: IconButton(
+                                        onPressed: () {
+                                          context
+                                              .read<FavoritesCubit>()
+                                              .updateFavorite({
+                                            'name': product['name'],
+                                            'price': product['price'],
+                                            'image': product['image'],
+                                          });
+                                        },
+                                        icon: Icon(
+                                          isFavorite
+                                              ? Icons.favorite
+                                              : Icons.favorite_border_outlined,
+                                          color: isFavorite
+                                              ? Colors.red
+                                              : Colors.green,
+                                          size: 30.h,
+                                        ),
+                                      ),
+                                    )
+                                  ],
                                 ),
-                                Text(
-                                  "\$${product['price']}",
-                                  style: TextStyle(fontSize: 14.sp),
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: 10.h),
-                          ],
+                              ),
+                              SizedBox(height: 10.h),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: [
+                                  Text(
+                                    product['name'],
+                                    style: TextStyle(fontSize: 14.sp),
+                                  ),
+                                  Text(
+                                    "\$${product['price']}",
+                                    style: TextStyle(fontSize: 14.sp),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 10.h),
+                            ],
+                          ),
                         ),
                       );
                     },
