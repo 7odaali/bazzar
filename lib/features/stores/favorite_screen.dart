@@ -20,42 +20,112 @@ class FavoriteScreen extends StatelessWidget {
             return const Center(child: Text("No favorite products"));
           }
 
-          return ListView.builder(
+          return GridView.builder(
+            padding: const EdgeInsets.all(8.0),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 10.w,
+              mainAxisSpacing: 10.h,
+              childAspectRatio: 1,
+            ),
             itemCount: favorites.length,
             itemBuilder: (context, index) {
               final product = favorites[index];
-              return Card(
-                child: ListTile(
-                  /*onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ProductDetailsScreen(),
-                      ),
-                    );
-                  },*/
-                  leading: ClipRRect(
-                    borderRadius: BorderRadius.circular(10.w),
-                    child: SizedBox(
-                      height: 100.h,
-                      child: Image.network(
-                        product['image'],
-                        fit: BoxFit.cover,
-                        width: 70.w,
-                        height: 80.h,
-                        errorBuilder: (context, error, stackTrace) {
-                          return const Icon(Icons.broken_image, size: 50);
-                        },
+
+              return GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ProductDetailsScreen(
+                        productDetails: {
+                          'name': product['name'],
+                          'price': product['price'],
+                          'oldprice': product['oldprice'],
+                          'image': product['image'],
+                          'description': product['description'],
+                          'secimages': product['secimages'],                        },
                       ),
                     ),
+                  );
+                },
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.w),
                   ),
-                  title: Text(product['name']),
-                  subtitle: Text("\$${product['price']}"),
-                  trailing: IconButton(
-                    icon: const Icon(Icons.delete, color: Colors.red),
-                    onPressed: () {
-                      context.read<FavoritesCubit>().removeProduct(product);
-                    },
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Stack(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(10.w),
+                              child: SizedBox(
+                                height: 130.h,
+                                width: double.infinity,
+                                child: product['image'] != null &&
+                                        product['image'].isNotEmpty
+                                    ? Image.network(
+                                        product['image'],
+                                        fit: BoxFit.fill,
+                                        errorBuilder:
+                                            (context, error, stackTrace) {
+                                          return const Icon(
+                                            Icons.broken_image,
+                                            size: 50,
+                                            color: Colors.grey,
+                                          );
+                                        },
+                                      )
+                                    : const Icon(
+                                        Icons.image_not_supported,
+                                        size: 50,
+                                        color: Colors.grey,
+                                      ),
+                              ),
+                            ),
+                            Positioned(
+                              bottom: 0,
+                              right: 0,
+                              child: IconButton(
+                                icon: const Icon(Icons.favorite,
+                                    color: Colors.red),
+                                onPressed: () {
+                                  context
+                                      .read<FavoritesCubit>()
+                                      .removeProduct(product);
+                                },
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Text(
+                              product['name'],
+                              style: TextStyle(
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w600,
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            Text(
+                              "\$${product['price']}",
+                              style: TextStyle(
+                                fontSize: 14.sp,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               );

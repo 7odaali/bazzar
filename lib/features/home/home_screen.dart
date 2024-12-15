@@ -18,10 +18,9 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-
 class _HomeScreenState extends State<HomeScreen> {
   final Query productsQuery =
-  FirebaseFirestore.instance.collectionGroup('products');
+      FirebaseFirestore.instance.collectionGroup('products');
 
   final TextEditingController _searchController = TextEditingController();
   String _searchText = "";
@@ -73,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           MaterialPageRoute(
                             builder: (context) => const LoginScreen(),
                           ),
-                              (Route<dynamic> route) => false,
+                          (Route<dynamic> route) => false,
                         );
                       },
                       child: Text(
@@ -202,20 +201,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
                       return GestureDetector(
                         onTap: () {
-                      /*    Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ProductDetailsScreen(
-                                productDetails: {
-                                  'name': product['name'],
-                                  'price': product['price'],
-                                  'image': product['image'],
-                                  'oldprice': product['oldprice'],
-                                  'description': product['description'],
-                                },
-                              ),
-                            ),
-                          );*/
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -231,7 +216,6 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ),
                           );
-
                         },
                         child: Card(
                           child: Column(
@@ -244,21 +228,31 @@ class _HomeScreenState extends State<HomeScreen> {
                                       height: 130.h,
                                       width: 200.w,
                                       child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(10.w),
-                                        child: Image.network(
-                                          product['image'],
-                                          fit: BoxFit.fill,
-                                          errorBuilder:
-                                              (context, error, stackTrace) {
-                                            return Center(
-                                              child: Icon(
-                                                Icons.broken_image,
-                                                color: Colors.grey,
-                                                size: 50.h,
+                                        borderRadius:
+                                            BorderRadius.circular(10.w),
+                                        child: product['image'] != null &&
+                                                product['image'].isNotEmpty
+                                            ? Image.network(
+                                                product['image'],
+                                                fit: BoxFit.fill,
+                                                errorBuilder: (context, error,
+                                                    stackTrace) {
+                                                  return Center(
+                                                    child: Icon(
+                                                      Icons.broken_image,
+                                                      color: Colors.grey,
+                                                      size: 50.h,
+                                                    ),
+                                                  );
+                                                },
+                                              )
+                                            : Center(
+                                                child: Icon(
+                                                  Icons.image_not_supported,
+                                                  size: 50.h,
+                                                  color: Colors.grey,
+                                                ),
                                               ),
-                                            );
-                                          },
-                                        ),
                                       ),
                                     ),
                                     Positioned(
@@ -271,7 +265,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                               .updateFavorite({
                                             'name': product['name'],
                                             'price': product['price'],
+                                            'oldprice': product['oldprice'],
                                             'image': product['image'],
+                                            'description':
+                                                product['description'],
+                                            'secimages': product['secimages'],
                                           });
                                         },
                                         icon: Icon(
@@ -290,7 +288,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                               SizedBox(height: 10.h),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
                                 children: [
                                   Text(
                                     product['name'],

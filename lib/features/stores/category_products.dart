@@ -206,7 +206,7 @@ class _CategoryProductsState extends State<CategoryProducts> {
                                                 product['image'].isNotEmpty
                                             ? Image.network(
                                                 product['image'],
-                                                fit: BoxFit.cover,
+                                                fit: BoxFit.fill,
                                                 width: double.infinity,
                                                 errorBuilder: (context, error,
                                                     stackTrace) {
