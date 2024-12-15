@@ -202,7 +202,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                       return GestureDetector(
                         onTap: () {
-                          Navigator.push(
+                      /*    Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => ProductDetailsScreen(
@@ -215,7 +215,23 @@ class _HomeScreenState extends State<HomeScreen> {
                                 },
                               ),
                             ),
+                          );*/
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ProductDetailsScreen(
+                                productDetails: {
+                                  'name': product['name'],
+                                  'price': product['price'],
+                                  'image': product['image'],
+                                  'oldprice': product['oldprice'],
+                                  'description': product['description'],
+                                  'secimages': product['secimages'],
+                                },
+                              ),
+                            ),
                           );
+
                         },
                         child: Card(
                           child: Column(

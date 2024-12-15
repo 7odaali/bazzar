@@ -181,6 +181,7 @@ class _CategoryProductsState extends State<CategoryProducts> {
                                 'image': product['image'],
                                 'oldprice': product['oldprice'],
                                 'description': product['description'],
+                                'secimages': product['secimages'],
                               },
                             ),
                           ),

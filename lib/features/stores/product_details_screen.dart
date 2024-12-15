@@ -18,6 +18,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     final product = widget.productDetails;
+    final List<String> secImages =
+        List<String>.from(product['secimages'] ?? []);
 
     return Scaffold(
       appBar: AppBar(
@@ -37,7 +39,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     product['image'] ?? '',
                     height: 250.h,
                     width: double.infinity,
-                    fit: BoxFit.cover,
+                    fit: BoxFit.fill,
                     errorBuilder: (context, error, stackTrace) {
                       return Icon(
                         Icons.broken_image,
@@ -49,6 +51,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 ),
               ),
               SizedBox(height: 16.h),
+
               Text(
                 product['name'] ?? 'Product Name',
                 style: TextStyle(
@@ -77,15 +80,62 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 ],
               ),
               verticalSpace(12),
+              if (secImages.isNotEmpty) ...[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Additional Images",
+                      style: TextStyle(
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+                verticalSpace(8),
+                SizedBox(
+                  height: 200.h,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: secImages.length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: EdgeInsets.only(right: 8.0.w),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(16.w),
+                          child: Image.network(
+                            secImages[index],
+                            width: 150.w,
+                            height: 150.h,
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) {
+                              return Icon(
+                                Icons.broken_image,
+                                size: 100.h,
+                                color: Colors.grey,
+                              );
+                            },
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],                verticalSpace(12),
+
               Column(
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text("Description", style: TextStyle(
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.bold,
-                      ),),
+                      Text(
+                        "Description",
+                        style: TextStyle(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ],
                   ),
                   verticalSpace(5),
@@ -98,6 +148,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   ),
                 ],
               ),
+              verticalSpace(16),
+
             ],
           ),
         ),
