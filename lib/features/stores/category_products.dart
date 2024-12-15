@@ -180,6 +180,7 @@ class _CategoryProductsState extends State<CategoryProducts> {
                                 'price': product['price'],
                                 'image': product['image'],
                                 'oldprice': product['oldprice'],
+                                'description': product['description'],
                               },
                             ),
                           ),

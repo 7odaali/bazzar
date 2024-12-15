@@ -1,3 +1,4 @@
+import 'package:bazzar/features/stores/product_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -25,12 +26,23 @@ class FavoriteScreen extends StatelessWidget {
               final product = favorites[index];
               return Card(
                 child: ListTile(
-                  leading: ClipRRect(borderRadius: BorderRadius.circular(10.w),
-                    child: SizedBox(height: 100.h,
+                  /*onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ProductDetailsScreen(),
+                      ),
+                    );
+                  },*/
+                  leading: ClipRRect(
+                    borderRadius: BorderRadius.circular(10.w),
+                    child: SizedBox(
+                      height: 100.h,
                       child: Image.network(
                         product['image'],
                         fit: BoxFit.cover,
-                        width: 70.w,height: 80.h,
+                        width: 70.w,
+                        height: 80.h,
                         errorBuilder: (context, error, stackTrace) {
                           return const Icon(Icons.broken_image, size: 50);
                         },

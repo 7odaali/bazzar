@@ -1,3 +1,4 @@
+import 'package:bazzar/core/helpers/spacing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -56,24 +57,47 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 ),
               ),
               SizedBox(height: 8.h),
-              Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Text(
                     "Price : \$${product['price']}",
-                    style:  TextStyle(
+                    style: TextStyle(
                       fontSize: 14.w,
                     ),
                   ),
                   Text(
                     "Oldprice : \$${product['oldprice']}",
-                    style:  TextStyle(
+                    style: TextStyle(
                       fontSize: 14.w,
                       decoration: TextDecoration.lineThrough,
                       color: Colors.grey,
                     ),
-                  ),                ],
+                  ),
+                ],
               ),
-
+              verticalSpace(12),
+              Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text("Description", style: TextStyle(
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.bold,
+                      ),),
+                    ],
+                  ),
+                  verticalSpace(5),
+                  Text(
+                    product['description'] ?? '..',
+                    style: TextStyle(
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.normal,
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
         ),
