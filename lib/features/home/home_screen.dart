@@ -148,7 +148,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             verticalSpace(22),
             SizedBox(
-              height: 800.h,
+              height: 900.h,
               child: StreamBuilder<QuerySnapshot>(
                 stream: productsQuery.snapshots(),
                 builder: (context, snapshot) {
@@ -187,7 +187,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                   return GridView.builder(
                     shrinkWrap: true,
-                    physics: const BouncingScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     itemCount: products.length,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,

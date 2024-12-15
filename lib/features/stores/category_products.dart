@@ -202,16 +202,30 @@ class _CategoryProductsState extends State<CategoryProducts> {
                                       child: ClipRRect(
                                         borderRadius:
                                             BorderRadius.circular(10.w),
-                                        child: Image.network(
-                                          product['image'],
-                                          fit: BoxFit.cover,
-                                          width: double.infinity,
-                                          errorBuilder:
-                                              (context, error, stackTrace) {
-                                            return const Icon(
-                                                Icons.broken_image);
-                                          },
-                                        ),
+                                        child: product['image'] != null &&
+                                                product['image'].isNotEmpty
+                                            ? Image.network(
+                                                product['image'],
+                                                fit: BoxFit.cover,
+                                                width: double.infinity,
+                                                errorBuilder: (context, error,
+                                                    stackTrace) {
+                                                  return Center(
+                                                    child: Icon(
+                                                      Icons.broken_image,
+                                                      size: 50.h,
+                                                      color: Colors.grey,
+                                                    ),
+                                                  );
+                                                },
+                                              )
+                                            : Center(
+                                                child: Icon(
+                                                  Icons.image_not_supported,
+                                                  size: 50.h,
+                                                  color: Colors.grey,
+                                                ),
+                                              ),
                                       ),
                                     ),
                                     Positioned(
@@ -237,7 +251,7 @@ class _CategoryProductsState extends State<CategoryProducts> {
                                           size: 30.h,
                                         ),
                                       ),
-                                    )
+                                    ),
                                   ],
                                 ),
                               ),

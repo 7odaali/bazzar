@@ -16,7 +16,7 @@ class StoreScreen extends StatefulWidget {
 
 class _StoreScreenState extends State<StoreScreen> {
   final CollectionReference productsRef =
-  FirebaseFirestore.instance.collection('categories');
+      FirebaseFirestore.instance.collection('categories');
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +31,12 @@ class _StoreScreenState extends State<StoreScreen> {
                 borderRadius: BorderRadius.circular(30.w),
                 color: ColorsManager.darkBlue,
               ),
-              child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [SizedBox(width: 50.w,),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SizedBox(
+                    width: 50.w,
+                  ),
                   Center(
                     child: SizedBox(
                       height: 50.h,
@@ -80,7 +84,7 @@ class _StoreScreenState extends State<StoreScreen> {
                   final categories = snapshot.data!.docs;
 
                   return GridView.builder(
-                    shrinkWrap: false,
+                    shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: categories.length,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -91,6 +95,9 @@ class _StoreScreenState extends State<StoreScreen> {
                     ),
                     itemBuilder: (context, i) {
                       final category = categories[i];
+                      final imageUrl = category['image'] ?? '';
+                      final name = category['name'] ?? 'Unknown Category';
+
                       return GestureDetector(
                         onTap: () {
                           Navigator.push(
@@ -108,29 +115,40 @@ class _StoreScreenState extends State<StoreScreen> {
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: SizedBox(
-                                  height:180.h,
+                                  height: 180.h,
                                   width: 200.w,
-                                  child: ClipRRect(borderRadius: BorderRadius.circular(10.w),
-                                    child: Image.network(
-                                      category['image'],
-                                      fit: BoxFit.cover,
-                                      errorBuilder: (context, error, stackTrace) {
-                                        return Center(
-                                          child: Icon(
-                                            Icons.broken_image,
-                                            color: Colors.grey,
-                                            size: 50.h,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(10.w),
+                                    child: imageUrl.isNotEmpty
+                                        ? Image.network(
+                                            imageUrl,
+                                            fit: BoxFit.cover,
+                                            errorBuilder:
+                                                (context, error, stackTrace) {
+                                              return Center(
+                                                child: Icon(
+                                                  Icons.broken_image,
+                                                  color: Colors.grey,
+                                                  size: 50.h,
+                                                ),
+                                              );
+                                            },
+                                          )
+                                        : Center(
+                                            child: Icon(
+                                              Icons.broken_image,
+                                              color: Colors.grey,
+                                              size: 50.h,
+                                            ),
                                           ),
-                                        );
-                                      },
-                                    ),
                                   ),
                                 ),
                               ),
                               SizedBox(height: 10.h),
                               Text(
-                                category['name'],
+                                name,
                                 style: TextStyle(fontSize: 14.sp),
+                                textAlign: TextAlign.center,
                               ),
                               SizedBox(height: 10.h),
                             ],

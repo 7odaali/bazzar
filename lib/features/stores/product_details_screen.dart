@@ -35,23 +35,30 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               Center(
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(16.w),
-                  child: Image.network(
-                    product['image'] ?? '',
-                    height: 250.h,
-                    width: double.infinity,
-                    fit: BoxFit.fill,
-                    errorBuilder: (context, error, stackTrace) {
-                      return Icon(
-                        Icons.broken_image,
-                        size: 100.h,
-                        color: Colors.grey,
-                      );
-                    },
-                  ),
+                  child: product['image'] != null && product['image'].isNotEmpty
+                      ? Image.network(
+                          product['image'] ?? '',
+                          height: 250.h,
+                          width: double.infinity,
+                          fit: BoxFit.fill,
+                          errorBuilder: (context, error, stackTrace) {
+                            return Icon(
+                              Icons.broken_image,
+                              size: 100.h,
+                              color: Colors.grey,
+                            );
+                          },
+                        )
+                      : Center(
+                          child: Icon(
+                            Icons.image_not_supported,
+                            size: 50.h,
+                            color: Colors.grey,
+                          ),
+                        ),
                 ),
               ),
               SizedBox(height: 16.h),
-
               Text(
                 product['name'] ?? 'Product Name',
                 style: TextStyle(
@@ -104,26 +111,35 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         padding: EdgeInsets.only(right: 8.0.w),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(16.w),
-                          child: Image.network(
-                            secImages[index],
-                            width: 150.w,
-                            height: 150.h,
-                            fit: BoxFit.cover,
-                            errorBuilder: (context, error, stackTrace) {
-                              return Icon(
-                                Icons.broken_image,
-                                size: 100.h,
-                                color: Colors.grey,
-                              );
-                            },
-                          ),
+                          child: secImages[index] != null &&
+                                  secImages[index].isNotEmpty
+                              ? Image.network(
+                                  secImages[index],
+                                  width: 150.w,
+                                  height: 150.h,
+                                  fit: BoxFit.cover,
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return Icon(
+                                      Icons.broken_image,
+                                      size: 100.h,
+                                      color: Colors.grey,
+                                    );
+                                  },
+                                )
+                              : Center(
+                                  child: Icon(
+                                    Icons.image_not_supported,
+                                    size: 50.h,
+                                    color: Colors.grey,
+                                  ),
+                                ),
                         ),
                       );
                     },
                   ),
                 ),
-              ],                verticalSpace(12),
-
+              ],
+              verticalSpace(12),
               Column(
                 children: [
                   Row(
@@ -149,7 +165,6 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 ],
               ),
               verticalSpace(16),
-
             ],
           ),
         ),

@@ -3,7 +3,6 @@ import 'package:bazzar/features/stores/category_products.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'Favorite_screen.dart';
 
 class DetailsCategoryScreen extends StatefulWidget {
@@ -122,15 +121,33 @@ class _DetailsCategoryScreenState extends State<DetailsCategoryScreen> {
                         padding: const EdgeInsets.all(8.0),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(10.w),
-                          child: Image.network(
-                            detailsCategory['image'],
-                            fit: BoxFit.cover,
-                            height: 200.h,
-                            width: double.infinity,
-                            errorBuilder: (context, error, stackTrace) {
-                              return const Icon(Icons.broken_image);
-                            },
-                          ),
+                          child: detailsCategory['image'] != null &&
+                                  detailsCategory['image'].isNotEmpty
+                              ? Image.network(
+                                  detailsCategory['image'],
+                                  fit: BoxFit.cover,
+                                  height: 200.h,
+                                  width: double.infinity,
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return Center(
+                                      child: Icon(
+                                        Icons.broken_image,
+                                        size: 50.h,
+                                        color: Colors.grey,
+                                      ),
+                                    );
+                                  },
+                                )
+                              : SizedBox(
+                                  height: 200.h,
+                                  child: Center(
+                                    child: Icon(
+                                      Icons.image_not_supported,
+                                      size: 50.h,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                ),
                         ),
                       ),
                       Padding(
