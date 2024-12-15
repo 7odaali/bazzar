@@ -19,7 +19,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final Query productsQuery =
-  FirebaseFirestore.instance.collectionGroup('products');
+      FirebaseFirestore.instance.collectionGroup('products');
 
   final TextEditingController _searchController = TextEditingController();
   String _searchText = "";
@@ -71,7 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           MaterialPageRoute(
                             builder: (context) => const LoginScreen(),
                           ),
-                              (Route<dynamic> route) => false,
+                          (Route<dynamic> route) => false,
                         );
                       },
                       child: Text(
@@ -145,7 +145,6 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             verticalSpace(22),
-            // Product Grid
             SizedBox(
               height: 800.h,
               child: StreamBuilder<QuerySnapshot>(
