@@ -27,9 +27,9 @@ class CartCubit extends Cubit<List<Map<String, dynamic>>> {
       final productModel = ProductModel.fromJson(product);
       await _cartBox.put(product['name'], productModel);
     } else {
-        updatedCart.add(product);
-        final productModel = ProductModel.fromJson(product);
-        await _cartBox.put(product['name'], productModel);
+      updatedCart.add(product);
+      final productModel = ProductModel.fromJson(product);
+      await _cartBox.put(product['name'], productModel);
     }
 
     emit(updatedCart);
