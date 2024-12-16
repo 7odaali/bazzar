@@ -105,7 +105,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                 height: 430.h,
                 child: Padding(
                   padding:
-                      EdgeInsets.symmetric(horizontal: 10.0.w, vertical: 20.h),
+                      EdgeInsets.symmetric(horizontal: 25.0.w, vertical: 20.h),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -195,8 +195,8 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                           Row(
                             children: [
                               Icon(
-                                Icons.person_outline_outlined,
-                                size: 30.w,
+                                Icons.laptop_sharp,
+                                size: 20.w,
                                 color: Colors.yellow,
                               ),
                               horizontalSpace(10.w),
@@ -222,8 +222,8 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                           Row(
                             children: [
                               Icon(
-                                Icons.person_outline_outlined,
-                                size: 30.w,
+                                Icons.point_of_sale,
+                                size: 20.w,
                                 color: Colors.yellow,
                               ),
                               horizontalSpace(10.w),
@@ -249,8 +249,8 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                           Row(
                             children: [
                               Icon(
-                                Icons.person_outline_outlined,
-                                size: 30.w,
+                                Icons.lock_outline_sharp,
+                                size: 20.w,
                                 color: Colors.yellow,
                               ),
                               horizontalSpace(10.w),
@@ -276,8 +276,8 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                           Row(
                             children: [
                               Icon(
-                                Icons.person_outline_outlined,
-                                size: 30.w,
+                                Icons.outbond_outlined,
+                                size: 20.w,
                                 color: Colors.yellow,
                               ),
                               horizontalSpace(10.w),
