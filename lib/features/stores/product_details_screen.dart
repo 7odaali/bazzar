@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../core/helpers/spacing.dart';
 import '../card/cart_screen.dart';
 import '../card/cubit/cart_cubit.dart';
@@ -22,11 +23,35 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   int _quantity = 0;
 
   @override
+  void initState() {
+    super.initState();
+    _loadQuantity();
+  }
+
+  Future<void> _loadQuantity() async {
+    _quantity = await getQuantity();
+    setState(() {});
+  }
+
+  void _saveQuantity() async {
+    await saveQuantity(_quantity);
+  }
+
+  Future<void> saveQuantity(int quantity) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('quantity', quantity);
+  }
+
+  Future<int> getQuantity() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getInt('quantity') ?? 0;
+  }
+
+  @override
   Widget build(BuildContext context) {
     final product = widget.productDetails;
     final List<String> secImages =
         List<String>.from(product['secimages'] ?? []);
-
     final isFavorite = context
         .watch<FavoritesCubit>()
         .state
@@ -209,7 +234,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   child: MaterialButton(
                     color: Colors.yellow,
                     onPressed: () {
-                      context.read<CartCubit>().updateCart({
+                      setState(() {
+                        _quantity++;
+                      });
+                      context.read<CartCubit>().addToCart({
                         'name': product['name'],
                         'price': product['price'],
                         'oldprice': product['oldprice'],
@@ -218,6 +246,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         'secimages': product['secimages'],
                         'quantity': _quantity,
                       });
+                      _saveQuantity();
                     },
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 10.h),
@@ -238,6 +267,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                       }
                                     },
                                   );
+                                  _saveQuantity();
                                 },
                                 icon: Icon(
                                   Icons.remove,
@@ -255,7 +285,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                 onPressed: () {
                                   setState(() {
                                     _quantity++;
-                                    context.read<CartCubit>().updateCart({
+                                    context.read<CartCubit>().addToCart({
                                       'name': product['name'],
                                       'price': product['price'],
                                       'oldprice': product['oldprice'],
@@ -265,6 +295,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                       'quantity': _quantity,
                                     });
                                   });
+                                  _saveQuantity();
                                 },
                                 icon: Icon(
                                   Icons.add,
