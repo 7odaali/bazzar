@@ -387,6 +387,23 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   fontSize: 14.sp,
                 ),
               ),
+              verticalSpace(30),
+              ClipRRect(borderRadius: BorderRadius.circular(10.w),
+                child: SizedBox(
+                    height: 45.h,
+                    width: 1000.w,
+                    child: MaterialButton(
+                      color: Colors.yellow,
+                      onPressed: () {},
+                      child: Text(
+                        "Add to Cart",
+                        style: TextStyle(
+                            fontSize: 18.w, fontWeight: FontWeight.bold),
+                      ),
+                    )),
+              ),
+              verticalSpace(30),
+
             ],
           ),
         ),
