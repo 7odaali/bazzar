@@ -23,12 +23,13 @@ class CartCubit extends Cubit<List<Map<String, dynamic>>> {
     updatedCart.any((item) => item['name'] == product['name']);
 
     if (productExists) {
-      updatedCart.removeWhere((item) => item['name'] == product['name']);
-      await _cartBox.delete(product['name']);
-    } else {
       updatedCart.add(product);
       final productModel = ProductModel.fromJson(product);
       await _cartBox.put(product['name'], productModel);
+    } else {
+        updatedCart.add(product);
+        final productModel = ProductModel.fromJson(product);
+        await _cartBox.put(product['name'], productModel);
     }
 
     emit(updatedCart);

@@ -202,7 +202,7 @@ class _CartScreenState extends State<CartScreen> {
                         ),
                       ],
                     );
-                  },
+                   },
                 ),
                 SizedBox(height: 10.h),
                 SizedBox(
@@ -309,7 +309,7 @@ class _CartScreenState extends State<CartScreen> {
                                   children: [
                                     Text(
                                       product['name'],
-                                      style: TextStyle(
+                                       style: TextStyle(
                                         fontSize: 16.sp,
                                         fontWeight: FontWeight.w600,
                                       ),
