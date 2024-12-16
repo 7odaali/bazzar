@@ -70,6 +70,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../features/card/cart_screen.dart';
 import '../../features/home/home_screen.dart';
+import '../../features/myaccount/my_account_screen.dart';
 import '../../features/stores/store_screen.dart';
 
 class BottomNavigationBarScreen extends StatefulWidget {
@@ -87,7 +88,7 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
     const HomeScreen(),
     const StoreScreen(),
     const CartScreen(),
-    const Center(child: Text('My Account Screen')),
+    const MyAccountScreen(),
     const Center(child: Text('Menu Screen')),
   ];
 
