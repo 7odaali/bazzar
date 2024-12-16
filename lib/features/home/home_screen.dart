@@ -1,3 +1,4 @@
+import 'package:bazzar/features/card/cart_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -92,20 +93,38 @@ class _HomeScreenState extends State<HomeScreen> {
                         fit: BoxFit.contain,
                       ),
                     ),
-                    IconButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const FavoriteScreen(),
+                    Row(
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const FavoriteScreen(),
+                              ),
+                            );
+                          },
+                          icon: Icon(
+                            Icons.favorite_border_outlined,
+                            size: 30.h,
+                            color: Colors.white,
                           ),
-                        );
-                      },
-                      icon: Icon(
-                        Icons.favorite_border_outlined,
-                        size: 30.h,
-                        color: Colors.white,
-                      ),
+                        ),horizontalSpace(10),IconButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const CartScreen(),
+                              ),
+                            );
+                          },
+                          icon: Icon(
+                            Icons.shopping_bag_outlined,
+                            size: 30.h,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),

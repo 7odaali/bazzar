@@ -3,6 +3,7 @@ import 'package:bazzar/features/stores/category_products.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../card/cart_screen.dart';
 import 'Favorite_screen.dart';
 
 class DetailsCategoryScreen extends StatefulWidget {
@@ -40,20 +41,39 @@ class _DetailsCategoryScreenState extends State<DetailsCategoryScreen> {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const FavoriteScreen(),
+          Row(
+            children: [
+              IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const FavoriteScreen(),
+                    ),
+                  );
+                },
+                icon: Icon(
+                  Icons.favorite_border_outlined,
+                  size: 30.h,
+                  color: Colors.black,
                 ),
-              );
-            },
-            icon: Icon(
-              Icons.favorite_border_outlined,
-              size: 30.h,
-              color: Colors.black,
-            ),
+              ),
+              IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const CartScreen(),
+                    ),
+                  );
+                },
+                icon: Icon(
+                  Icons.shopping_bag_outlined,
+                  size: 30.h,
+                  color: Colors.black,
+                ),
+              ),
+            ],
           ),
         ],
         centerTitle: true,

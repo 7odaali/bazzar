@@ -210,6 +210,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../core/helpers/spacing.dart';
+import '../card/cart_screen.dart';
 import '../card/cubit/cart_cubit.dart';
 import '../stores/cubit/favorite_cubit.dart';
 
@@ -241,6 +242,23 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
       appBar: AppBar(
         title: Text(product['name'] ?? 'Product Details'),
         centerTitle: true,
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const CartScreen(),
+                ),
+              );
+            },
+            icon: Icon(
+              Icons.shopping_bag_outlined,
+              size: 30.h,
+              color: Colors.black,
+            ),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(

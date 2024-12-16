@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../core/theming/colors.dart';
+import '../card/cart_screen.dart';
 import 'Favorite_screen.dart';
 
 class StoreScreen extends StatefulWidget {
@@ -34,8 +35,20 @@ class _StoreScreenState extends State<StoreScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SizedBox(
-                    width: 50.w,
+                  IconButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const CartScreen(),
+                        ),
+                      );
+                    },
+                    icon: Icon(
+                      Icons.shopping_bag_outlined,
+                      size: 30.h,
+                      color: Colors.white,
+                    ),
                   ),
                   Center(
                     child: SizedBox(

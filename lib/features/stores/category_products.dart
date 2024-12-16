@@ -1,8 +1,10 @@
+import 'package:bazzar/core/helpers/spacing.dart';
 import 'package:bazzar/features/stores/product_details_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../card/cart_screen.dart';
 import '../search/filter_search_screen.dart';
 import 'Favorite_screen.dart';
 import 'cubit/favorite_cubit.dart';
@@ -63,20 +65,39 @@ class _CategoryProductsState extends State<CategoryProducts> {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const FavoriteScreen(),
+          Row(
+            children: [
+              IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const FavoriteScreen(),
+                    ),
+                  );
+                },
+                icon: Icon(
+                  Icons.favorite_border_outlined,
+                  size: 30.h,
+                  color: Colors.black,
                 ),
-              );
-            },
-            icon: Icon(
-              Icons.favorite_border_outlined,
-              size: 30.h,
-              color: Colors.black,
-            ),
+              ),
+              IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const CartScreen(),
+                    ),
+                  );
+                },
+                icon: Icon(
+                  Icons.shopping_bag_outlined,
+                  size: 30.h,
+                  color: Colors.black,
+                ),
+              ),
+            ],
           ),
         ],
         title: const Text('Category Products'),
