@@ -22,7 +22,9 @@ void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(ProductModelAdapter());
   await Hive.openBox<ProductModel>('favoritesBox');
+/*
   await Hive.openBox<ProductModel>('cartBox');
+*/
 
   runApp(
     EasyLocalization(

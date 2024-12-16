@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../core/helpers/spacing.dart';
 import '../../core/theming/colors.dart';
+import '../card/cubit/cart_cubit.dart';
 import '../login/login_screen.dart';
 import '../search/filter_search_screen.dart';
 import '../stores/cubit/favorite_cubit.dart';
@@ -45,6 +46,12 @@ class _HomeScreenState extends State<HomeScreen> {
         _selectedCategories = List<String>.from(result['categories']);
       });
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<CartCubit>().loadCartFromLocal();
   }
 
   @override

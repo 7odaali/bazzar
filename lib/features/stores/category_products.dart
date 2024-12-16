@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../card/cart_screen.dart';
+import '../card/cubit/cart_cubit.dart';
 import '../search/filter_search_screen.dart';
 import 'Favorite_screen.dart';
 import 'cubit/favorite_cubit.dart';
@@ -41,6 +42,8 @@ class _CategoryProductsState extends State<CategoryProducts> {
         .collection('detailscategory')
         .doc(widget.detailsCategoryId)
         .collection('products');
+    context.read<CartCubit>().loadCartFromLocal();
+
   }
 
   void _applyFilter() async {

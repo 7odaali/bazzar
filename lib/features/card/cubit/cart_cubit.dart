@@ -1,3 +1,4 @@
+/*
 import 'package:bloc/bloc.dart';
 import 'package:hive/hive.dart';
 import '../../../product_model.dart';
@@ -46,6 +47,44 @@ class CartCubit extends Cubit<List<Map<String, dynamic>>> {
       }
 
       emit(updatedCart);
+    }
+  }
+}
+*/
+import 'dart:convert';
+
+import 'package:bloc/bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+class CartCubit extends Cubit<List<Map<String, dynamic>>> {
+  CartCubit() : super([]);
+
+  Future<void> addToCart(Map<String, dynamic> product) async {
+    final cartItems = List<Map<String, dynamic>>.from(state);
+    cartItems.add(product);
+    emit(cartItems);
+    await saveCartToLocal(cartItems);
+  }
+
+  Future<void> removeProduct(Map<String, dynamic> product) async {
+    final cartItems = List<Map<String, dynamic>>.from(state);
+    cartItems.remove(product);
+    emit(cartItems);
+    await saveCartToLocal(cartItems);
+  }
+
+  Future<void> saveCartToLocal(List<Map<String, dynamic>> cartItems) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('cart', jsonEncode(cartItems));
+  }
+
+  Future<void> loadCartFromLocal() async {
+    final prefs = await SharedPreferences.getInstance();
+    final cartData = prefs.getString('cart');
+    if (cartData != null) {
+      final cartItems = List<Map<String, dynamic>>.from(
+          jsonDecode(cartData).map((item) => item as Map<String, dynamic>));
+      emit(cartItems);
     }
   }
 }

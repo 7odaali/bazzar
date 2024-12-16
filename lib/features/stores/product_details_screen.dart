@@ -1,22 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../../core/helpers/spacing.dart';
-import '../card/cart_screen.dart';
 import '../card/cubit/cart_cubit.dart';
 import '../stores/cubit/favorite_cubit.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
   final Map<String, dynamic> productDetails;
 
-  const ProductDetailsScreen({
-    super.key,
-    required this.productDetails,
-  });
+  const ProductDetailsScreen({super.key, required this.productDetails});
 
   @override
-  State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
+  _ProductDetailsScreenState createState() => _ProductDetailsScreenState();
 }
 
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
@@ -29,22 +24,11 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   }
 
   Future<void> _loadQuantity() async {
-    _quantity = await getQuantity();
+    final cartItems = context.read<CartCubit>().state;
+    _quantity = cartItems
+        .where((product) => product['name'] == widget.productDetails['name'])
+        .length;
     setState(() {});
-  }
-
-  void _saveQuantity() async {
-    await saveQuantity(_quantity);
-  }
-
-  Future<void> saveQuantity(int quantity) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setInt('quantity', quantity);
-  }
-
-  Future<int> getQuantity() async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getInt('quantity') ?? 0;
   }
 
   @override
@@ -61,29 +45,11 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
       appBar: AppBar(
         title: Text(product['name'] ?? 'Product Details'),
         centerTitle: true,
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const CartScreen(),
-                ),
-              );
-            },
-            icon: Icon(
-              Icons.shopping_bag_outlined,
-              size: 30.h,
-              color: Colors.black,
-            ),
-          ),
-        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(16.w),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Center(
                 child: Stack(
@@ -140,12 +106,17 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 ),
               ),
               SizedBox(height: 16.h),
-              Text(
-                product['name'] ?? 'Product Name',
-                style: TextStyle(
-                  fontSize: 20.sp,
-                  fontWeight: FontWeight.bold,
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    product['name'] ?? 'Product Name',
+                    style: TextStyle(
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
               ),
               SizedBox(height: 8.h),
               Row(
@@ -171,12 +142,17 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               ),
               verticalSpace(12),
               if (secImages.isNotEmpty) ...[
-                Text(
-                  "Additional Images",
-                  style: TextStyle(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.bold,
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Additional Images",
+                      style: TextStyle(
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
                 ),
                 verticalSpace(8),
                 SizedBox(
@@ -211,12 +187,17 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 ),
               ],
               verticalSpace(12),
-              Text(
-                "Description",
-                style: TextStyle(
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.bold,
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    "Description",
+                    style: TextStyle(
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
               ),
               verticalSpace(8),
               Text(
@@ -240,84 +221,27 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       context.read<CartCubit>().addToCart({
                         'name': product['name'],
                         'price': product['price'],
-                        'oldprice': product['oldprice'],
                         'image': product['image'],
                         'description': product['description'],
-                        'secimages': product['secimages'],
-                        'quantity': _quantity,
                       });
-                      _saveQuantity();
                     },
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 10.h),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              IconButton(
-                                onPressed: () {
-                                  setState(
-                                    () {
-                                      if (_quantity > 0) {
-                                        _quantity--;
-                                        context
-                                            .read<CartCubit>()
-                                            .removeProduct(product);
-                                      }
-                                    },
-                                  );
-                                  _saveQuantity();
-                                },
-                                icon: Icon(
-                                  Icons.remove,
-                                  size: 30.h,
-                                ),
-                              ),
-                              Text(
-                                "$_quantity",
-                                style: TextStyle(
-                                  fontSize: 20.sp,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              IconButton(
-                                onPressed: () {
-                                  setState(() {
-                                    _quantity++;
-                                    context.read<CartCubit>().addToCart({
-                                      'name': product['name'],
-                                      'price': product['price'],
-                                      'oldprice': product['oldprice'],
-                                      'image': product['image'],
-                                      'description': product['description'],
-                                      'secimages': product['secimages'],
-                                      'quantity': _quantity,
-                                    });
-                                  });
-                                  _saveQuantity();
-                                },
-                                icon: Icon(
-                                  Icons.add,
-                                  size: 30.h,
-                                ),
-                              ),
-                            ],
-                          ),
-                          Text(
-                            "Add to Cart",
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            Text("Number in cart : $_quantity",
+                                style: TextStyle(fontSize: 15.sp)),
+                          ],
+                        ),
+                        Text("Add to Cart",
                             style: TextStyle(
-                              fontSize: 18.w,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
+                                fontSize: 18.w, fontWeight: FontWeight.bold)),
+                      ],
                     ),
                   ),
                 ),
               ),
-              verticalSpace(30),
             ],
           ),
         ),

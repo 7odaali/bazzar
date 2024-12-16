@@ -16,16 +16,34 @@ class _CartScreenState extends State<CartScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Your Cart"),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text("My Cart"),
+            SizedBox(
+              width: 20.w,
+            ),
+            const Icon(Icons.shopping_cart),
+          ],
+        ),
         centerTitle: true,
       ),
       body: BlocBuilder<CartCubit, List<Map<String, dynamic>>>(
         builder: (context, cartItems) {
           if (cartItems.isEmpty) {
-            return const Center(
-                child: Text(
-              "No items in the cart...",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            return  Center(
+                child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.shopping_cart,
+                  size: 50.w,
+                ),
+                const Text(
+                  "No items in the cart...",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                ),
+              ],
             ));
           }
 
@@ -52,7 +70,7 @@ class _CartScreenState extends State<CartScreen> {
                         ),
                       ],
                     );
-                   },
+                  },
                 ),
                 SizedBox(height: 10.h),
                 SizedBox(
@@ -159,7 +177,7 @@ class _CartScreenState extends State<CartScreen> {
                                   children: [
                                     Text(
                                       product['name'],
-                                       style: TextStyle(
+                                      style: TextStyle(
                                         fontSize: 16.sp,
                                         fontWeight: FontWeight.w600,
                                       ),
