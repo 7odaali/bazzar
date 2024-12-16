@@ -4,9 +4,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../stores/product_details_screen.dart';
 import 'cubit/cart_cubit.dart';
 
-class CartScreen extends StatelessWidget {
+class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
 
+  @override
+  State<CartScreen> createState() => _CartScreenState();
+}
+
+class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -92,16 +97,24 @@ class CartScreen extends StatelessWidget {
                               ),
                             ),
                             Positioned(
-                              bottom: 0,
-                              right: 0,
-                              child: IconButton(
-                                icon:
-                                    const Icon(Icons.delete, color: Colors.red),
-                                onPressed: () {
-                                  context
-                                      .read<CartCubit>()
-                                      .removeProduct(product);
-                                },
+                              top: 0,
+                              left: 0,
+                              child: Container(
+                                height: 40.h,width: 40.w,
+                                decoration: BoxDecoration(
+                                color: Colors.black.withOpacity(.5),borderRadius: BorderRadius.circular(100.w)
+                              ),
+                                child: Center(
+                                  child: IconButton(
+                                    icon:
+                                         Icon(Icons.remove,size: 25.w, color: Colors.red),
+                                    onPressed: () {
+                                      context
+                                          .read<CartCubit>()
+                                          .removeProduct(product);
+                                    },
+                                  ),
+                                ),
                               ),
                             )
                           ],
