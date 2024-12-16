@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:hive/hive.dart';
-
 import '../../../product_model.dart';
 
 class CartCubit extends Cubit<List<Map<String, dynamic>>> {
@@ -16,24 +15,6 @@ class CartCubit extends Cubit<List<Map<String, dynamic>>> {
     emit(loadedCard);
   }
 
-  /*void updateCart(Map<String, dynamic> product) async {
-    final updatedCart= List<Map<String, dynamic>>.from(state);
-
-    bool productExists =
-    updatedCart.any((item) => item['name'] == product['name']);
-
-    if (productExists) {
-      updatedCart.add(product);
-      final productModel = ProductModel.fromJson(product);
-      await _cartBox.put(product['name'], productModel);
-    } else {
-      updatedCart.add(product);
-      final productModel = ProductModel.fromJson(product);
-      await _cartBox.put(product['name'], productModel);
-    }
-
-    emit(updatedCart);
-  }*/
   void addToCart(Map<String, dynamic> product) async {
     final addToCart = List<Map<String, dynamic>>.from(state);
 
@@ -45,14 +26,6 @@ class CartCubit extends Cubit<List<Map<String, dynamic>>> {
     emit(addToCart);
   }
 
-/*
-  void removeProduct(Map<String, dynamic> product) async {
-    final updatedCart = List<Map<String, dynamic>>.from(state);
-    updatedCart.removeWhere((item) => item['name'] == product['name']);
-    emit(updatedCart);
-    await _cartBox.delete(product['name']);
-  }
-*/
   void removeProduct(Map<String, dynamic> product) async {
     final updatedCart = List<Map<String, dynamic>>.from(state);
 
