@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import '../../features/card/cart_screen.dart';
 import '../../features/home/home_screen.dart';
 import '../../features/stores/store_screen.dart';
 
@@ -17,12 +17,7 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
   final List<Widget> _screens = [
     const HomeScreen(),
     const StoreScreen(),
-    const Center(
-      child: Text(
-        'Search Screen',
-
-      ),
-    ),
+    const CartScreen(),
     const Center(
         child: Text('My Account Screen', )),
     const Center(child: Text('Menu Screen', )),
@@ -53,8 +48,8 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
             label: 'Stores',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Search',
+            icon: Icon(Icons.shopping_bag_outlined),
+            label: 'Cart',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.account_circle),

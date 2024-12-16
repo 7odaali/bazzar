@@ -210,6 +210,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../core/helpers/spacing.dart';
+import '../card/cubit/cart_cubit.dart';
 import '../stores/cubit/favorite_cubit.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
@@ -388,22 +389,34 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 ),
               ),
               verticalSpace(30),
-              ClipRRect(borderRadius: BorderRadius.circular(10.w),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(10.w),
                 child: SizedBox(
-                    height: 45.h,
-                    width: 1000.w,
-                    child: MaterialButton(
-                      color: Colors.yellow,
-                      onPressed: () {},
-                      child: Text(
-                        "Add to Cart",
-                        style: TextStyle(
-                            fontSize: 18.w, fontWeight: FontWeight.bold),
+                  height: 45.h,
+                  width: 1000.w,
+                  child: MaterialButton(
+                    color: Colors.yellow,
+                    onPressed: () {
+                      context.read<CartCubit>().updateCart({
+                        'name': product['name'],
+                        'price': product['price'],
+                        'oldprice': product['oldprice'],
+                        'image': product['image'],
+                        'description': product['description'],
+                        'secimages': product['secimages'],
+                      });
+                    },
+                    child: Text(
+                      "Add to Cart",
+                      style: TextStyle(
+                        fontSize: 18.w,
+                        fontWeight: FontWeight.bold,
                       ),
-                    )),
+                    ),
+                  ),
+                ),
               ),
               verticalSpace(30),
-
             ],
           ),
         ),

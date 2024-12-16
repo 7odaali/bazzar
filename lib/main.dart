@@ -7,8 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-
 import 'core/widgets/custom_bottom_navigation_bar.dart';
+import 'features/card/cubit/cart_cubit.dart';
 import 'features/stores/cubit/favorite_cubit.dart';
 import 'firebase_options.dart';
 import 'product_model.dart';
@@ -22,6 +22,7 @@ void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(ProductModelAdapter());
   await Hive.openBox<ProductModel>('favoritesBox');
+  await Hive.openBox<ProductModel>('cartBox');
 
   runApp(
     EasyLocalization(
@@ -46,6 +47,7 @@ class MyApp extends StatelessWidget {
         return MultiBlocProvider(
           providers: [
             BlocProvider<FavoritesCubit>(create: (_) => FavoritesCubit()),
+            BlocProvider<CartCubit>(create: (_) => CartCubit()),
           ],
           child: MaterialApp(
             localizationsDelegates: context.localizationDelegates,
