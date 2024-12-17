@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../core/helpers/spacing.dart';
-import '../card/cubit/cart_cubit.dart';
+import '../cart/cubit/cart_cubit.dart';
 import '../stores/cubit/favorite_cubit.dart';
 
 class ProductDetailsScreen extends StatefulWidget {

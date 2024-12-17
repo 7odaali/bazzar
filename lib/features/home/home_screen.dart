@@ -1,4 +1,3 @@
-import 'package:bazzar/features/card/cart_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,7 +5,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../core/helpers/spacing.dart';
 import '../../core/theming/colors.dart';
-import '../card/cubit/cart_cubit.dart';
+import '../cart/cart_screen.dart';
+import '../cart/cubit/cart_cubit.dart';
 import '../login/login_screen.dart';
 import '../search/filter_search_screen.dart';
 import '../stores/cubit/favorite_cubit.dart';

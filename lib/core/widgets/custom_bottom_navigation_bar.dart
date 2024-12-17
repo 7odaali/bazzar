@@ -68,7 +68,7 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
 */
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../features/card/cart_screen.dart';
+import '../../features/cart/cart_screen.dart';
 import '../../features/home/home_screen.dart';
 import '../../features/myaccount/my_account_screen.dart';
 import '../../features/stores/store_screen.dart';

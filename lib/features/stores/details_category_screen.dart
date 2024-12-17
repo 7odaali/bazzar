@@ -3,7 +3,7 @@ import 'package:bazzar/features/stores/category_products.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../card/cart_screen.dart';
+import '../cart/cart_screen.dart';
 import 'Favorite_screen.dart';
 
 class DetailsCategoryScreen extends StatefulWidget {
