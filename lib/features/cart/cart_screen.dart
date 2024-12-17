@@ -1,3 +1,4 @@
+import 'package:bazzar/core/theming/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -31,7 +32,7 @@ class _CartScreenState extends State<CartScreen> {
       body: BlocBuilder<CartCubit, List<Map<String, dynamic>>>(
         builder: (context, cartItems) {
           if (cartItems.isEmpty) {
-            return  Center(
+            return Center(
                 child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -66,7 +67,7 @@ class _CartScreenState extends State<CartScreen> {
                           style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 18,
-                              color: Colors.green),
+                              color: ColorsManager.darkBlue),
                         ),
                       ],
                     );
@@ -74,7 +75,7 @@ class _CartScreenState extends State<CartScreen> {
                 ),
                 SizedBox(height: 10.h),
                 SizedBox(
-                  height: 800.h,
+                  height: 650.h,
                   child: GridView.builder(
                     padding: const EdgeInsets.all(8.0),
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -198,6 +199,35 @@ class _CartScreenState extends State<CartScreen> {
                         ),
                       );
                     },
+                  ),
+                ),
+                Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
+                  child: MaterialButton(
+                    minWidth: 1000.w,
+                    height: 50.h,
+                    onPressed: () {
+                      context.read<CartCubit>().createOrder();
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Order created successfully...'),
+                          backgroundColor: Colors.green,
+                        ),
+                      );
+                    },
+                    color: Colors.yellow,
+                    textColor: ColorsManager.darkBlue,
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0.w),
+                    ),
+                    child: Text(
+                      'Create Order',
+                      style: TextStyle(
+                          fontSize: 19.w, fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ),
               ],

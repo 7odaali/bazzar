@@ -1,59 +1,6 @@
-/*
-import 'package:bloc/bloc.dart';
-import 'package:hive/hive.dart';
-import '../../../product_model.dart';
-
-class CartCubit extends Cubit<List<Map<String, dynamic>>> {
-  CartCubit() : super([]) {
-    _loadCart();
-  }
-
-  final Box<ProductModel> _cartBox = Hive.box<ProductModel>('cartBox');
-
-  Future<void> _loadCart() async {
-    final List<Map<String, dynamic>> loadedCard =
-        _cartBox.values.map((product) => product.toJson()).toList();
-    emit(loadedCard);
-  }
-
-  void addToCart(Map<String, dynamic> product) async {
-    final addToCart = List<Map<String, dynamic>>.from(state);
-
-    addToCart.add(product);
-
-    final productModel = ProductModel.fromJson(product);
-    await _cartBox.put(product['name'], productModel);
-
-    emit(addToCart);
-  }
-
-  void removeProduct(Map<String, dynamic> product) async {
-    final updatedCart = List<Map<String, dynamic>>.from(state);
-
-    final productIndex =
-        updatedCart.indexWhere((item) => item['name'] == product['name']);
-
-    if (productIndex != -1) {
-      int quantity = updatedCart[productIndex]['quantity'] ?? 1;
-
-      if (quantity > 1) {
-        updatedCart[productIndex]['quantity'] = quantity - 1;
-
-        final productModel = ProductModel.fromJson(updatedCart[productIndex]);
-        await _cartBox.put(product['name'], productModel);
-      } else {
-        updatedCart.removeAt(productIndex);
-        await _cartBox.delete(product['name']);
-      }
-
-      emit(updatedCart);
-    }
-  }
-}
-*/
 import 'dart:convert';
-
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CartCubit extends Cubit<List<Map<String, dynamic>>> {
@@ -85,6 +32,30 @@ class CartCubit extends Cubit<List<Map<String, dynamic>>> {
       final cartItems = List<Map<String, dynamic>>.from(
           jsonDecode(cartData).map((item) => item as Map<String, dynamic>));
       emit(cartItems);
+    }
+  }
+
+  Future<void> createOrder() async {
+    if (state.isEmpty) return;
+
+    final orderData = {
+      'items': state,
+      'total_price': state.fold<double>(
+          0.0,
+          (sum, item) =>
+              sum + (double.tryParse(item['price'].toString()) ?? 0.0)),
+      'created_at': FieldValue.serverTimestamp(),
+    };
+
+    try {
+      final docRef =
+          await FirebaseFirestore.instance.collection('orders').add(orderData);
+      await docRef.update({'order_id': docRef.id});
+
+      emit([]);
+      await saveCartToLocal([]);
+    } catch (e) {
+      print("Error saving order: $e");
     }
   }
 }
