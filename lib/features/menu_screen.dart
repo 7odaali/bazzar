@@ -19,133 +19,145 @@ class _MenuScreenState extends State<MenuScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFFAFAFA),
-      body: Column(
-        children: [
-          Container(
-            height: 130.h,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(30.w),
-                bottomRight: Radius.circular(30.w),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              height: 130.h,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(30.w),
+                  bottomRight: Radius.circular(30.w),
+                ),
+                color: ColorsManager.darkBlue,
               ),
-              color: ColorsManager.darkBlue,
-            ),
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  SizedBox(
-                    height: 50.h,
-                    width: 50.w,
-                    child: Image.asset(
-                      "assets/Logo.png",
-                      fit: BoxFit.contain,
-                    ),
-                  ),
-                  verticalSpace(20),
-                ],
-              ),
-            ),
-          ),
-          verticalSpace(20),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.0.w),
-            child: Column(
-              children: [
-                Row(
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text(
-                      "Menu",
-                      style: TextStyle(
-                          color: ColorsManager.darkBlue,
-                          fontSize: 19.w,
-                          fontWeight: FontWeight.bold),
-                    )
+                    SizedBox(
+                      height: 50.h,
+                      width: 50.w,
+                      child: Image.asset(
+                        "assets/Logo.png",
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                    verticalSpace(20),
                   ],
                 ),
-                verticalSpace(10),
-                _menuItem(
-                    title: "Language",
-                    icon: Icons.language,
-                    trailing: Icon(
-                      Icons.arrow_forward_ios,
-                      size: 16.w,
-                      color: Colors.black54,
-                    )),
-                _menuItem(
-                    title: "Notification",
-                    icon: Icons.notifications,
-                    trailing: Icon(
-                      Icons.arrow_forward_ios,
-                      size: 16.w,
-                      color: Colors.black54,
-                    )),
-                _menuItem(
-                    title: "Wishlist",
-                    icon: Icons.favorite,
-                    trailing: Icon(
-                      Icons.arrow_forward_ios,
-                      size: 16.w,
-                      color: Colors.black54,
-                    ),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const FavoriteScreen(),
-                        ),
-                      );
-                    }),
-                _menuItem(
-                    title: "Change Country",
-                    icon: Icons.public,
-                    trailing: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(
-                          Icons.arrow_forward_ios,
-                          size: 16.w,
-                          color: Colors.black54,
-                        ),
-                      ],
-                    )),
-                _menuItem(
-                    title: "Offers",
-                    icon: Icons.local_offer,
-                    trailing: Icon(
-                      Icons.arrow_forward_ios,
-                      size: 16.w,
-                      color: Colors.black54,
-                    )),
-                _menuItem(
-                    title: "Join us",
-                    icon: Icons.person_add,
-                    trailing: Icon(
-                      Icons.arrow_forward_ios,
-                      size: 16.w,
-                      color: Colors.black54,
-                    )),
-                _menuItem(
-                    title: "Info",
-                    icon: Icons.info,
-                    trailing: Icon(
-                      Icons.arrow_forward_ios,
-                      size: 16.w,
-                      color: Colors.black54,
-                    )),
-                _menuItem(
+              ),
+            ),
+            verticalSpace(20),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.0.w),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        "Menu",
+                        style: TextStyle(
+                            color: ColorsManager.darkBlue,
+                            fontSize: 19.w,
+                            fontWeight: FontWeight.bold),
+                      )
+                    ],
+                  ),
+                  verticalSpace(10),
+                  _menuItem(
+                      title: "Language",
+                      icon: Icons.language,
+                      trailing: Icon(
+                        Icons.arrow_forward_ios,
+                        size: 16.w,
+                        color: Colors.black54,
+                      )),
+                  _menuItem(
+                      title: "Notification",
+                      icon: Icons.notifications,
+                      trailing: Icon(
+                        Icons.arrow_forward_ios,
+                        size: 16.w,
+                        color: Colors.black54,
+                      )),
+                  _menuItem(
+                      title: "Wishlist",
+                      icon: Icons.favorite,
+                      trailing: Icon(
+                        Icons.arrow_forward_ios,
+                        size: 16.w,
+                        color: Colors.black54,
+                      ),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const FavoriteScreen(),
+                          ),
+                        );
+                      }),
+                  _menuItem(
+                      title: "Change Country",
+                      icon: Icons.public,
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            Icons.arrow_forward_ios,
+                            size: 16.w,
+                            color: Colors.black54,
+                          ),
+                        ],
+                      )),
+                  _menuItem(
+                      title: "Offers",
+                      icon: Icons.local_offer,
+                      trailing: Icon(
+                        Icons.arrow_forward_ios,
+                        size: 16.w,
+                        color: Colors.black54,
+                      )),
+                  _menuItem(
+                      title: "Join us",
+                      icon: Icons.person_add,
+                      trailing: Icon(
+                        Icons.arrow_forward_ios,
+                        size: 16.w,
+                        color: Colors.black54,
+                      )),
+                  _menuItem(
+                      title: "Info",
+                      icon: Icons.info,
+                      trailing: Icon(
+                        Icons.arrow_forward_ios,
+                        size: 16.w,
+                        color: Colors.black54,
+                      )),
+                  _menuItem(
                     title: "Contact Us",
                     icon: Icons.contact_mail,
                     trailing: Icon(
                       Icons.arrow_forward_ios,
                       size: 16.w,
                       color: Colors.black54,
-                    )),
-              ],
+                    ),
+                  ),
+                  _menuItem(
+                    title: "Refer your friend",
+                    icon: Icons.share,
+                    trailing: Icon(
+                      Icons.arrow_forward_ios,
+                      size: 16.w,
+                      color: Colors.black54,
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
