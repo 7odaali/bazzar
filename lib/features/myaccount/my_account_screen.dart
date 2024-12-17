@@ -109,32 +109,99 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              Icon(
-                                Icons.person_outline_outlined,
-                                size: 20.w,
-                                color: Colors.yellow,
-                              ),
-                              horizontalSpace(10.w),
-                              Text(
-                                "Edit Profile",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15.w),
-                              )
-                            ],
-                          ),
-                          Icon(
-                            Icons.arrow_forward_ios,
-                            size: 16.w,
-                            color: Colors.grey,
-                          ),
-                        ],
+                      GestureDetector(
+                        onTap: () {
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10.w),
+                                  ),
+                                  title:  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text("Login First",style: TextStyle(
+                                        color: const Color(0xFF041A31),
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 17.w,
+                                      ),),
+                                    ],
+                                  ),
+                                  content: SizedBox(height: 80.h,
+                                    child: const Center(
+                                      child: Text(
+                                          "You need to login / sign up first to View your account!"),
+                                    ),
+                                  ),
+                                  actions: [
+                                    Row(mainAxisAlignment:MainAxisAlignment.spaceAround,
+                                      children: [
+                                        SizedBox(height:50.h,
+                                          child: MaterialButton(minWidth: 130.w,
+                                            color: const Color(0xFF041A31),
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                            ),
+                                            onPressed: () {},
+                                            child: const Text(
+                                              "Signup",
+                                              style: TextStyle(
+                                                color: Colors.yellow,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(height:50.h,
+                                          child: MaterialButton(minWidth: 130.w,
+                                            color: Colors.yellow,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                            ),
+                                            onPressed: () {},
+                                            child: const Text(
+                                              "Login",
+                                              style: TextStyle(
+                                                color: Color(0xFF041A31),
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    )
+                                  ],
+                                );
+                              });
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.person_outline_outlined,
+                                  size: 20.w,
+                                  color: Colors.yellow,
+                                ),
+                                horizontalSpace(10.w),
+                                Text(
+                                  "Edit Profile",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15.w),
+                                )
+                              ],
+                            ),
+                            Icon(
+                              Icons.arrow_forward_ios,
+                              size: 16.w,
+                              color: Colors.grey,
+                            ),
+                          ],
+                        ),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -216,33 +283,159 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                           ),
                         ],
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              Icon(
-                                Icons.point_of_sale,
-                                size: 20.w,
-                                color: Colors.yellow,
-                              ),
-                              horizontalSpace(10.w),
-                              Text(
-                                "My Points",
-                                style: TextStyle(
+                      GestureDetector(
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.w),
+                                ),
+                                title: Column(
+                                  children: [
+                                    verticalSpace(20),
+                                    Text(
+                                      "Bazzar Points",
+                                      style: TextStyle(
+                                        color: const Color(0xFF041A31),
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 17.w,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                content: SizedBox(
+                                  width: 250.w,
+                                  height: 160.h,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Icon(
+                                            Icons.arrow_forward,
+                                            size: 14.w,
+                                            color: Colors.grey,
+                                          ),
+                                          horizontalSpace(5.w),
+                                          const Expanded(
+                                            child: Text(
+                                              "For each 10 KWD you spend you will gain 1 PT",
+                                              style:
+                                                  TextStyle(color: Colors.grey),
+                                              softWrap: true,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      verticalSpace(10),
+                                      Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Icon(
+                                            Icons.arrow_forward,
+                                            size: 14.w,
+                                            color: Colors.grey,
+                                          ),
+                                          horizontalSpace(5.w),
+                                          const Expanded(
+                                            child: Text(
+                                              "For redeeming 10 PT = 1 KWD",
+                                              style:
+                                                  TextStyle(color: Colors.grey),
+                                              softWrap: true,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      verticalSpace(10),
+                                      Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Icon(
+                                            Icons.arrow_forward,
+                                            size: 14.w,
+                                            color: Colors.grey,
+                                          ),
+                                          horizontalSpace(5.w),
+                                          const Expanded(
+                                            child: Text(
+                                              "Bazzar Points are available for Kuwait ONLY.",
+                                              style:
+                                                  TextStyle(color: Colors.grey),
+                                              softWrap: true,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      verticalSpace(10),
+                                    ],
+                                  ),
+                                ),
+                                actions: [
+                                  Center(
+                                    child: TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      style: TextButton.styleFrom(
+                                        backgroundColor: Colors.yellow,
+                                        padding: EdgeInsets.symmetric(
+                                          horizontal: 30.w,
+                                          vertical: 10.h,
+                                        ),
+                                      ),
+                                      child: Text(
+                                        "OK",
+                                        style: TextStyle(
+                                          color: const Color(0xFF041A31),
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16.w,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.point_of_sale,
+                                  size: 20.w,
+                                  color: Colors.yellow,
+                                ),
+                                horizontalSpace(10.w),
+                                Text(
+                                  "My Points",
+                                  style: TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 15.w),
-                              )
-                            ],
-                          ),
-                          const Text(
-                            "111",
-                            style: TextStyle(
+                                    fontSize: 15.w,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const Text(
+                              "111",
+                              style: TextStyle(
                                 color: Colors.yellow,
-                                fontWeight: FontWeight.bold),
-                          )
-                        ],
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
