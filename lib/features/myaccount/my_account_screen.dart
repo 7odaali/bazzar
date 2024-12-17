@@ -236,11 +236,12 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                               )
                             ],
                           ),
-                          Icon(
-                            Icons.arrow_forward_ios,
-                            size: 16.w,
-                            color: Colors.grey,
-                          ),
+                          const Text(
+                            "111",
+                            style: TextStyle(
+                                color: Colors.yellow,
+                                fontWeight: FontWeight.bold),
+                          )
                         ],
                       ),
                       Row(
@@ -289,11 +290,6 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                                     fontSize: 15.w),
                               )
                             ],
-                          ),
-                          Icon(
-                            Icons.arrow_forward_ios,
-                            size: 16.w,
-                            color: Colors.grey,
                           ),
                         ],
                       ),
