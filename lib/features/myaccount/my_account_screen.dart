@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../core/theming/colors.dart';
 import '../cart/cart_screen.dart';
+import '../request/my_requests_screen.dart';
 
 class MyAccountScreen extends StatefulWidget {
   const MyAccountScreen({super.key});
@@ -118,27 +119,35 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10.w),
                                   ),
-                                  title:  Row(
+                                  title: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Text("Login First",style: TextStyle(
-                                        color: const Color(0xFF041A31),
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 17.w,
-                                      ),),
+                                      Text(
+                                        "Login First",
+                                        style: TextStyle(
+                                          color: const Color(0xFF041A31),
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 17.w,
+                                        ),
+                                      ),
                                     ],
                                   ),
-                                  content: SizedBox(height: 80.h,
+                                  content: SizedBox(
+                                    height: 80.h,
                                     child: const Center(
                                       child: Text(
                                           "You need to login / sign up first to View your account!"),
                                     ),
                                   ),
                                   actions: [
-                                    Row(mainAxisAlignment:MainAxisAlignment.spaceAround,
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
                                       children: [
-                                        SizedBox(height:50.h,
-                                          child: MaterialButton(minWidth: 130.w,
+                                        SizedBox(
+                                          height: 50.h,
+                                          child: MaterialButton(
+                                            minWidth: 130.w,
                                             color: const Color(0xFF041A31),
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
@@ -153,8 +162,10 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                                             ),
                                           ),
                                         ),
-                                        SizedBox(height:50.h,
-                                          child: MaterialButton(minWidth: 130.w,
+                                        SizedBox(
+                                          height: 50.h,
+                                          child: MaterialButton(
+                                            minWidth: 130.w,
                                             color: Colors.yellow,
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
@@ -256,32 +267,42 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                           ),
                         ],
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              Icon(
-                                Icons.laptop_sharp,
-                                size: 20.w,
-                                color: Colors.yellow,
-                              ),
-                              horizontalSpace(10.w),
-                              Text(
-                                "My Requests",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15.w),
-                              )
-                            ],
-                          ),
-                          Icon(
-                            Icons.arrow_forward_ios,
-                            size: 16.w,
-                            color: Colors.grey,
-                          ),
-                        ],
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const MyRequestsScreen(),
+                            ),
+                          );
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.laptop_sharp,
+                                  size: 20.w,
+                                  color: Colors.yellow,
+                                ),
+                                horizontalSpace(10.w),
+                                Text(
+                                  "My Requests",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15.w),
+                                )
+                              ],
+                            ),
+                            Icon(
+                              Icons.arrow_forward_ios,
+                              size: 16.w,
+                              color: Colors.grey,
+                            ),
+                          ],
+                        ),
                       ),
                       GestureDetector(
                         onTap: () {
