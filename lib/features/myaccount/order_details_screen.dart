@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../core/helpers/spacing.dart';
 import '../../core/theming/colors.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class OrderDetailsScreen extends StatefulWidget {
-  const OrderDetailsScreen({super.key});
+  final Map<String, dynamic> orderData;
+
+  const OrderDetailsScreen({super.key, required this.orderData});
 
   @override
   State<OrderDetailsScreen> createState() => _OrderDetailsScreenState();
@@ -13,6 +16,8 @@ class OrderDetailsScreen extends StatefulWidget {
 class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
   @override
   Widget build(BuildContext context) {
+    final data = widget.orderData;
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -63,9 +68,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
             ),
             verticalSpace(30),
             Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: 15.0.w,
-              ),
+              padding: EdgeInsets.symmetric(horizontal: 15.0.w),
               child: Column(
                 children: [
                   Row(
@@ -88,7 +91,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                     color: Colors.white,
                     elevation: 2,
                     child: SizedBox(
-                      height: 400.h,
+                      height: 330.h,
                       child: Padding(
                         padding: EdgeInsets.symmetric(
                             horizontal: 20.0.w, vertical: 8.h),
@@ -167,7 +170,10 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                                       fontSize: 16.w),
                                 ),
                                 Text(
-                                  "22/09/2020",
+                                  (data['created_at'] as Timestamp)
+                                      .toDate()
+                                      .toString()
+                                      .split(' ')[0],
                                   style: TextStyle(
                                       color: ColorsManager.darkBlue
                                           .withOpacity(0.6),
@@ -188,7 +194,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                                       fontSize: 16.w),
                                 ),
                                 Text(
-                                  "#BZR2345522",
+                                  data['order_id'] ?? "",
                                   style: TextStyle(
                                       color: ColorsManager.darkBlue
                                           .withOpacity(0.6),
@@ -202,7 +208,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  "Transcation Id",
+                                  "Products Total",
                                   style: TextStyle(
                                       color: ColorsManager.darkBlue
                                           .withOpacity(0.6),
@@ -210,60 +216,15 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                                       fontSize: 16.w),
                                 ),
                                 Text(
-                                  "2244554433223134",
+                                  "\$${data['total_price']}",
                                   style: TextStyle(
-                                      color: ColorsManager.darkBlue
-                                          .withOpacity(0.6),
+                                      color: ColorsManager.darkBlue,
                                       fontWeight: FontWeight.bold,
                                       fontSize: 16.w),
                                 ),
                               ],
                             ),
                             verticalSpace(8),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Payment Id",
-                                  style: TextStyle(
-                                      color: ColorsManager.darkBlue
-                                          .withOpacity(0.6),
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16.w),
-                                ),
-                                Text(
-                                  "2254433223134",
-                                  style: TextStyle(
-                                      color: ColorsManager.darkBlue
-                                          .withOpacity(0.6),
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16.w),
-                                ),
-                              ],
-                            ),
-                            verticalSpace(8),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Earned Points",
-                                  style: TextStyle(
-                                      color: ColorsManager.darkBlue
-                                          .withOpacity(0.6),
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16.w),
-                                ),
-                                Text(
-                                  "9",
-                                  style: TextStyle(
-                                      color: ColorsManager.darkBlue
-                                          .withOpacity(0.6),
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16.w),
-                                ),
-                              ],
-                            ),
-                            verticalSpace(18),
                           ],
                         ),
                       ),
@@ -282,26 +243,64 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                       ),
                     ],
                   ),
-                  verticalSpace(66),
-
-                  MaterialButton(
-                    minWidth: 10000.w,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(15.w),
-                      ),
-                    ),
-                    height: 55.h,
-                    color: Colors.yellow,
-                    onPressed: () {},
-                    child: Text(
-                      "Reorder",
-                      style: TextStyle(
-                          fontSize: 19.w,
-                          fontWeight: FontWeight.bold,
-                          color: ColorsManager.darkBlue),
-                    ),
+                  verticalSpace(16),
+                  Column(
+                    children: [
+                      for (var item in data['items'])
+                        Padding(
+                          padding: EdgeInsets.only(bottom: 10.h),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              item['image'] != null
+                                  ? ClipRRect(
+                                      borderRadius: BorderRadius.circular(11),
+                                      child: Image.network(
+                                        item['image'],
+                                        height: 50.h,
+                                        width: 50.w,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    )
+                                  : Icon(
+                                      Icons.error,
+                                      size: 20.w,
+                                    ),
+                              horizontalSpace(10),
+                              Expanded(
+                                child: Text(
+                                  "${item['name']} - \$${item['price']}",
+                                  style: TextStyle(
+                                      color: ColorsManager.darkBlue,
+                                      fontSize: 16.w),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      verticalSpace(20),
+                    ],
                   ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Products Total",
+                        style: TextStyle(
+                            color: ColorsManager.darkBlue.withOpacity(0.6),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16.w),
+                      ),
+                      Text(
+                        "\$${data['total_price']}",
+                        style: TextStyle(
+                            color: ColorsManager.darkBlue,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16.w),
+                      ),
+                    ],
+                  ),
+                  verticalSpace(66),
                 ],
               ),
             )

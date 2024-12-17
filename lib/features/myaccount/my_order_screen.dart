@@ -290,11 +290,16 @@ class _MyOrderScreenState extends State<MyOrderScreen> {
                                               height: 50.h,
                                               color: ColorsManager.darkBlue,
                                               onPressed: () {
-                                                Navigator.push(
+                                               /* Navigator.push(
                                                   context,
                                                   MaterialPageRoute(
                                                     builder: (context) =>
                                                         const OrderDetailsScreen(),
+                                                  ),
+                                                );*/Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) => OrderDetailsScreen(orderData: data),
                                                   ),
                                                 );
                                               },
