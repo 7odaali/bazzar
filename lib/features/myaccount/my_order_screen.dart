@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import '../../core/helpers/spacing.dart';
 import '../../core/theming/colors.dart';
+import 'order_details_screen.dart';
 
-class MyRequestsScreen extends StatefulWidget {
-  const MyRequestsScreen({super.key});
+class MyOrderScreen extends StatefulWidget {
+  const MyOrderScreen({super.key});
 
   @override
-  State<MyRequestsScreen> createState() => _MyRequestsScreenState();
+  State<MyOrderScreen> createState() => _MyOrderScreenState();
 }
 
-class _MyRequestsScreenState extends State<MyRequestsScreen> {
+class _MyOrderScreenState extends State<MyOrderScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,7 +75,7 @@ class _MyRequestsScreenState extends State<MyRequestsScreen> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(
-                        "My Requests",
+                        "My Orders",
                         style: TextStyle(
                             color: ColorsManager.darkBlue,
                             fontSize: 19.w,
@@ -103,53 +105,107 @@ class _MyRequestsScreenState extends State<MyRequestsScreen> {
                               children: [
                                 Padding(
                                   padding: EdgeInsets.symmetric(
-                                      horizontal: 20.0.w, vertical: 10.h),
-                                  child: const Row(
+                                      horizontal: 20.0.w, vertical: 8.h),
+                                  child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text("Request Date"),
-                                      Text("22/09/2020"),
+                                      Text(
+                                        "Order Date",
+                                        style: TextStyle(
+                                            color: ColorsManager.darkBlue
+                                                .withOpacity(0.6),
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16.w),
+                                      ),
+                                      Text(
+                                        "22/09/2020",
+                                        style: TextStyle(
+                                            color: ColorsManager.darkBlue
+                                                .withOpacity(0.6),
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16.w),
+                                      ),
                                     ],
                                   ),
                                 ),
                                 Padding(
                                   padding: EdgeInsets.symmetric(
-                                      horizontal: 20.0.w, vertical: 10.h),
-                                  child: const Row(
+                                      horizontal: 20.0.w, vertical: 8.h),
+                                  child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text("Request ID"),
-                                      Text("#BZR2345522"),
+                                      Text(
+                                        "Order ID",
+                                        style: TextStyle(
+                                            color: ColorsManager.darkBlue
+                                                .withOpacity(0.6),
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16.w),
+                                      ),
+                                      Text(
+                                        "#BZR2345522",
+                                        style: TextStyle(
+                                            color: ColorsManager.darkBlue
+                                                .withOpacity(0.6),
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16.w),
+                                      ),
                                     ],
                                   ),
                                 ),
                                 Padding(
                                   padding: EdgeInsets.symmetric(
-                                      horizontal: 20.0.w, vertical: 10.h),
-                                  child: const Row(
+                                      horizontal: 20.0.w, vertical: 8.h),
+                                  child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text("Items"),
-                                      Text("2"),
+                                      Text(
+                                        "Items",
+                                        style: TextStyle(
+                                            color: ColorsManager.darkBlue
+                                                .withOpacity(0.6),
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16.w),
+                                      ),
+                                      Text(
+                                        "2",
+                                        style: TextStyle(
+                                            color: ColorsManager.darkBlue
+                                                .withOpacity(0.6),
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16.w),
+                                      ),
                                     ],
                                   ),
                                 ),
                                 Padding(
                                   padding: EdgeInsets.symmetric(
-                                      horizontal: 20.0.w, vertical: 10.h),
-                                  child: const Row(
+                                      horizontal: 20.0.w, vertical: 8.h),
+                                  child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text("Products Total"),
-                                      Text("90.00 SAR"),
+                                      Text(
+                                        "Products Total",
+                                        style: TextStyle(
+                                            color: ColorsManager.darkBlue
+                                                .withOpacity(0.6),
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16.w),
+                                      ),
+                                      Text(
+                                        "92.000 KWD",
+                                        style: TextStyle(
+                                            color: ColorsManager.darkBlue,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16.w),
+                                      ),
                                     ],
                                   ),
                                 ),
-                                verticalSpace(10),
                                 Padding(
                                   padding: EdgeInsets.symmetric(
                                       horizontal: 20.0.w, vertical: 10.h),
@@ -168,7 +224,7 @@ class _MyRequestsScreenState extends State<MyRequestsScreen> {
                                         color: Colors.yellow,
                                         onPressed: () {},
                                         child: Text(
-                                          "Requested",
+                                          "Confirmed",
                                           style: TextStyle(
                                               fontSize: 18.w,
                                               fontWeight: FontWeight.bold,
@@ -176,7 +232,7 @@ class _MyRequestsScreenState extends State<MyRequestsScreen> {
                                         ),
                                       ),
                                       MaterialButton(
-                                        minWidth: 70.w,
+                                        minWidth: 50.w,
                                         shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.all(
                                             Radius.circular(15.w),
@@ -185,6 +241,29 @@ class _MyRequestsScreenState extends State<MyRequestsScreen> {
                                         height: 50.h,
                                         color: ColorsManager.darkBlue,
                                         onPressed: () {},
+                                        child: const Icon(
+                                          Icons.tag_sharp,
+                                          color: Colors.yellow,
+                                        ),
+                                      ),
+                                      MaterialButton(
+                                        minWidth: 50.w,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(15.w),
+                                          ),
+                                        ),
+                                        height: 50.h,
+                                        color: ColorsManager.darkBlue,
+                                        onPressed: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const OrderDetailsScreen(),
+                                            ),
+                                          );
+                                        },
                                         child: const Icon(
                                           Icons.arrow_forward,
                                           color: Colors.yellow,

@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../core/theming/colors.dart';
 import '../cart/cart_screen.dart';
 import '../request/my_requests_screen.dart';
+import 'my_order_screen.dart';
 
 class MyAccountScreen extends StatefulWidget {
   const MyAccountScreen({super.key});
@@ -240,32 +241,43 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                           ),
                         ],
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              Icon(
-                                Icons.square,
-                                size: 20.w,
-                                color: Colors.yellow,
-                              ),
-                              horizontalSpace(10.w),
-                              Text(
-                                "My Orders",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15.w),
-                              )
-                            ],
-                          ),
-                          Icon(
-                            Icons.arrow_forward_ios,
-                            size: 16.w,
-                            color: Colors.grey,
-                          ),
-                        ],
+                      GestureDetector(
+                        onTap: (){
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const MyOrderScreen(),
+                            ),
+                          );
+
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.square,
+                                  size: 20.w,
+                                  color: Colors.yellow,
+                                ),
+                                horizontalSpace(10.w),
+                                Text(
+                                  "My Orders",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15.w),
+                                )
+                              ],
+                            ),
+                            Icon(
+                              Icons.arrow_forward_ios,
+                              size: 16.w,
+                              color: Colors.grey,
+                            ),
+                          ],
+                        ),
                       ),
                       GestureDetector(
                         onTap: () {
