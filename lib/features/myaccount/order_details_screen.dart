@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../core/helpers/spacing.dart';
 import '../../core/theming/colors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '../cart/cubit/cart_cubit.dart';
 
 class OrderDetailsScreen extends StatefulWidget {
   final Map<String, dynamic> orderData;
@@ -146,7 +148,23 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                                   ),
                                   height: 55.h,
                                   color: Colors.yellow,
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    final orderId = data['order_id'];
+                                    if (orderId != null) {
+                                      context
+                                          .read<CartCubit>()
+                                          .deleteOrder(orderId);
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        const SnackBar(
+                                          content: Text(
+                                            'Order deleted successfully!',
+                                          ),
+                                        ),
+                                      );
+                                      Navigator.pop(context);
+                                    }
+                                  },
                                   child: Text(
                                     "Delivered",
                                     style: TextStyle(
