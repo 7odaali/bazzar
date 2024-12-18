@@ -1,3 +1,4 @@
+import 'package:bazzar/features/lang_screen.dart';
 import 'package:bazzar/features/stores/Favorite_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -67,6 +68,14 @@ class _MenuScreenState extends State<MenuScreen> {
                   ),
                   verticalSpace(10),
                   _menuItem(
+                    onTap: (){
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const LangScreen(),
+                        ),
+                      );
+                    },
                       title: "Language",
                       icon: Icons.language,
                       trailing: Icon(
