@@ -1,12 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../../core/helpers/spacing.dart';
 import '../../../core/theming/colors.dart';
 import '../../login/login_screen.dart';
 import '../../request/my_requests_screen.dart';
+import '../add_address_screen.dart';
 import '../change_password_screen.dart';
+import '../my_address_screen.dart';
 import '../my_order_screen.dart';
 import '../profile_screen.dart';
 
@@ -69,31 +70,40 @@ class _CenterAccountScreenState extends State<CenterAccountScreen> {
                   ],
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Image.asset(
-                        "assets/images/pin (1).png",
-                        scale: 1.5,
-                      ),
-                      horizontalSpace(10.w),
-                      Text(
-                        "My Address",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15.w),
-                      )
-                    ],
+              GestureDetector(onTap: (){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const MyAddressScreen(),
                   ),
-                  Icon(
-                    Icons.arrow_forward_ios,
-                    size: 16.w,
-                    color: Colors.grey,
-                  ),
-                ],
+                );
+              },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Image.asset(
+                          "assets/images/pin (1).png",
+                          scale: 1.5,
+                        ),
+                        horizontalSpace(10.w),
+                        Text(
+                          "My Address",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15.w),
+                        )
+                      ],
+                    ),
+                    Icon(
+                      Icons.arrow_forward_ios,
+                      size: 16.w,
+                      color: Colors.grey,
+                    ),
+                  ],
+                ),
               ),
               GestureDetector(
                 onTap: () {
