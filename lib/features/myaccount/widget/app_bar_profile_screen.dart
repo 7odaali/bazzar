@@ -1,17 +1,17 @@
-import 'package:bazzar/core/helpers/spacing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../core/theming/colors.dart';
-import '../../cart/cart_screen.dart';
 
-class AppBarAccountScreen extends StatefulWidget {
-  const AppBarAccountScreen({super.key});
+import '../../../core/helpers/spacing.dart';
+import '../../../core/theming/colors.dart';
+
+class AppBarProfileScreen extends StatefulWidget {
+  const AppBarProfileScreen({super.key});
 
   @override
-  State<AppBarAccountScreen> createState() => _AppBarAccountScreenState();
+  State<AppBarProfileScreen> createState() => _AppBarProfileScreenState();
 }
 
-class _AppBarAccountScreenState extends State<AppBarAccountScreen> {
+class _AppBarProfileScreenState extends State<AppBarProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -27,6 +27,12 @@ class _AppBarAccountScreenState extends State<AppBarAccountScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: const Icon(Icons.arrow_back,color: Colors.white,size: 30,),
+              ),
               SizedBox(
                 width: 50.w,
               ),
@@ -42,21 +48,7 @@ class _AppBarAccountScreenState extends State<AppBarAccountScreen> {
                   ),
                 ),
               ),
-              IconButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const CartScreen(),
-                    ),
-                  );
-                },
-                icon: Icon(
-                  Icons.shopping_bag_outlined,
-                  size: 30.h,
-                  color: Colors.white,
-                ),
-              ),
+              horizontalSpace(140)
             ],
           ),
           verticalSpace(25)

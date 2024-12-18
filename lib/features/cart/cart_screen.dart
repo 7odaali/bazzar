@@ -203,7 +203,7 @@ class _CartScreenState extends State<CartScreen> {
                 ),
                 Padding(
                   padding:
-                      EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
+                      EdgeInsets.symmetric(horizontal: 15.w, ),
                   child: MaterialButton(
                     minWidth: 1000.w,
                     height: 50.h,

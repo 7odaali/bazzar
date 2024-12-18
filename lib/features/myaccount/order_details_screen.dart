@@ -166,7 +166,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                                     }
                                   },
                                   child: Text(
-                                    "Delivered",
+                                    "Cancelled",
                                     style: TextStyle(
                                         fontSize: 19.w,
                                         fontWeight: FontWeight.bold,

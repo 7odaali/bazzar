@@ -5,6 +5,7 @@ import '../../../core/helpers/spacing.dart';
 import '../../../core/theming/colors.dart';
 import '../../request/my_requests_screen.dart';
 import '../my_order_screen.dart';
+import '../profile_screen.dart';
 
 class CenterAccountScreen extends StatefulWidget {
   const CenterAccountScreen({super.key});
@@ -24,14 +25,13 @@ class _CenterAccountScreenState extends State<CenterAccountScreen> {
             borderRadius: BorderRadius.circular(30.w)),
         height: 430.h,
         child: Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: 25.0.w, vertical: 20.h),
+          padding: EdgeInsets.symmetric(horizontal: 25.0.w, vertical: 20.h),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               GestureDetector(
                 onTap: () {
-                  showDialog(
+                  /*showDialog(
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
@@ -113,11 +113,16 @@ class _CenterAccountScreenState extends State<CenterAccountScreen> {
                             )
                           ],
                         );
-                      });
+                      });*/
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ProfileScreen(),
+                    ),
+                  );
                 },
                 child: Row(
-                  mainAxisAlignment:
-                  MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Row(
                       children: [
@@ -145,8 +150,7 @@ class _CenterAccountScreenState extends State<CenterAccountScreen> {
                 ),
               ),
               Row(
-                mainAxisAlignment:
-                MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Row(
                     children: [
@@ -176,14 +180,12 @@ class _CenterAccountScreenState extends State<CenterAccountScreen> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) =>
-                      const MyOrderScreen(),
+                      builder: (context) => const MyOrderScreen(),
                     ),
                   );
                 },
                 child: Row(
-                  mainAxisAlignment:
-                  MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Row(
                       children: [
@@ -215,14 +217,12 @@ class _CenterAccountScreenState extends State<CenterAccountScreen> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) =>
-                      const MyRequestsScreen(),
+                      builder: (context) => const MyRequestsScreen(),
                     ),
                   );
                 },
                 child: Row(
-                  mainAxisAlignment:
-                  MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Row(
                       children: [
@@ -256,8 +256,7 @@ class _CenterAccountScreenState extends State<CenterAccountScreen> {
                     builder: (BuildContext context) {
                       return AlertDialog(
                         shape: RoundedRectangleBorder(
-                          borderRadius:
-                          BorderRadius.circular(10.w),
+                          borderRadius: BorderRadius.circular(10.w),
                         ),
                         title: Column(
                           children: [
@@ -265,8 +264,7 @@ class _CenterAccountScreenState extends State<CenterAccountScreen> {
                             Text(
                               "Bazzar Points",
                               style: TextStyle(
-                                color:
-                                const Color(0xFF041A31),
+                                color: const Color(0xFF041A31),
                                 fontWeight: FontWeight.bold,
                                 fontSize: 17.w,
                               ),
@@ -277,12 +275,10 @@ class _CenterAccountScreenState extends State<CenterAccountScreen> {
                           width: 250.w,
                           height: 160.h,
                           child: Column(
-                            crossAxisAlignment:
-                            CrossAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Row(
-                                crossAxisAlignment:
-                                CrossAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Icon(
                                     Icons.arrow_forward,
@@ -293,8 +289,7 @@ class _CenterAccountScreenState extends State<CenterAccountScreen> {
                                   const Expanded(
                                     child: Text(
                                       "For each 10 KWD you spend you will gain 1 PT",
-                                      style: TextStyle(
-                                          color: Colors.grey),
+                                      style: TextStyle(color: Colors.grey),
                                       softWrap: true,
                                     ),
                                   ),
@@ -302,8 +297,7 @@ class _CenterAccountScreenState extends State<CenterAccountScreen> {
                               ),
                               verticalSpace(10),
                               Row(
-                                crossAxisAlignment:
-                                CrossAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Icon(
                                     Icons.arrow_forward,
@@ -314,8 +308,7 @@ class _CenterAccountScreenState extends State<CenterAccountScreen> {
                                   const Expanded(
                                     child: Text(
                                       "For redeeming 10 PT = 1 KWD",
-                                      style: TextStyle(
-                                          color: Colors.grey),
+                                      style: TextStyle(color: Colors.grey),
                                       softWrap: true,
                                     ),
                                   ),
@@ -323,8 +316,7 @@ class _CenterAccountScreenState extends State<CenterAccountScreen> {
                               ),
                               verticalSpace(10),
                               Row(
-                                crossAxisAlignment:
-                                CrossAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Icon(
                                     Icons.arrow_forward,
@@ -335,8 +327,7 @@ class _CenterAccountScreenState extends State<CenterAccountScreen> {
                                   const Expanded(
                                     child: Text(
                                       "Bazzar Points are available for Kuwait ONLY.",
-                                      style: TextStyle(
-                                          color: Colors.grey),
+                                      style: TextStyle(color: Colors.grey),
                                       softWrap: true,
                                     ),
                                   ),
@@ -353,8 +344,7 @@ class _CenterAccountScreenState extends State<CenterAccountScreen> {
                                 Navigator.of(context).pop();
                               },
                               style: TextButton.styleFrom(
-                                backgroundColor:
-                                Colors.yellow,
+                                backgroundColor: Colors.yellow,
                                 padding: EdgeInsets.symmetric(
                                   horizontal: 30.w,
                                   vertical: 10.h,
@@ -363,8 +353,7 @@ class _CenterAccountScreenState extends State<CenterAccountScreen> {
                               child: Text(
                                 "OK",
                                 style: TextStyle(
-                                  color:
-                                  const Color(0xFF041A31),
+                                  color: const Color(0xFF041A31),
                                   fontWeight: FontWeight.bold,
                                   fontSize: 16.w,
                                 ),
@@ -377,8 +366,7 @@ class _CenterAccountScreenState extends State<CenterAccountScreen> {
                   );
                 },
                 child: Row(
-                  mainAxisAlignment:
-                  MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Row(
                       children: [
@@ -409,8 +397,7 @@ class _CenterAccountScreenState extends State<CenterAccountScreen> {
                 ),
               ),
               Row(
-                mainAxisAlignment:
-                MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Row(
                     children: [
@@ -437,8 +424,7 @@ class _CenterAccountScreenState extends State<CenterAccountScreen> {
                 ],
               ),
               Row(
-                mainAxisAlignment:
-                MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Row(
                     children: [

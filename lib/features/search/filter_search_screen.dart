@@ -86,8 +86,8 @@ class _FilterSearchScreenState extends State<FilterSearchScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("min: ${_currentRangeValues.start.round()} KWD"),
-                      Text("max: ${_currentRangeValues.end.round()} KWD"),
+                      Text("min: ${_currentRangeValues.start.round()} \$"),
+                      Text("max: ${_currentRangeValues.end.round()} \$"),
                     ],
                   ),
                 ),
