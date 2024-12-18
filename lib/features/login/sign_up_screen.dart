@@ -1,4 +1,5 @@
 import 'package:bazzar/features/login/login_screen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -35,7 +36,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
         onTap: () => FocusScope.of(context).unfocus(),
         child: Stack(
           children: [
-            // Main content
             SingleChildScrollView(
               child: Column(
                 children: [
@@ -134,9 +134,27 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                                     _passwordController.text,
                                               );
 
-                                              await credential.user!
-                                                  .sendEmailVerification();
+                                              User? user = credential.user;
 
+                                              if (user != null) {
+                                                await user
+                                                    .sendEmailVerification();
+
+                                                final userRef =
+                                                    FirebaseFirestore.instance
+                                                        .collection('users');
+
+                                                await userRef
+                                                    .doc(user.uid)
+                                                    .set({
+                                                  'username':
+                                                      _usernameController.text,
+                                                  'email': user.email,
+                                                  'uid': user.uid,
+                                                  'createdAt': FieldValue
+                                                      .serverTimestamp(),
+                                                });
+                                              }
                                               _showSnackBar(
                                                 'Account created successfully! A verification email has been sent to ${_emailController.text}.',
                                               );
@@ -144,9 +162,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                               Navigator.pushReplacement(
                                                 context,
                                                 MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      const LoginScreen(),
-                                                ),
+                                                    builder: (context) =>
+                                                        const LoginScreen()),
                                               );
                                             } on FirebaseAuthException catch (e) {
                                               String errorMessage;

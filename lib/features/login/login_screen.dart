@@ -1,10 +1,9 @@
 import 'package:bazzar/core/helpers/spacing.dart';
 import 'package:bazzar/features/login/sign_up_screen.dart';
-import 'package:bazzar/features/home/home_screen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../core/theming/colors.dart';
 import '../../core/theming/styles.dart';
 import '../../core/widgets/custom_bottom_navigation_bar.dart';
@@ -76,23 +75,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           },
                         ),
                         verticalSpace(30),
-/*
-                        TextFormField(
-                          controller: _passwordController,
-                          obscureText: true,
-                          decoration: const InputDecoration(
-                            labelText: "Password",
-                            border: OutlineInputBorder(),
-                          ),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter your password';
-                            }
-                            return null;
-                          },
-                        ),
-*/
-
                         TextFormField(
                           controller: _passwordController,
                           obscureText: _obscurePassword,
@@ -176,21 +158,38 @@ class _LoginScreenState extends State<LoginScreen> {
                                 try {
                                   final credential = await FirebaseAuth.instance
                                       .signInWithEmailAndPassword(
-                                          email: _emailController.text,
-                                          password: _passwordController.text);
+                                    email: _emailController.text,
+                                    password: _passwordController.text,
+                                  );
+
+                                  User? user = credential.user;
+
+                                  if (user != null) {
+                                    final userRef = FirebaseFirestore.instance
+                                        .collection('users');
+
+                                    final userSnapshot =
+                                        await userRef.doc(user.uid).get();
+                                    if (!userSnapshot.exists) {
+                                      await userRef.doc(user.uid).set({
+                                        'email': user.email,
+                                        'uid': user.uid,
+                                        'createdAt':
+                                            FieldValue.serverTimestamp(),
+                                      });
+                                    }
+                                  }
 
                                   Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) =>
-                                          const BottomNavigationBarScreen(),
-                                    ),
+                                        builder: (context) =>
+                                            const BottomNavigationBarScreen()),
                                   );
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
-                                      content: Text("Welcom....."),
-                                      backgroundColor: Colors.green,
-                                    ),
+                                        content: Text("Welcome....."),
+                                        backgroundColor: Colors.green),
                                   );
                                 } on FirebaseAuthException catch (e) {
                                   String errorMessage;
@@ -224,26 +223,23 @@ class _LoginScreenState extends State<LoginScreen> {
 
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
-                                      content: Text(errorMessage),
-                                      backgroundColor: Colors.red,
-                                    ),
+                                        content: Text(errorMessage),
+                                        backgroundColor: Colors.red),
                                   );
                                 } catch (e) {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
-                                      content: Text(
-                                          'An error occurred. Please try again later.'),
-                                      backgroundColor: Colors.red,
-                                    ),
+                                        content: Text(
+                                            'An error occurred. Please try again later.'),
+                                        backgroundColor: Colors.red),
                                   );
                                 }
                               } else {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
-                                    content: Text(
-                                        'Please fill out all fields correctly.'),
-                                    backgroundColor: Colors.orange,
-                                  ),
+                                      content: Text(
+                                          'Please fill out all fields correctly.'),
+                                      backgroundColor: Colors.orange),
                                 );
                               }
                             },
