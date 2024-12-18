@@ -14,43 +14,10 @@ class MyAccountScreen extends StatefulWidget {
 }
 
 class _MyAccountScreenState extends State<MyAccountScreen> {
-  String username = '';
-  String email = '';
-  bool isLoading = true;
-
-  @override
-  void initState() {
-    super.initState();
-    _getUserData();
-  }
-
-  Future<void> _getUserData() async {
-    try {
-      User? user = FirebaseAuth.instance.currentUser;
-      if (user != null) {
-        DocumentSnapshot userDoc = await FirebaseFirestore.instance
-            .collection('users')
-            .doc(user.uid)
-            .get();
-
-        if (userDoc.exists) {
-          setState(() {
-            username = userDoc['username'] ?? '';
-            email = user.email ?? '';
-            isLoading = false;
-          });
-        }
-      }
-    } catch (e) {
-      setState(() {
-        isLoading = false;
-      });
-      print("Error fetching user data: $e");
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
+    User? user = FirebaseAuth.instance.currentUser;
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -58,51 +25,69 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
           children: [
             const AppBarAccountScreen(),
             verticalSpace(20),
-            isLoading
-                ? const Center(child: CircularProgressIndicator())
-                : Column(
-                    children: [
-                      Stack(
-                        children: [
-                          SizedBox(
-                            height: 300.h,
-                            width: 380.w,
-                            child: Image.asset(
-                              "assets/images/Shape.png",
-                            ),
+            StreamBuilder<DocumentSnapshot>(
+              stream: FirebaseFirestore.instance
+                  .collection('users')
+                  .doc(user?.uid)
+                  .snapshots(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+
+                if (snapshot.hasError) {
+                  return Center(child: Text('Error: ${snapshot.error}'));
+                }
+
+                if (!snapshot.hasData) {
+                  return const Center(child: Text('No data found.'));
+                }
+
+                var userData = snapshot.data!;
+                String username = userData['username'] ?? '';
+                String email = user?.email ?? '';
+
+                return Column(
+                  children: [
+                    Stack(
+                      children: [
+                        SizedBox(
+                          height: 300.h,
+                          width: 380.w,
+                          child: Image.asset(
+                            "assets/images/Shape.png",
                           ),
-                          Positioned(
-                            bottom: 80.h,
-                            left: 100.w,
-                            child: Column(
-                              children: [
-                                Text(
-                                  username.isNotEmpty
-                                      ? username
-                                      : '',
-                                  style: TextStyle(
-                                      fontSize: 18.w,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                verticalSpace(1),
-                                Text(
-                                  email.isNotEmpty
-                                      ? email
-                                      : '',
-                                  style: TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 14.w,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ],
-                            ),
+                        ),
+                        Positioned(
+                          bottom: 80.h,
+                          left: 100.w,
+                          child: Column(
+                            children: [
+                              Text(
+                                username.isNotEmpty ? username : '',
+                                style: TextStyle(
+                                    fontSize: 18.w,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              verticalSpace(1),
+                              Text(
+                                email.isNotEmpty ? email : '',
+                                style: TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: 14.w,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                      const CenterAccountScreen(),
-                      verticalSpace(50)
-                    ],
-                  ),
+                        ),
+                      ],
+                    ),
+                    const CenterAccountScreen(),
+                    verticalSpace(50),
+                  ],
+                );
+              },
+            ),
           ],
         ),
       ),
