@@ -6,6 +6,7 @@ import '../../../core/helpers/spacing.dart';
 import '../../../core/theming/colors.dart';
 import '../../login/login_screen.dart';
 import '../../request/my_requests_screen.dart';
+import '../change_password_screen.dart';
 import '../my_order_screen.dart';
 import '../profile_screen.dart';
 
@@ -315,32 +316,42 @@ class _CenterAccountScreenState extends State<CenterAccountScreen> {
                   ],
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.lock_outline_sharp,
-                        size: 20.w,
-                        color: Colors.yellow,
-                      ),
-                      horizontalSpace(10.w),
-                      Text(
-                        "Change Password",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15.w),
-                      )
-                    ],
-                  ),
-                  Icon(
-                    Icons.arrow_forward_ios,
-                    size: 16.w,
-                    color: Colors.grey,
-                  ),
-                ],
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ChangePasswordScreen(),
+                    ),
+                  );
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.lock_outline_sharp,
+                          size: 20.w,
+                          color: Colors.yellow,
+                        ),
+                        horizontalSpace(10.w),
+                        Text(
+                          "Change Password",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15.w),
+                        )
+                      ],
+                    ),
+                    Icon(
+                      Icons.arrow_forward_ios,
+                      size: 16.w,
+                      color: Colors.grey,
+                    ),
+                  ],
+                ),
               ),
               GestureDetector(
                 onTap: () async {
@@ -348,19 +359,25 @@ class _CenterAccountScreenState extends State<CenterAccountScreen> {
                     context: context,
                     builder: (BuildContext context) {
                       return AlertDialog(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.w),
+                        ),
                         title: const Center(
-                            child: Text(
-                          "Confirm Logout",
-                          style: TextStyle(
+                          child: Text(
+                            "Confirm Logout",
+                            style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              color: ColorsManager.darkBlue),
-                        )),
+                              color: ColorsManager.darkBlue,
+                            ),
+                          ),
+                        ),
                         content: SizedBox(
-                            width: 1000.w,
-                            height: 90.h,
-                            child: const Center(
-                                child:
-                                    Text("Are you sure you want to log out?"))),
+                          width: 1000.w,
+                          height: 90.h,
+                          child: const Center(
+                            child: Text("Are you sure you want to log out?"),
+                          ),
+                        ),
                         actions: <Widget>[
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
