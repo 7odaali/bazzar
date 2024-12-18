@@ -1,8 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../core/helpers/spacing.dart';
 import '../../../core/theming/colors.dart';
+import '../../login/login_screen.dart';
 import '../../request/my_requests_screen.dart';
 import '../my_order_screen.dart';
 import '../profile_screen.dart';
@@ -31,89 +33,6 @@ class _CenterAccountScreenState extends State<CenterAccountScreen> {
             children: [
               GestureDetector(
                 onTap: () {
-                  /*showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          shape: RoundedRectangleBorder(
-                            borderRadius:
-                            BorderRadius.circular(10.w),
-                          ),
-                          title: Row(
-                            mainAxisAlignment:
-                            MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Login First",
-                                style: TextStyle(
-                                  color:
-                                  const Color(0xFF041A31),
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 17.w,
-                                ),
-                              ),
-                            ],
-                          ),
-                          content: SizedBox(
-                            height: 80.h,
-                            child: const Center(
-                              child: Text(
-                                  "You need to login / sign up first to View your account!"),
-                            ),
-                          ),
-                          actions: [
-                            Row(
-                              mainAxisAlignment:
-                              MainAxisAlignment
-                                  .spaceAround,
-                              children: [
-                                SizedBox(
-                                  height: 50.h,
-                                  child: MaterialButton(
-                                    minWidth: 130.w,
-                                    color: const Color(
-                                        0xFF041A31),
-                                    shape:
-                                    RoundedRectangleBorder(
-                                      borderRadius:
-                                      BorderRadius
-                                          .circular(10),
-                                    ),
-                                    onPressed: () {},
-                                    child: const Text(
-                                      "Signup",
-                                      style: TextStyle(
-                                        color: Colors.yellow,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 50.h,
-                                  child: MaterialButton(
-                                    minWidth: 130.w,
-                                    color: Colors.yellow,
-                                    shape:
-                                    RoundedRectangleBorder(
-                                      borderRadius:
-                                      BorderRadius
-                                          .circular(10),
-                                    ),
-                                    onPressed: () {},
-                                    child: const Text(
-                                      "Login",
-                                      style: TextStyle(
-                                        color:
-                                        Color(0xFF041A31),
-                                      ),
-                                    ),
-                                  ),
-                                )
-                              ],
-                            )
-                          ],
-                        );
-                      });*/
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -423,27 +342,106 @@ class _CenterAccountScreenState extends State<CenterAccountScreen> {
                   ),
                 ],
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.outbond_outlined,
-                        size: 20.w,
-                        color: Colors.yellow,
+              GestureDetector(
+                onTap: () async {
+                  bool? shouldLogout = await showDialog<bool>(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Center(
+                            child: Text(
+                          "Confirm Logout",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: ColorsManager.darkBlue),
+                        )),
+                        content: SizedBox(
+                            width: 1000.w,
+                            height: 90.h,
+                            child: const Center(
+                                child:
+                                    Text("Are you sure you want to log out?"))),
+                        actions: <Widget>[
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop(false);
+                                },
+                                style: TextButton.styleFrom(
+                                  minimumSize: Size(120.w, 50.h),
+                                  backgroundColor: ColorsManager.yellow,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8.w),
+                                  ),
+                                ),
+                                child: const Text(
+                                  "Cancel",
+                                  style: TextStyle(
+                                      color: ColorsManager.darkBlue,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop(true);
+                                },
+                                style: TextButton.styleFrom(
+                                  minimumSize: Size(120.w, 50.h),
+                                  backgroundColor: ColorsManager.yellow,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8.w),
+                                  ),
+                                ),
+                                child: const Text(
+                                  "Confirm",
+                                  style: TextStyle(
+                                      color: ColorsManager.darkBlue,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      );
+                    },
+                  );
+
+                  if (shouldLogout == true) {
+                    await FirebaseAuth.instance.signOut();
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const LoginScreen(),
                       ),
-                      horizontalSpace(10.w),
-                      Text(
-                        "Logout",
-                        style: TextStyle(
+                      (Route<dynamic> route) => false,
+                    );
+                  }
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.outbond_outlined,
+                          size: 20.w,
+                          color: Colors.yellow,
+                        ),
+                        horizontalSpace(10.w),
+                        Text(
+                          "Logout",
+                          style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
-                            fontSize: 15.w),
-                      )
-                    ],
-                  ),
-                ],
+                            fontSize: 15.w,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,7 +6,6 @@ import '../../core/helpers/spacing.dart';
 import '../../core/theming/colors.dart';
 import '../cart/cart_screen.dart';
 import '../cart/cubit/cart_cubit.dart';
-import '../login/login_screen.dart';
 import '../search/filter_search_screen.dart';
 import '../stores/cubit/favorite_cubit.dart';
 import '../stores/Favorite_screen.dart';
@@ -72,24 +70,19 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    TextButton(
-                      onPressed: () async {
-                        await FirebaseAuth.instance.signOut();
-                        Navigator.pushAndRemoveUntil(
+                    IconButton(
+                      onPressed: () {
+                        Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const LoginScreen(),
+                            builder: (context) => const CartScreen(),
                           ),
-                          (Route<dynamic> route) => false,
                         );
                       },
-                      child: Text(
-                        "Exit",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      icon: Icon(
+                        Icons.shopping_bag_outlined,
+                        size: 30.h,
+                        color: Colors.white,
                       ),
                     ),
                     SizedBox(
@@ -100,38 +93,20 @@ class _HomeScreenState extends State<HomeScreen> {
                         fit: BoxFit.contain,
                       ),
                     ),
-                    Row(
-                      children: [
-                        IconButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const FavoriteScreen(),
-                              ),
-                            );
-                          },
-                          icon: Icon(
-                            Icons.favorite_border_outlined,
-                            size: 30.h,
-                            color: Colors.white,
+                    IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const FavoriteScreen(),
                           ),
-                        ),horizontalSpace(10),IconButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const CartScreen(),
-                              ),
-                            );
-                          },
-                          icon: Icon(
-                            Icons.shopping_bag_outlined,
-                            size: 30.h,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ],
+                        );
+                      },
+                      icon: Icon(
+                        Icons.favorite_border_outlined,
+                        size: 30.h,
+                        color: Colors.white,
+                      ),
                     ),
                   ],
                 ),
