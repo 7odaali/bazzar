@@ -1,9 +1,10 @@
-import 'package:bazzar/features/lang_screen.dart';
 import 'package:bazzar/features/stores/Favorite_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../core/helpers/spacing.dart';
 import '../core/theming/colors.dart';
+import 'lang_screen.dart';
 
 class MenuScreen extends StatefulWidget {
   const MenuScreen({super.key});
@@ -13,9 +14,6 @@ class MenuScreen extends StatefulWidget {
 }
 
 class _MenuScreenState extends State<MenuScreen> {
-  bool notificationOn = true;
-  bool languageIsEnglish = true;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,22 +58,23 @@ class _MenuScreenState extends State<MenuScreen> {
                       Text(
                         "Menu",
                         style: TextStyle(
-                            color: ColorsManager.darkBlue,
-                            fontSize: 19.w,
-                            fontWeight: FontWeight.bold),
+                          color: ColorsManager.darkBlue,
+                          fontSize: 19.w,
+                          fontWeight: FontWeight.bold,
+                        ),
                       )
                     ],
                   ),
                   verticalSpace(10),
                   _menuItem(
-                    onTap: (){
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const LangScreen(),
-                        ),
-                      );
-                    },
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const LangScreen(),
+                          ),
+                        );
+                      },
                       title: "Language",
                       icon: Icons.language,
                       trailing: Icon(
@@ -152,6 +151,9 @@ class _MenuScreenState extends State<MenuScreen> {
                       size: 16.w,
                       color: Colors.black54,
                     ),
+                    onTap: () {
+                      _showContactOptions(context);
+                    },
                   ),
                   _menuItem(
                     title: "Refer your friend",
@@ -193,9 +195,10 @@ class _MenuScreenState extends State<MenuScreen> {
             title: Text(
               title,
               style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  color: Colors.black,
-                  fontSize: 16.w),
+                fontWeight: FontWeight.w600,
+                color: Colors.black,
+                fontSize: 16.w,
+              ),
             ),
             trailing: trailing ?? const SizedBox(),
             contentPadding: EdgeInsets.zero,
@@ -204,5 +207,57 @@ class _MenuScreenState extends State<MenuScreen> {
         ),
       ),
     );
+  }
+
+  void _showContactOptions(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20.w)),
+      ),
+      builder: (BuildContext context) {
+        return Padding(
+          padding: EdgeInsets.all(20.w),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                leading: const Icon(Icons.phone, color: ColorsManager.darkBlue),
+                title: Text("Phone", style: TextStyle(fontSize: 16.w)),
+                onTap: () {
+                  _launchURL("tel:+201016074752");
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.email, color: ColorsManager.darkBlue),
+                title: Text("Email", style: TextStyle(fontSize: 16.w)),
+                onTap: () {
+                  _launchURL(
+                      "mailto:7odaaliebaideng@gmail.com");
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.warning, color: ColorsManager.darkBlue),
+                title: Text("WhatsApp", style: TextStyle(fontSize: 16.w)),
+                onTap: () {
+                  _launchURL("https://wa.me/201016074752");
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  void _launchURL(String url) async {
+    if (await canLaunchUrl(Uri.parse(url))) {
+      await launchUrl(Uri.parse(url));
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }
