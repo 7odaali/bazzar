@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../core/theming/colors.dart';
 import '../../core/theming/styles.dart';
 import 'info_screens/about_bazzar_screen.dart';
+import 'info_screens/privacy_policy_screen.dart';
 import 'info_screens/terms_conditions_screen.dart';
 
 class InfoScreen extends StatefulWidget {
@@ -84,7 +85,7 @@ class _InfoScreenState extends State<InfoScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const AboutBazzarScreen(),
+                        builder: (context) => const PrivacyPolicyScreen(),
                       ),
                     );
                   },
