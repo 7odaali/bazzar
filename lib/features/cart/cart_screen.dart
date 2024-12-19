@@ -229,7 +229,7 @@ class _CartScreenState extends State<CartScreen> {
                           fontSize: 19.w, fontWeight: FontWeight.bold),
                     ),
                   ),
-                  
+
                 ),
               ],
             ),

@@ -63,7 +63,7 @@ class _DetailsCategoryScreenState extends State<DetailsCategoryScreen> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const CartScreen(),
+                      builder: (context) =>  CartScreen(),
                     ),
                   );
                 },

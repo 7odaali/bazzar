@@ -1,3 +1,4 @@
+import 'package:bazzar/features/menuScreens/offer_screen.dart';
 import 'package:bazzar/features/stores/Favorite_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -120,6 +121,14 @@ class _MenuScreenState extends State<MenuScreen> {
                         ],
                       )),
                   _menuItem(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const OfferScreen(),
+                          ),
+                        );
+                      },
                       title: "Offers",
                       icon: Icons.local_offer,
                       trailing: Icon(
@@ -233,13 +242,13 @@ class _MenuScreenState extends State<MenuScreen> {
                 leading: const Icon(Icons.email, color: ColorsManager.darkBlue),
                 title: Text("Email", style: TextStyle(fontSize: 16.w)),
                 onTap: () {
-                  _launchURL(
-                      "mailto:7odaaliebaideng@gmail.com");
+                  _launchURL("mailto:7odaaliebaideng@gmail.com");
                   Navigator.pop(context);
                 },
               ),
               ListTile(
-                leading: const Icon(Icons.warning, color: ColorsManager.darkBlue),
+                leading:
+                    const Icon(Icons.warning, color: ColorsManager.darkBlue),
                 title: Text("WhatsApp", style: TextStyle(fontSize: 16.w)),
                 onTap: () {
                   _launchURL("https://wa.me/201016074752");

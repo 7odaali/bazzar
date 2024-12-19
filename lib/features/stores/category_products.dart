@@ -90,7 +90,7 @@ class _CategoryProductsState extends State<CategoryProducts> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const CartScreen(),
+                      builder: (context) =>  const CartScreen(),
                     ),
                   );
                 },

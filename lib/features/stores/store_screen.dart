@@ -39,7 +39,7 @@ class _StoreScreenState extends State<StoreScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const CartScreen(),
+                          builder: (context) =>  CartScreen(),
                         ),
                       );
                     },

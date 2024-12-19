@@ -139,6 +139,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                                     )
                                   ],
                                 ),
+/*
                                 MaterialButton(
                                   minWidth: 180.w,
                                   shape: RoundedRectangleBorder(
@@ -164,6 +165,137 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                                       );
                                       Navigator.pop(context);
                                     }
+                                  },
+                                  child: Text(
+                                    "Cancelled",
+                                    style: TextStyle(
+                                        fontSize: 19.w,
+                                        fontWeight: FontWeight.bold,
+                                        color: ColorsManager.darkBlue),
+                                  ),
+                                ),
+*/
+                                MaterialButton(
+                                  minWidth: 180.w,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(15.w),
+                                    ),
+                                  ),
+                                  height: 55.h,
+                                  color: Colors.yellow,
+                                  onPressed: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(12.w)),
+                                          title: const Center(
+                                            child: Text('Confirm Cancellation'),
+                                          ),
+                                          content: SizedBox(
+                                            height: 50.h,
+                                            child: const Center(
+                                              child: Text(
+                                                  'Are you sure you want to cancel this order?'),
+                                            ),
+                                          ),
+                                          actions: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceAround,
+                                              children: [
+                                                TextButton(
+                                                  style: TextButton.styleFrom(
+                                                    shape:
+                                                        RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              12),
+                                                    ),
+                                                    minimumSize:
+                                                        Size(110.w, 50.h),
+                                                    backgroundColor:
+                                                        Colors.yellow,
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                      horizontal: 30.w,
+                                                      vertical: 10.h,
+                                                    ),
+                                                  ),
+                                                  onPressed: () {
+                                                    Navigator.of(context)
+                                                        .pop(); // Close the dialog
+                                                  },
+                                                  child: Text(
+                                                    'No',
+                                                    style: TextStyle(
+                                                        color: ColorsManager
+                                                            .darkBlue,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 17.w),
+                                                  ),
+                                                ),
+                                                TextButton(
+                                                  style: TextButton.styleFrom(
+                                                    shape:
+                                                        RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              12),
+                                                    ),
+                                                    minimumSize:
+                                                        Size(110.w, 50.h),
+                                                    backgroundColor:
+                                                        Colors.yellow,
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                      horizontal: 30.w,
+                                                      vertical: 10.h,
+                                                    ),
+                                                  ),
+                                                  onPressed: () {
+                                                    final orderId =
+                                                        data['order_id'];
+                                                    if (orderId != null) {
+                                                      context
+                                                          .read<CartCubit>()
+                                                          .deleteOrder(orderId);
+                                                      ScaffoldMessenger.of(
+                                                              context)
+                                                          .showSnackBar(
+                                                        const SnackBar(
+                                                          backgroundColor:
+                                                              Colors.green,
+                                                          content: Text(
+                                                              'Order deleted successfully!'),
+                                                        ),
+                                                      );
+                                                      Navigator.pop(
+                                                          context); // Close the current screen
+                                                    }
+                                                    Navigator.of(context)
+                                                        .pop(); // Close the dialog
+                                                  },
+                                                  child: Text(
+                                                    'Yes',
+                                                    style: TextStyle(
+                                                        color: ColorsManager
+                                                            .darkBlue,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 17.w),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
                                   },
                                   child: Text(
                                     "Cancelled",

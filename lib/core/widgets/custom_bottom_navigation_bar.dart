@@ -88,7 +88,7 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
   final List<Widget> _screens = [
     const HomeScreen(),
     const StoreScreen(),
-    const CartScreen(),
+     CartScreen(),
     const MyAccountScreen(),
     const MenuScreen(),
   ];
