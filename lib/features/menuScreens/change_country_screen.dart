@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../core/helpers/spacing.dart';
 import '../../core/theming/colors.dart';
+import '../../core/theming/styles.dart';
 import '../../core/utils/country_utils.dart';
 import '../myaccount/widget/app_bar_profile_screen.dart';
 
@@ -130,15 +131,73 @@ class _ChangeCountryScreenState extends State<ChangeCountryScreen> {
                 ElevatedButton(
                   onPressed: () {
                     if (selectedCountry != null) {
-                      saveCountryToFirebase(selectedCountry!.name);
-                      saveCountryToPreferences(selectedCountry!.name);
-                      setState(
-                        () {
-                          currentCountry = selectedCountry!.name;
-                          selectedCountry = null;
-                        },
+                      showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12.w)),
+                          title: const Center(
+                              child: Text(
+                            'Change Country',
+                            style: TextStyle(color: ColorsManager.darkBlue),
+                          )),
+                          content: SizedBox(
+                            height: 50.w,
+                            child: const Center(
+                              child: Text(
+                                  'Are you sure you want to change the country?'),
+                            ),
+                          ),
+                          actions: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  style: TextButton.styleFrom(
+                                    minimumSize: Size(100.w, 50.h),
+                                    backgroundColor: Colors.yellow,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8.w),
+                                    ),
+                                  ),
+                                  child: Text(
+                                    'Cancel',
+                                    style: TextStyles.font17boldDarkBlue,
+                                  ),
+                                ),
+                                TextButton(
+                                  onPressed: () async {
+                                    saveCountryToFirebase(
+                                        selectedCountry!.name);
+                                    await saveCountryToPreferences(
+                                        selectedCountry!.name);
+                                    setState(() {
+                                      currentCountry = selectedCountry!.name;
+                                      selectedCountry = null;
+                                    });
+                                    Navigator.of(context).pop();
+                                    Navigator.pop(context);
+                                  },
+                                  style: TextButton.styleFrom(
+                                    minimumSize: Size(100.w, 50.h),
+                                    backgroundColor: Colors.yellow,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8.w),
+                                    ),
+                                  ),
+                                  child: Text(
+                                    'Yes',
+                                    style: TextStyles.font17boldDarkBlue,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       );
-                      Navigator.pop(context);
                     }
                   },
                   style: ElevatedButton.styleFrom(

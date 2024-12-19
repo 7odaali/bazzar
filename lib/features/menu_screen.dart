@@ -1,3 +1,4 @@
+import 'package:bazzar/features/menuScreens/info_screen.dart';
 import 'package:bazzar/features/stores/Favorite_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -192,7 +193,14 @@ class _MenuScreenState extends State<MenuScreen> {
                         size: 16.w,
                         color: Colors.black54,
                       )),
-                  _menuItem(
+                  _menuItem(onTap: (){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const InfoScreen(),
+                      ),
+                    );
+                  },
                       title: "Info",
                       icon: Icons.info,
                       trailing: Icon(

@@ -2,6 +2,7 @@ import 'package:bazzar/features/stores/product_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../core/theming/styles.dart';
 import 'cubit/favorite_cubit.dart';
 
 class FavoriteScreen extends StatelessWidget {
@@ -12,12 +13,25 @@ class FavoriteScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text("Favorite Products"),
+        title: const Text("Wishlist"),
       ),
       body: BlocBuilder<FavoritesCubit, List<Map<String, dynamic>>>(
         builder: (context, favorites) {
           if (favorites.isEmpty) {
-            return const Center(child: Text("No favorite products"));
+            return Center(
+                child: Column(mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "No Favorite added yet",
+                  style: TextStyles.font22boldDarkBlue.copyWith(fontSize: 19),
+                ),
+                Icon(
+                  Icons.favorite,
+                  color: Colors.yellow,
+                  size: 45.w,
+                )
+              ],
+            ));
           }
 
           return GridView.builder(
@@ -44,7 +58,8 @@ class FavoriteScreen extends StatelessWidget {
                           'oldprice': product['oldprice'],
                           'image': product['image'],
                           'description': product['description'],
-                          'secimages': product['secimages'],                        },
+                          'secimages': product['secimages'],
+                        },
                       ),
                     ),
                   );
