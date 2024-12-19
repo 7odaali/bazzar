@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../core/theming/colors.dart';
 import '../../core/theming/styles.dart';
+import 'info_screens/about_bazzar_screen.dart';
 
 class InfoScreen extends StatefulWidget {
   const InfoScreen({super.key});
@@ -46,7 +47,14 @@ class _InfoScreenState extends State<InfoScreen> {
                     Icons.account_balance_outlined,
                     color: Colors.yellow,
                   ),
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const AboutBazzarScreen(),
+                      ),
+                    );
+                  },
                 ),
                 verticalSpace(10),
                 customListTile(
@@ -55,7 +63,14 @@ class _InfoScreenState extends State<InfoScreen> {
                     Icons.stadium,
                     color: Colors.yellow,
                   ),
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const AboutBazzarScreen(),
+                      ),
+                    );
+                  },
                 ),
                 verticalSpace(10),
                 customListTile(
@@ -64,7 +79,14 @@ class _InfoScreenState extends State<InfoScreen> {
                     Icons.privacy_tip,
                     color: Colors.yellow,
                   ),
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const AboutBazzarScreen(),
+                      ),
+                    );
+                  },
                 ),
                 verticalSpace(10),
                 customListTile(
@@ -73,7 +95,14 @@ class _InfoScreenState extends State<InfoScreen> {
                     Icons.local_police_sharp,
                     color: Colors.yellow,
                   ),
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const AboutBazzarScreen(),
+                      ),
+                    );
+                  },
                 ),
                 verticalSpace(10),
                 customListTile(
@@ -82,7 +111,14 @@ class _InfoScreenState extends State<InfoScreen> {
                     Icons.question_mark,
                     color: Colors.yellow,
                   ),
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const AboutBazzarScreen(),
+                      ),
+                    );
+                  },
                 ),
               ],
             ),
