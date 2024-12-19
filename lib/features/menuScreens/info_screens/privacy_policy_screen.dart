@@ -73,7 +73,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
                                   Text(
                                     content,
                                     style: TextStyles.font15RegularLightGray
-                                        .copyWith(fontSize: 13),
+                                        .copyWith(fontSize: 13,color: const Color(0xFF041A31)),
                                   ),
                                   verticalSpace(20),
                                 ],

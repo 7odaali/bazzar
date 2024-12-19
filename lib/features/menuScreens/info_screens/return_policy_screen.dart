@@ -7,16 +7,16 @@ import '../../../core/theming/colors.dart';
 import '../../../core/theming/styles.dart';
 import '../../myaccount/widget/app_bar_profile_screen.dart';
 
-class TermsConditionsScreen extends StatefulWidget {
-  const TermsConditionsScreen({super.key});
+class ReturnPolicyScreen extends StatefulWidget {
+  const ReturnPolicyScreen({super.key});
 
   @override
-  State<TermsConditionsScreen> createState() => _TermsConditionsScreenState();
+  State<ReturnPolicyScreen> createState() => _ReturnPolicyScreenState();
 }
 
-class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
-  final CollectionReference termsAndConditionsRef =
-      FirebaseFirestore.instance.collection('terms and conditions');
+class _ReturnPolicyScreenState extends State<ReturnPolicyScreen> {
+  final CollectionReference returnPolicyRef =
+  FirebaseFirestore.instance.collection('return policy');
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,7 @@ class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
                   Row(
                     children: [
                       Text(
-                        "Terms & Conditions",
+                        "Return Policy",
                         style: TextStyle(
                           color: ColorsManager.darkBlue,
                           fontSize: 19.w,
@@ -45,7 +45,7 @@ class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
                   ),
                   verticalSpace(0),
                   StreamBuilder<QuerySnapshot>(
-                    stream: termsAndConditionsRef.snapshots(),
+                    stream: returnPolicyRef.snapshots(),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const Center(child: CircularProgressIndicator());
@@ -56,19 +56,19 @@ class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
                           child: Text(""),
                         );
                       }
-                      final termsAndConditions = snapshot.data!.docs;
+                      final returnPolicy = snapshot.data!.docs;
 
                       return SizedBox(
                         height: 700,
                         child: ListView.builder(
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
-                            itemCount: termsAndConditions.length,
+                            itemCount: returnPolicy.length,
                             itemBuilder: (context, i) {
-                              final oneTermsAndCondition =
-                                  termsAndConditions[i];
+                              final oneReturnPolicy =
+                              returnPolicy[i];
                               final content =
-                                  oneTermsAndCondition['content'] ?? '';
+                                  oneReturnPolicy['content'] ?? '';
                               return Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [

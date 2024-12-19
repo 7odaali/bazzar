@@ -72,7 +72,7 @@ class _AboutBazzarScreenState extends State<AboutBazzarScreen> {
                           child: ListView.builder(
                               shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),
-                              itemCount:aboutBazzar.length ,
+                              itemCount: aboutBazzar.length,
                               itemBuilder: (context, i) {
                                 final oneAboutBazzar = aboutBazzar[i];
                                 final content = oneAboutBazzar['content'] ?? '';
@@ -82,7 +82,10 @@ class _AboutBazzarScreenState extends State<AboutBazzarScreen> {
                                     Text(
                                       content,
                                       style: TextStyles.font15RegularLightGray
-                                          .copyWith(fontSize: 13),
+                                          .copyWith(
+                                        fontSize: 13,
+                                        color: const Color(0xFF041A31),
+                                      ),
                                     ),
                                     verticalSpace(20),
                                   ],
