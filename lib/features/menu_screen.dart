@@ -1,11 +1,11 @@
-import 'package:bazzar/features/menuScreens/offer_screen.dart';
 import 'package:bazzar/features/stores/Favorite_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../core/helpers/spacing.dart';
 import '../core/theming/colors.dart';
-import 'lang_screen.dart';
+import '../core/helpers/spacing.dart';
+import 'menuScreens/offer_screen.dart';
 
 class MenuScreen extends StatefulWidget {
   const MenuScreen({super.key});
@@ -15,6 +15,8 @@ class MenuScreen extends StatefulWidget {
 }
 
 class _MenuScreenState extends State<MenuScreen> {
+  String selectedLanguage = 'en';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,21 +70,30 @@ class _MenuScreenState extends State<MenuScreen> {
                   ),
                   verticalSpace(10),
                   _menuItem(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const LangScreen(),
-                          ),
-                        );
-                      },
-                      title: "Language",
-                      icon: Icons.language,
-                      trailing: Icon(
-                        Icons.arrow_forward_ios,
-                        size: 16.w,
-                        color: Colors.black54,
-                      )),
+                    title: "Language",
+                    icon: Icons.language,
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Switch(
+                          activeColor: Colors.yellow,
+                          inactiveThumbColor: Colors.white,
+                          value: selectedLanguage == 'ar',
+                          onChanged: (bool value) {
+                            setState(() {
+                              selectedLanguage = value ? 'ar' : 'en';
+                              context.setLocale(Locale(selectedLanguage));
+                            });
+                          },
+                        ),
+                        Text(
+                          selectedLanguage == 'en' ? 'En' : 'Ar',
+                          style: TextStyle(
+                              fontSize: 20.w, color: ColorsManager.yellow),
+                        ),
+                      ],
+                    ),
+                  ),
                   _menuItem(
                       title: "Notification",
                       icon: Icons.notifications,
@@ -121,6 +132,13 @@ class _MenuScreenState extends State<MenuScreen> {
                         ],
                       )),
                   _menuItem(
+                      title: "Offers",
+                      icon: Icons.local_offer,
+                      trailing: Icon(
+                        Icons.arrow_forward_ios,
+                        size: 16.w,
+                        color: Colors.black54,
+                      ),
                       onTap: () {
                         Navigator.push(
                           context,
@@ -128,14 +146,7 @@ class _MenuScreenState extends State<MenuScreen> {
                             builder: (context) => const OfferScreen(),
                           ),
                         );
-                      },
-                      title: "Offers",
-                      icon: Icons.local_offer,
-                      trailing: Icon(
-                        Icons.arrow_forward_ios,
-                        size: 16.w,
-                        color: Colors.black54,
-                      )),
+                      }),
                   _menuItem(
                       title: "Join us",
                       icon: Icons.person_add,

@@ -293,16 +293,12 @@ class _LangScreenState extends State<LangScreen> {
                 ),
                 color: ColorsManager.darkBlue,
                 onPressed: () {
-                  if (isUserLoggedIn()) {
-                    Navigator.pop(context);
-                  } else {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const LoginScreen(),
-                      ),
-                    );
-                  }
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const LoginScreen(),
+                    ),
+                  );
                 },
                 child: Text(
                   "start".tr(),
