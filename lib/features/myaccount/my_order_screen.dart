@@ -130,12 +130,12 @@ class _MyOrderScreenState extends State<MyOrderScreen> {
                                 color: Colors.white,
                                 elevation: 2,
                                 child: SizedBox(
-                                  height: 250.h,
+                                  height: 300.h,
                                   child: Column(
                                     children: [
                                       Padding(
                                         padding: EdgeInsets.symmetric(
-                                            horizontal: 20.0.w, vertical: 8.h),
+                                            horizontal: 20.0.w, vertical: 18.h),
                                         child: Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
@@ -247,7 +247,7 @@ class _MyOrderScreenState extends State<MyOrderScreen> {
                                               MainAxisAlignment.spaceBetween,
                                           children: [
                                             MaterialButton(
-                                              minWidth: 220.w,
+                                              minWidth: 200.w,
                                               shape: RoundedRectangleBorder(
                                                 borderRadius: BorderRadius.all(
                                                   Radius.circular(15.w),
@@ -266,7 +266,7 @@ class _MyOrderScreenState extends State<MyOrderScreen> {
                                               ),
                                             ),
                                             MaterialButton(
-                                              minWidth: 50.w,
+                                              minWidth: 45.w,
                                               shape: RoundedRectangleBorder(
                                                 borderRadius: BorderRadius.all(
                                                   Radius.circular(15.w),
@@ -281,7 +281,7 @@ class _MyOrderScreenState extends State<MyOrderScreen> {
                                               ),
                                             ),
                                             MaterialButton(
-                                              minWidth: 50.w,
+                                              minWidth: 45.w,
                                               shape: RoundedRectangleBorder(
                                                 borderRadius: BorderRadius.all(
                                                   Radius.circular(15.w),

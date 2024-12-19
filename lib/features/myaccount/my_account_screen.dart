@@ -60,7 +60,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                         ),
                         Positioned(
                           bottom: 80.h,
-                          left: 100.w,
+                          left: 90.w,
                           child: Column(
                             children: [
                               Text(
@@ -74,7 +74,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                                 email.isNotEmpty ? email : '',
                                 style: TextStyle(
                                     color: Colors.grey,
-                                    fontSize: 14.w,
+                                    fontSize: 13.w,
                                     fontWeight: FontWeight.bold),
                               ),
                             ],

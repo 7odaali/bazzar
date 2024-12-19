@@ -75,7 +75,7 @@ class _CartScreenState extends State<CartScreen> {
                 ),
                 SizedBox(height: 10.h),
                 SizedBox(
-                  height: 650.h,
+                  height: 610.h,
                   child: GridView.builder(
                     padding: const EdgeInsets.all(8.0),
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -229,6 +229,7 @@ class _CartScreenState extends State<CartScreen> {
                           fontSize: 19.w, fontWeight: FontWeight.bold),
                     ),
                   ),
+                  
                 ),
               ],
             ),

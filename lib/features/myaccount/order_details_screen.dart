@@ -93,19 +93,19 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                     color: Colors.white,
                     elevation: 2,
                     child: SizedBox(
-                      height: 330.h,
+                      height: 350.h,
                       child: Padding(
                         padding: EdgeInsets.symmetric(
                             horizontal: 20.0.w, vertical: 8.h),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            verticalSpace(18),
+                            verticalSpace(10),
                             Text(
                               "Shipping Address",
                               style: TextStyle(
                                   color: const Color(0xFF464646),
-                                  fontSize: 16.w,
+                                  fontSize: 15.w,
                                   fontWeight: FontWeight.bold),
                             ),
                             verticalSpace(8),
@@ -113,7 +113,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                               "Kuwait \nFree Trade Zone Argan Business \nPark, Building 9 Ground Floor",
                               style: TextStyle(
                                   color: ColorsManager.darkBlue,
-                                  fontSize: 16.w,
+                                  fontSize: 13.w,
                                   fontWeight: FontWeight.bold),
                             ),
                             verticalSpace(18),

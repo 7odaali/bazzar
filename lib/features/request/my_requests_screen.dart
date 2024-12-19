@@ -98,7 +98,7 @@ class _MyRequestsScreenState extends State<MyRequestsScreen> {
                           color: Colors.white,
                           elevation: 2,
                           child: SizedBox(
-                            height: 250.h,
+                            height: 300.h,
                             child: Column(
                               children: [
                                 Padding(
@@ -200,6 +200,7 @@ class _MyRequestsScreenState extends State<MyRequestsScreen> {
                       },
                     ),
                   ),
+                  verticalSpace(20)
                 ],
               ),
             )

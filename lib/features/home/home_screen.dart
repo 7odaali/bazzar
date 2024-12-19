@@ -126,7 +126,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   SizedBox(
                     height: 45.h,
-                    width: 320.w,
+                    width: 300.w,
                     child: TextField(
                       controller: _searchController,
                       onChanged: (value) {
@@ -137,6 +137,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       decoration: InputDecoration(
                         prefixIcon: const Icon(Icons.search),
                         hintText: "Search for products...",
+                        hintStyle: TextStyle(fontSize: 14.w),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20.w),
                         ),
