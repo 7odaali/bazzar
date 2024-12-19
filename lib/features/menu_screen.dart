@@ -1,10 +1,14 @@
 import 'package:bazzar/features/stores/Favorite_screen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../core/theming/colors.dart';
 import '../core/helpers/spacing.dart';
+import '../core/utils/country_utils.dart';
+import 'menuScreens/change_country_screen.dart';
 import 'menuScreens/offer_screen.dart';
 
 class MenuScreen extends StatefulWidget {
@@ -103,34 +107,67 @@ class _MenuScreenState extends State<MenuScreen> {
                         color: Colors.black54,
                       )),
                   _menuItem(
-                      title: "Wishlist",
-                      icon: Icons.favorite,
-                      trailing: Icon(
-                        Icons.arrow_forward_ios,
-                        size: 16.w,
-                        color: Colors.black54,
-                      ),
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const FavoriteScreen(),
-                          ),
-                        );
-                      }),
+                    title: "Wishlist",
+                    icon: Icons.favorite,
+                    trailing: Icon(
+                      Icons.arrow_forward_ios,
+                      size: 16.w,
+                      color: Colors.black54,
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const FavoriteScreen(),
+                        ),
+                      );
+                    },
+                  ),
                   _menuItem(
-                      title: "Change Country",
-                      icon: Icons.public,
-                      trailing: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(
-                            Icons.arrow_forward_ios,
-                            size: 16.w,
-                            color: Colors.black54,
-                          ),
-                        ],
-                      )),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ChangeCountryScreen(),
+                        ),
+                      ).then((_) {
+                        setState(() {});
+                      });
+                    },
+                    title: "Change Country",
+                    icon: Icons.public,
+                    trailing: FutureBuilder<String>(
+                      future: getCurrentCountry(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Text("Loading...");
+                        }
+                        if (snapshot.hasData &&
+                            snapshot.data != null &&
+                            countryCodes.containsKey(snapshot.data!)) {
+                          final countryName = snapshot.data!;
+                          final countryCode =
+                              countryCodes[countryName]!.toLowerCase();
+                          return Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Image.network(
+                                'https://flagcdn.com/w320/$countryCode.png',
+                                width: 30.w,
+                                height: 30.h,
+                              ),
+                            ],
+                          );
+                        }
+                        return Icon(
+                          Icons.arrow_forward_ios,
+                          size: 16.w,
+                          color: Colors.black54,
+                        );
+                      },
+                    ),
+                  ),
                   _menuItem(
                       title: "Offers",
                       icon: Icons.local_offer,
@@ -279,5 +316,22 @@ class _MenuScreenState extends State<MenuScreen> {
     } else {
       throw 'Could not launch $url';
     }
+  }
+
+  Future<String> getCurrentCountry() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? storedCountry = prefs.getString('country');
+    if (storedCountry != null) {
+      return storedCountry;
+    }
+
+    var userDoc = await FirebaseFirestore.instance
+        .collection('users')
+        .doc('userID')
+        .get();
+    if (userDoc.exists && userDoc.data() != null) {
+      return userDoc.data()!['country'] ?? '';
+    }
+    return '';
   }
 }
