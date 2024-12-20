@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../core/theming/colors.dart';
 import '../core/helpers/spacing.dart';
+import '../core/theming/styles.dart';
 import '../core/utils/country_utils.dart';
 import 'menuScreens/change_country_screen.dart';
 import 'menuScreens/join_us_screen.dart';
@@ -186,14 +187,15 @@ class _MenuScreenState extends State<MenuScreen> {
                           ),
                         );
                       }),
-                  _menuItem(onTap: (){ Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const JoinUsScreen(),
-                    ),
-                  );
-
-                  },
+                  _menuItem(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const JoinUsScreen(),
+                          ),
+                        );
+                      },
                       title: "Join us",
                       icon: Icons.person_add,
                       trailing: Icon(
@@ -201,14 +203,15 @@ class _MenuScreenState extends State<MenuScreen> {
                         size: 16.w,
                         color: Colors.black54,
                       )),
-                  _menuItem(onTap: (){
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const InfoScreen(),
-                      ),
-                    );
-                  },
+                  _menuItem(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const InfoScreen(),
+                          ),
+                        );
+                      },
                       title: "Info",
                       icon: Icons.info,
                       trailing: Icon(
@@ -229,14 +232,82 @@ class _MenuScreenState extends State<MenuScreen> {
                     },
                   ),
                   _menuItem(
-                    title: "Refer your friend",
-                    icon: Icons.share,
-                    trailing: Icon(
-                      Icons.arrow_forward_ios,
-                      size: 16.w,
-                      color: Colors.black54,
-                    ),
-                  ),
+                      title: "Refer your friend",
+                      icon: Icons.share,
+                      trailing: Icon(
+                        Icons.arrow_forward_ios,
+                        size: 16.w,
+                        color: Colors.black54,
+                      ),
+                      onTap: () {
+                        showDialog(
+                          barrierDismissible: true,
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(14),
+                              ),
+                              title: Center(
+                                child: Text(
+                                  "Invite your friends",
+                                  style: TextStyles.font22boldDarkBlue,
+                                ),
+                              ),
+                              content: SizedBox(
+                                height: 300.h,
+                                width: 280.w,
+                                child: Column(
+                                  children: [
+                                    verticalSpace(20),
+                                    Center(
+                                      child: Text(
+                                        "Invite your friends to download Bazzar By "
+                                        "sharing the link or scan the QR code",
+                                        style: TextStyles.font16RegularGray
+                                            .copyWith(
+                                                color: const Color(0xFF464646)),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                    verticalSpace(20),
+                                    SizedBox(height: 100.h,width: 300.w,
+                                      child: const Icon(
+                                        Icons.account_balance_outlined,
+                                        size: 150,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              actions: <Widget>[
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    TextButton(
+                                      style: TextButton.styleFrom(
+                                        backgroundColor: Colors.yellow,
+                                        minimumSize: const Size(110, 50),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(12.w),
+                                        ),
+                                      ),
+                                      child: Text(
+                                        "Share",
+                                        style: TextStyles.font22boldDarkBlue,
+                                      ),
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      }),
                 ],
               ),
             ),
