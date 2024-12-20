@@ -9,6 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'core/widgets/custom_bottom_navigation_bar.dart';
 import 'features/cart/cubit/cart_cubit.dart';
+import 'features/menuScreens/cubit/notification_service.dart';
 import 'features/stores/cubit/favorite_cubit.dart';
 import 'firebase_options.dart';
 import 'product_model.dart';
@@ -25,6 +26,7 @@ void main() async {
 /*
   await Hive.openBox<ProductModel>('cartBox');
 */
+  await NotificationService.initialize();
 
   runApp(
     EasyLocalization(

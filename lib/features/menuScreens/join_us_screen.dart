@@ -80,13 +80,13 @@ class _JoinUsScreenState extends State<JoinUsScreen> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         SizedBox(
-                          width: 160,
-                          height: 40,
+                          width: 155.w,
+                          height: 50.h,
                           child: RadioListTile<String>(
                             title: Text(
                               "SHOP",
                               style: TextStyles.font17boldDarkBlue
-                                  .copyWith(fontSize: 14),
+                                  .copyWith(fontSize: 13.w),
                             ),
                             value: 'SHOP',
                             activeColor: const Color(0xFF041A31),
@@ -99,13 +99,13 @@ class _JoinUsScreenState extends State<JoinUsScreen> {
                           ),
                         ),
                         SizedBox(
-                          width: 210,
-                          height: 40,
+                          width: 225.w,
+                          height: 50.h,
                           child: RadioListTile<String>(
                             title: Text(
                               "Small Business",
                               style: TextStyles.font17boldDarkBlue
-                                  .copyWith(fontSize: 14),
+                                  .copyWith(fontSize: 13.w),
                             ),
                             value: 'Small Business',
                             activeColor: const Color(0xFF041A31),

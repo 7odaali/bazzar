@@ -301,8 +301,9 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
                                 Text(
                                   "Floor: ${address['floorNumber']}",
                                   style: TextStyle(
-                                      fontSize: 14.sp,
-                                      color: const Color(0xFF464646)),
+                                    fontSize: 14.sp,
+                                    color: const Color(0xFF464646),
+                                  ),
                                 ),
                             ],
                           ),
