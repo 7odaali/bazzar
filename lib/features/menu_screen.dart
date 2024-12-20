@@ -10,6 +10,7 @@ import '../core/theming/colors.dart';
 import '../core/helpers/spacing.dart';
 import '../core/utils/country_utils.dart';
 import 'menuScreens/change_country_screen.dart';
+import 'menuScreens/join_us_screen.dart';
 import 'menuScreens/offer_screen.dart';
 
 class MenuScreen extends StatefulWidget {
@@ -185,7 +186,14 @@ class _MenuScreenState extends State<MenuScreen> {
                           ),
                         );
                       }),
-                  _menuItem(
+                  _menuItem(onTap: (){ Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const JoinUsScreen(),
+                    ),
+                  );
+
+                  },
                       title: "Join us",
                       icon: Icons.person_add,
                       trailing: Icon(
