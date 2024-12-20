@@ -82,8 +82,18 @@ class _MenuScreenState extends State<MenuScreen> {
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
+                        Text(
+                          "Ar",
+                          style: TextStyle(
+                            fontSize: 16.w,
+                            color: selectedLanguage == 'ar'
+                                ? ColorsManager.yellow
+                                : Colors.grey,
+                          ),
+                        ),
+                        SizedBox(width: 10.w),
                         Switch(
-                          activeColor: Colors.yellow,
+                          activeColor: ColorsManager.yellow,
                           inactiveThumbColor: Colors.white,
                           value: selectedLanguage == 'ar',
                           onChanged: (bool value) {
@@ -93,10 +103,15 @@ class _MenuScreenState extends State<MenuScreen> {
                             });
                           },
                         ),
+                        SizedBox(width: 10.w),
                         Text(
-                          selectedLanguage == 'en' ? 'En' : 'Ar',
+                          "En",
                           style: TextStyle(
-                              fontSize: 20.w, color: ColorsManager.yellow),
+                            fontSize: 16.w,
+                            color: selectedLanguage == 'en'
+                                ? ColorsManager.yellow
+                                : Colors.grey,
+                          ),
                         ),
                       ],
                     ),
@@ -232,82 +247,85 @@ class _MenuScreenState extends State<MenuScreen> {
                     },
                   ),
                   _menuItem(
-                      title: "Refer your friend",
-                      icon: Icons.share,
-                      trailing: Icon(
-                        Icons.arrow_forward_ios,
-                        size: 16.w,
-                        color: Colors.black54,
-                      ),
-                      onTap: () {
-                        showDialog(
-                          barrierDismissible: true,
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(14),
+                    title: "Refer your friend",
+                    icon: Icons.share,
+                    trailing: Icon(
+                      Icons.arrow_forward_ios,
+                      size: 16.w,
+                      color: Colors.black54,
+                    ),
+                    onTap: () {
+                      showDialog(
+                        barrierDismissible: true,
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(14),
+                            ),
+                            title: Center(
+                              child: Text(
+                                "Invite your friends",
+                                style: TextStyles.font22boldDarkBlue,
                               ),
-                              title: Center(
-                                child: Text(
-                                  "Invite your friends",
-                                  style: TextStyles.font22boldDarkBlue,
-                                ),
+                            ),
+                            content: SizedBox(
+                              height: 300.h,
+                              width: 280.w,
+                              child: Column(
+                                children: [
+                                  verticalSpace(20),
+                                  Center(
+                                    child: Text(
+                                      "Invite your friends to download Bazzar By "
+                                      "sharing the link or scan the QR code",
+                                      style: TextStyles.font16RegularGray
+                                          .copyWith(
+                                              color: const Color(0xFF464646)),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                  verticalSpace(20),
+                                  SizedBox(
+                                    height: 100.h,
+                                    width: 300.w,
+                                    child: const Icon(
+                                      Icons.account_balance_outlined,
+                                      size: 150,
+                                    ),
+                                  )
+                                ],
                               ),
-                              content: SizedBox(
-                                height: 300.h,
-                                width: 280.w,
-                                child: Column(
-                                  children: [
-                                    verticalSpace(20),
-                                    Center(
-                                      child: Text(
-                                        "Invite your friends to download Bazzar By "
-                                        "sharing the link or scan the QR code",
-                                        style: TextStyles.font16RegularGray
-                                            .copyWith(
-                                                color: const Color(0xFF464646)),
-                                        textAlign: TextAlign.center,
+                            ),
+                            actions: <Widget>[
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  TextButton(
+                                    style: TextButton.styleFrom(
+                                      backgroundColor: Colors.yellow,
+                                      minimumSize: const Size(110, 50),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(12.w),
                                       ),
                                     ),
-                                    verticalSpace(20),
-                                    SizedBox(height: 100.h,width: 300.w,
-                                      child: const Icon(
-                                        Icons.account_balance_outlined,
-                                        size: 150,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              actions: <Widget>[
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    TextButton(
-                                      style: TextButton.styleFrom(
-                                        backgroundColor: Colors.yellow,
-                                        minimumSize: const Size(110, 50),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(12.w),
-                                        ),
-                                      ),
-                                      child: Text(
-                                        "Share",
-                                        style: TextStyles.font22boldDarkBlue,
-                                      ),
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                      },
+                                    child: Text(
+                                      "Share",
+                                      style: TextStyles.font22boldDarkBlue,
                                     ),
-                                  ],
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                      }),
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
+                  ),
                 ],
               ),
             ),
