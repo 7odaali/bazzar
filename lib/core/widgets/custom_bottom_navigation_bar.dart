@@ -66,6 +66,8 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
   }
 }
 */
+import 'package:bazzar/features/search/filter_search_screen.dart';
+import 'package:bazzar/features/stores/Favorite_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../features/cart/cart_screen.dart';
@@ -88,7 +90,7 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
   final List<Widget> _screens = [
     const HomeScreen(),
     const StoreScreen(),
-     CartScreen(),
+    const FavoriteScreen(),
     const MyAccountScreen(),
     const MenuScreen(),
   ];
@@ -110,7 +112,7 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
             children: [
               _buildNavItem(Icons.home, 'Home', 0),
               _buildNavItem(Icons.store, 'Stores', 1),
-              _buildNavItem(Icons.shopping_bag_outlined, 'Cart', 2),
+              _buildNavItem(Icons.favorite, 'Favorite', 2),
               _buildNavItem(Icons.account_circle, 'My Account', 3),
               _buildNavItem(Icons.menu, 'Menu', 4),
             ],
