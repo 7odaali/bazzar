@@ -2,6 +2,7 @@ import 'package:bazzar/features/myaccount/widget/bottom_navigation_bar_myaddress
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../core/helpers/spacing.dart';
 import '../../core/theming/colors.dart';
 import 'package:bazzar/features/myaccount/widget/app_bar_profile_screen.dart';
@@ -16,8 +17,26 @@ class MyAddressScreen extends StatefulWidget {
 }
 
 class _MyAddressScreenState extends State<MyAddressScreen> {
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseFirestore _fireStore = FirebaseFirestore.instance;
   String? selectedAddress;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadSelectedAddress();
+  }
+
+  Future<void> _loadSelectedAddress() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      selectedAddress = prefs.getString('selectedAddress');
+    });
+  }
+
+  Future<void> _saveSelectedAddress(String address) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('selectedAddress', address);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +64,7 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
           verticalSpace(10),
           Expanded(
             child: StreamBuilder<QuerySnapshot>(
-              stream: _firestore.collection('addresses').snapshots(),
+              stream: _fireStore.collection('addresses').snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
                   return const Center(
@@ -94,7 +113,7 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
                   itemCount: addresses.length,
                   itemBuilder: (context, index) {
                     final address =
-                        addresses[index].data() as Map<String, dynamic>;
+                    addresses[index].data() as Map<String, dynamic>;
 
                     return Padding(
                       padding: EdgeInsets.symmetric(
@@ -112,19 +131,20 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
                             children: [
                               Row(
                                 mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                MainAxisAlignment.spaceBetween,
                                 children: [
                                   Row(
                                     children: [
                                       Radio<String>(
                                         activeColor: const Color(0xFF041A31),
                                         value:
-                                            address['addressName'] ?? 'No Name',
+                                        address['addressName'] ?? 'No Name',
                                         groupValue: selectedAddress,
                                         onChanged: (String? value) {
                                           setState(() {
                                             selectedAddress = value!;
                                           });
+                                          _saveSelectedAddress(value!);
                                         },
                                       ),
                                       Text(
@@ -149,7 +169,7 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
                                               "Delete Address",
                                               style: TextStyle(
                                                   color:
-                                                      ColorsManager.darkBlue),
+                                                  ColorsManager.darkBlue),
                                             ),
                                           ),
                                           content: SizedBox(
@@ -163,24 +183,24 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
                                           actions: [
                                             Row(
                                               mainAxisAlignment:
-                                                  MainAxisAlignment.spaceAround,
+                                              MainAxisAlignment.spaceAround,
                                               children: [
                                                 TextButton(
                                                   style: TextButton.styleFrom(
                                                     shape:
-                                                        RoundedRectangleBorder(
+                                                    RoundedRectangleBorder(
                                                       borderRadius:
-                                                          BorderRadius.circular(
-                                                              12),
+                                                      BorderRadius.circular(
+                                                          12),
                                                     ),
                                                     minimumSize:
-                                                        Size(120.w, 50.h),
+                                                    Size(120.w, 50.h),
                                                     backgroundColor:
-                                                        Colors.yellow,
+                                                    Colors.yellow,
                                                     padding:
-                                                        EdgeInsets.symmetric(
-                                                            horizontal: 30.w,
-                                                            vertical: 10.h),
+                                                    EdgeInsets.symmetric(
+                                                        horizontal: 30.w,
+                                                        vertical: 10.h),
                                                   ),
                                                   onPressed: () =>
                                                       Navigator.of(context)
@@ -191,26 +211,26 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
                                                         color: ColorsManager
                                                             .darkBlue,
                                                         fontWeight:
-                                                            FontWeight.bold,
+                                                        FontWeight.bold,
                                                         fontSize: 15.w),
                                                   ),
                                                 ),
                                                 TextButton(
                                                   style: TextButton.styleFrom(
                                                     shape:
-                                                        RoundedRectangleBorder(
+                                                    RoundedRectangleBorder(
                                                       borderRadius:
-                                                          BorderRadius.circular(
-                                                              12),
+                                                      BorderRadius.circular(
+                                                          12),
                                                     ),
                                                     minimumSize:
-                                                        Size(120.w, 50.h),
+                                                    Size(120.w, 50.h),
                                                     backgroundColor:
-                                                        Colors.yellow,
+                                                    Colors.yellow,
                                                     padding:
-                                                        EdgeInsets.symmetric(
-                                                            horizontal: 30.w,
-                                                            vertical: 10.h),
+                                                    EdgeInsets.symmetric(
+                                                        horizontal: 30.w,
+                                                        vertical: 10.h),
                                                   ),
                                                   onPressed: () =>
                                                       Navigator.of(context)
@@ -221,7 +241,7 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
                                                         color: ColorsManager
                                                             .darkBlue,
                                                         fontWeight:
-                                                            FontWeight.bold,
+                                                        FontWeight.bold,
                                                         fontSize: 15.w),
                                                   ),
                                                 ),
@@ -233,7 +253,7 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
 
                                       if (confirm == true) {
                                         try {
-                                          await _firestore
+                                          await _fireStore
                                               .collection('addresses')
                                               .doc(addresses[index].id)
                                               .delete();
@@ -266,20 +286,20 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
                                   address['country'] ?? '',
                                   style: TextStyle(
                                       fontSize: 14.sp,
-                                      color: const Color(0xFF464646)),
+                                      color: const Color(0xFF464646),),
                                 ),
                               ),
                               Padding(
                                 padding: EdgeInsets.only(left: 45.w),
                                 child: Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
                                       "${address['governorate'] ?? ''}\n${address['addressName'] ?? ''}, ${address['houseNumber'] ?? ''}",
                                       style: TextStyle(
                                           fontSize: 14.sp,
-                                          color: const Color(0xFF464646)),
+                                          color: const Color(0xFF464646),),
                                     ),
                                     MaterialButton(
                                       minWidth: 45.w,
@@ -290,9 +310,9 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
                                           MaterialPageRoute(
                                             builder: (context) =>
                                                 AddAddressScreen(
-                                              addressData: address,
-                                              documentId: addresses[index].id,
-                                            ),
+                                                  addressData: address,
+                                                  documentId: addresses[index].id,
+                                                ),
                                           ),
                                         );
                                       },
@@ -300,7 +320,7 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
                                       textColor: Colors.white,
                                       shape: RoundedRectangleBorder(
                                           borderRadius:
-                                              BorderRadius.circular(12.r)),
+                                          BorderRadius.circular(12.r),),
                                       child: Text(
                                         "EDIT",
                                         style: TextStyle(
@@ -320,7 +340,7 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
                                     "Floor: ${address['floorNumber']}",
                                     style: TextStyle(
                                         fontSize: 14.sp,
-                                        color: const Color(0xFF464646)),
+                                        color: const Color(0xFF464646),),
                                   ),
                                 ),
                             ],
