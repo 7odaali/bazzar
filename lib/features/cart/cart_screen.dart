@@ -2,6 +2,7 @@ import 'package:bazzar/core/theming/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../myaccount/my_address_screen.dart';
 import '../stores/product_details_screen.dart';
 import 'cubit/cart_cubit.dart';
 
@@ -201,7 +202,7 @@ class _CartScreenState extends State<CartScreen> {
                     },
                   ),
                 ),
-                Padding(
+                /*    Padding(
                   padding:
                       EdgeInsets.symmetric(horizontal: 15.w, ),
                   child: MaterialButton(
@@ -230,6 +231,36 @@ class _CartScreenState extends State<CartScreen> {
                     ),
                   ),
 
+                ),*/
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 15.w),
+                  child: MaterialButton(
+                    minWidth: 1000.w,
+                    height: 50.h,
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => MyAddressScreen(
+                            cartItems: List<Map<String, dynamic>>.from(
+                                context.read<CartCubit>().state),
+                          ),
+                        ),
+                      );
+                    },
+                    color: Colors.yellow,
+                    textColor: ColorsManager.darkBlue,
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0.w),
+                    ),
+                    child: Text(
+                      'Choose Address',
+                      style: TextStyle(
+                          fontSize: 19.w, fontWeight: FontWeight.bold),
+                    ),
+                  ),
                 ),
               ],
             ),
