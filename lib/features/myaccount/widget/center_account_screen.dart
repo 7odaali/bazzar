@@ -1,8 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../core/helpers/spacing.dart';
 import '../../../core/theming/colors.dart';
+import '../../cart/cubit/cart_cubit.dart';
 import '../../login/login_screen.dart';
 import '../../request/my_requests_screen.dart';
 import '../add_address_screen.dart';
@@ -70,14 +72,18 @@ class _CenterAccountScreenState extends State<CenterAccountScreen> {
                   ],
                 ),
               ),
-              GestureDetector(onTap: (){
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const MyAddressScreen(),
-                  ),
-                );
-              },
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MyAddressScreen(
+                        cartItems: List<Map<String, dynamic>>.from(
+                            context.read<CartCubit>().state),
+                      ),
+                    ),
+                  );
+                },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

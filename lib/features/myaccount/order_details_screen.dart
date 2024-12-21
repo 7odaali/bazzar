@@ -110,7 +110,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                             ),
                             verticalSpace(8),
                             Text(
-                              "Kuwait \nFree Trade Zone Argan Business \nPark, Building 9 Ground Floor",
+                              "${data['country'] ?? ""} \n${data['governorate'] ?? ""} \n${data['address_details'] ?? ""} buildnumber, floor ${data['floor'] ?? ""} .",
                               style: TextStyle(
                                   color: ColorsManager.darkBlue,
                                   fontSize: 13.w,
