@@ -75,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) =>  CartScreen(),
+                            builder: (context) => CartScreen(),
                           ),
                         );
                       },
@@ -313,6 +313,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
               ),
             ),
+            verticalSpace(100),
           ],
         ),
       ),

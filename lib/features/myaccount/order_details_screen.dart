@@ -110,7 +110,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                             ),
                             verticalSpace(8),
                             Text(
-                              "${data['country'] ?? ""} \n${data['governorate'] ?? ""} \n${data['address_details'] ?? ""} buildnumber, floor ${data['floor'] ?? ""} .",
+                              "${data['country'] ?? "Egypt"} \n${data['governorate'] ?? "Cairo"} \n${data['address_details'] ?? "PARK,22"} buildnumber, floor ${data['floor'] ?? "1"} .",
                               style: TextStyle(
                                   color: ColorsManager.darkBlue,
                                   fontSize: 13.w,

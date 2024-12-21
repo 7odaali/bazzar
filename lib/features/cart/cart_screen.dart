@@ -1,3 +1,4 @@
+import 'package:bazzar/core/helpers/spacing.dart';
 import 'package:bazzar/core/theming/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -202,36 +203,6 @@ class _CartScreenState extends State<CartScreen> {
                     },
                   ),
                 ),
-                /*    Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 15.w, ),
-                  child: MaterialButton(
-                    minWidth: 1000.w,
-                    height: 50.h,
-                    onPressed: () {
-                      context.read<CartCubit>().createOrder();
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Order created successfully...'),
-                          backgroundColor: Colors.green,
-                        ),
-                      );
-                    },
-                    color: Colors.yellow,
-                    textColor: ColorsManager.darkBlue,
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0.w),
-                    ),
-                    child: Text(
-                      'Create Order',
-                      style: TextStyle(
-                          fontSize: 19.w, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-
-                ),*/
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15.w),
                   child: MaterialButton(
@@ -257,6 +228,37 @@ class _CartScreenState extends State<CartScreen> {
                     ),
                     child: Text(
                       'Choose Address',
+                      style: TextStyle(
+                          fontSize: 19.w, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+                verticalSpace(20),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 15.w,
+                  ),
+                  child: MaterialButton(
+                    minWidth: 1000.w,
+                    height: 50.h,
+                    onPressed: () {
+                      context.read<CartCubit>().createOrder();
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Order created successfully...'),
+                          backgroundColor: Colors.green,
+                        ),
+                      );
+                    },
+                    color: Colors.yellow,
+                    textColor: ColorsManager.darkBlue,
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0.w),
+                    ),
+                    child: Text(
+                      'Create Order',
                       style: TextStyle(
                           fontSize: 19.w, fontWeight: FontWeight.bold),
                     ),

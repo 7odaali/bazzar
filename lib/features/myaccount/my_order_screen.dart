@@ -255,9 +255,18 @@ class _MyOrderScreenState extends State<MyOrderScreen> {
                                               ),
                                               height: 50.h,
                                               color: Colors.yellow,
-                                              onPressed: () {},
+                                              onPressed: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        OrderDetailsScreen(
+                                                            orderData: data),
+                                                  ),
+                                                );
+                                              },
                                               child: Text(
-                                                "Confirmed",
+                                                "Order Details",
                                                 style: TextStyle(
                                                     fontSize: 18.w,
                                                     fontWeight: FontWeight.bold,
@@ -290,16 +299,19 @@ class _MyOrderScreenState extends State<MyOrderScreen> {
                                               height: 50.h,
                                               color: ColorsManager.darkBlue,
                                               onPressed: () {
-                                               /* Navigator.push(
+                                                /* Navigator.push(
                                                   context,
                                                   MaterialPageRoute(
                                                     builder: (context) =>
                                                         const OrderDetailsScreen(),
                                                   ),
-                                                );*/Navigator.push(
+                                                );*/
+                                                Navigator.push(
                                                   context,
                                                   MaterialPageRoute(
-                                                    builder: (context) => OrderDetailsScreen(orderData: data),
+                                                    builder: (context) =>
+                                                        OrderDetailsScreen(
+                                                            orderData: data),
                                                   ),
                                                 );
                                               },
