@@ -17,6 +17,7 @@ class MyAddressScreen extends StatefulWidget {
 
 class _MyAddressScreenState extends State<MyAddressScreen> {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  String? selectedAddress;
 
   @override
   Widget build(BuildContext context) {
@@ -113,13 +114,28 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(
-                                    address['addressName'] ?? 'No Name',
-                                    style: TextStyle(
-                                      fontSize: 16.sp,
-                                      fontWeight: FontWeight.bold,
-                                      color: ColorsManager.darkBlue,
-                                    ),
+                                  Row(
+                                    children: [
+                                      Radio<String>(
+                                        activeColor: const Color(0xFF041A31),
+                                        value:
+                                            address['addressName'] ?? 'No Name',
+                                        groupValue: selectedAddress,
+                                        onChanged: (String? value) {
+                                          setState(() {
+                                            selectedAddress = value!;
+                                          });
+                                        },
+                                      ),
+                                      Text(
+                                        address['addressName'] ?? 'No Name',
+                                        style: TextStyle(
+                                          fontSize: 16.sp,
+                                          fontWeight: FontWeight.bold,
+                                          color: ColorsManager.darkBlue,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                   IconButton(
                                     icon: const Icon(Icons.delete,
@@ -163,9 +179,8 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
                                                         Colors.yellow,
                                                     padding:
                                                         EdgeInsets.symmetric(
-                                                      horizontal: 30.w,
-                                                      vertical: 10.h,
-                                                    ),
+                                                            horizontal: 30.w,
+                                                            vertical: 10.h),
                                                   ),
                                                   onPressed: () =>
                                                       Navigator.of(context)
@@ -194,9 +209,8 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
                                                         Colors.yellow,
                                                     padding:
                                                         EdgeInsets.symmetric(
-                                                      horizontal: 30.w,
-                                                      vertical: 10.h,
-                                                    ),
+                                                            horizontal: 30.w,
+                                                            vertical: 10.h),
                                                   ),
                                                   onPressed: () =>
                                                       Navigator.of(context)
@@ -246,63 +260,67 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
                                   ),
                                 ],
                               ),
-                              verticalSpace(5),
-                              Text(
-                                address['country'] ?? '',
-                                style: TextStyle(
-                                    fontSize: 14.sp,
-                                    color: const Color(0xFF464646)),
+                              Padding(
+                                padding: EdgeInsets.only(left: 45.w),
+                                child: Text(
+                                  address['country'] ?? '',
+                                  style: TextStyle(
+                                      fontSize: 14.sp,
+                                      color: const Color(0xFF464646)),
+                                ),
                               ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    "${address['governorate'] ?? ''}"
-                                    "\n${address['addressName'] ?? ''}, "
-                                    "${address['houseNumber'] ?? ''}",
-                                    style: TextStyle(
-                                        fontSize: 14.sp,
-                                        color: const Color(0xFF464646)),
-                                  ),
-                                  MaterialButton(
-                                    minWidth: 45.w,
-                                    height: 35.h,
-                                    onPressed: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              AddAddressScreen(
-                                            addressData: address,
-                                            documentId: addresses[index].id,
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                    color: ColorsManager.darkBlue,
-                                    textColor: Colors.white,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(12.r),
-                                    ),
-                                    child: Text(
-                                      "EDIT",
+                              Padding(
+                                padding: EdgeInsets.only(left: 45.w),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "${address['governorate'] ?? ''}\n${address['addressName'] ?? ''}, ${address['houseNumber'] ?? ''}",
                                       style: TextStyle(
-                                        color: Colors.yellow,
-                                        fontSize: 12.sp,
-                                        fontWeight: FontWeight.bold,
+                                          fontSize: 14.sp,
+                                          color: const Color(0xFF464646)),
+                                    ),
+                                    MaterialButton(
+                                      minWidth: 45.w,
+                                      height: 35.h,
+                                      onPressed: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                AddAddressScreen(
+                                              addressData: address,
+                                              documentId: addresses[index].id,
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                      color: ColorsManager.darkBlue,
+                                      textColor: Colors.white,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(12.r)),
+                                      child: Text(
+                                        "EDIT",
+                                        style: TextStyle(
+                                            color: Colors.yellow,
+                                            fontSize: 12.sp,
+                                            fontWeight: FontWeight.bold),
                                       ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                               if (address['addressName'] != null &&
                                   address['addressName'].isNotEmpty)
-                                Text(
-                                  "Floor: ${address['floorNumber']}",
-                                  style: TextStyle(
-                                    fontSize: 14.sp,
-                                    color: const Color(0xFF464646),
+                                Padding(
+                                  padding: EdgeInsets.only(left: 45.w),
+                                  child: Text(
+                                    "Floor: ${address['floorNumber']}",
+                                    style: TextStyle(
+                                        fontSize: 14.sp,
+                                        color: const Color(0xFF464646)),
                                   ),
                                 ),
                             ],
