@@ -1,6 +1,7 @@
 import 'package:bazzar/features/menuScreens/info_screen.dart';
 import 'package:bazzar/features/stores/Favorite_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -11,6 +12,7 @@ import '../core/helpers/spacing.dart';
 import '../core/theming/styles.dart';
 import '../core/utils/country_utils.dart';
 import 'menuScreens/change_country_screen.dart';
+import 'menuScreens/cubit/notification_service.dart';
 import 'menuScreens/join_us_screen.dart';
 import 'menuScreens/offer_screen.dart';
 
@@ -23,6 +25,50 @@ class MenuScreen extends StatefulWidget {
 
 class _MenuScreenState extends State<MenuScreen> {
   String selectedLanguage = 'en';
+  bool notificationsEnabled = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadNotificationPreference();
+    _checkNotificationPermission();
+  }
+
+  _loadNotificationPreference() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      notificationsEnabled = prefs.getBool('notificationsEnabled') ?? false;
+    });
+  }
+
+  _saveNotificationPreference(bool value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('notificationsEnabled', value);
+  }
+
+  _checkNotificationPermission() async {
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+    NotificationSettings settings = await messaging.requestPermission();
+    if (settings.authorizationStatus == AuthorizationStatus.denied) {
+      print('User has denied notification permission');
+    }
+  }
+
+  _enableNotifications() async {
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+    await messaging.subscribeToTopic("general");
+
+    NotificationService.showNotification(
+      'Notifications Enabled',
+      'You will now receive notifications!',
+    );
+  }
+
+  _disableNotifications() async {
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+    await messaging.unsubscribeFromTopic("general");
+    NotificationService.cancelNotification();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -117,13 +163,51 @@ class _MenuScreenState extends State<MenuScreen> {
                     ),
                   ),
                   _menuItem(
-                      title: "Notification",
-                      icon: Icons.notifications,
-                      trailing: Icon(
-                        Icons.arrow_forward_ios,
-                        size: 16.w,
-                        color: Colors.black54,
-                      )),
+                    title: "Notification",
+                    icon: Icons.notifications,
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          'Off',
+                          style: TextStyle(
+                            fontSize: 16.w,
+                            color: notificationsEnabled
+                                ? Colors.grey
+                                : Colors.yellow,
+                          ),
+                        ),
+                        SizedBox(width: 10.w),
+                        Switch(
+                          activeColor: ColorsManager.yellow,
+                          inactiveThumbColor: Colors.white,
+                          value: notificationsEnabled,
+                          onChanged: (bool value) {
+                            setState(() {
+                              notificationsEnabled = value;
+                            });
+                            _saveNotificationPreference(value);
+
+                            if (value) {
+                              _enableNotifications();
+                            } else {
+                              _disableNotifications();
+                            }
+                          },
+                        ),
+                        SizedBox(width: 10.w),
+                        Text(
+                          'On',
+                          style: TextStyle(
+                            fontSize: 16.w,
+                            color: notificationsEnabled
+                                ? ColorsManager.yellow
+                                : Colors.grey,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                   _menuItem(
                     title: "Wishlist",
                     icon: Icons.favorite,
@@ -326,6 +410,26 @@ class _MenuScreenState extends State<MenuScreen> {
                       );
                     },
                   ),
+                  _menuItem(
+                    title: "Send Notification",
+                    icon: Icons.notifications_active,
+                    trailing: Icon(
+                      Icons.arrow_forward_ios,
+                      size: 16.w,
+                      color: Colors.black54,
+                    ),
+                    onTap: () {
+                      if (notificationsEnabled) {
+                        NotificationService.showNotification(
+                          'New Notification',
+                          'Mahmoud ali ebaid .........',
+                        );
+                      } else {
+                        print("........Notifications are off. Enable notifications first.");
+                      }
+                    },
+                  ),
+
                 ],
               ),
             ),
