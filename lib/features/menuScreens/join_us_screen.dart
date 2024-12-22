@@ -349,11 +349,11 @@ class _JoinUsScreenState extends State<JoinUsScreen> {
                       ),
                     ),
                     verticalSpace(20),
-                    const Text(
+                     Text(
                       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum "
                           "has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a "
                           "galley of type and scrambled it to make a type specimen book.",
-                      style: TextStyle(color: ColorsManager.darkBlue),
+                      style: TextStyle(color: ColorsManager.darkBlue,fontSize: 12.w),
                     ),
                     verticalSpace(20),
                     Row(
@@ -362,7 +362,7 @@ class _JoinUsScreenState extends State<JoinUsScreen> {
                         Text(
                           "Business Type",
                           style: TextStyles.font22boldDarkBlue
-                              .copyWith(fontSize: 18),
+                              .copyWith(fontSize: 16.w),
                         ),
                       ],
                     ),
@@ -376,7 +376,7 @@ class _JoinUsScreenState extends State<JoinUsScreen> {
                             title: Text(
                               "SHOP",
                               style: TextStyles.font17boldDarkBlue
-                                  .copyWith(fontSize: 13.w),
+                                  .copyWith(fontSize: 10.w),
                             ),
                             value: 'SHOP',
                             activeColor: const Color(0xFF041A31),
@@ -395,7 +395,7 @@ class _JoinUsScreenState extends State<JoinUsScreen> {
                             title: Text(
                               "Small Business",
                               style: TextStyles.font17boldDarkBlue
-                                  .copyWith(fontSize: 13.w),
+                                  .copyWith(fontSize: 10.w),
                             ),
                             value: 'Small Business',
                             activeColor: const Color(0xFF041A31),
@@ -412,9 +412,9 @@ class _JoinUsScreenState extends State<JoinUsScreen> {
                     verticalSpace(20),
                     TextFormField(
                       controller: businessNameController,
-                      decoration: const InputDecoration(
-                        labelText: 'Business Name*',
-                        border: OutlineInputBorder(
+                      decoration:  InputDecoration(
+                        labelText: 'Business Name*',labelStyle: TextStyle(fontSize: 13.w),
+                        border: const OutlineInputBorder(
                           borderRadius: BorderRadius.all(
                             Radius.circular(12),
                           ),
@@ -430,11 +430,11 @@ class _JoinUsScreenState extends State<JoinUsScreen> {
                     verticalSpace(20),
                     TextFormField(
                       controller: contactNameController,
-                      decoration: const InputDecoration(
-                        labelText: 'Contact Name*',
+                      decoration:  InputDecoration(
+                        labelText: 'Contact Name*',labelStyle: TextStyle(fontSize: 13.w),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.all(
-                            Radius.circular(12),
+                            Radius.circular(12.w),
                           ),
                         ),
                       ),
@@ -448,11 +448,11 @@ class _JoinUsScreenState extends State<JoinUsScreen> {
                     verticalSpace(20),
                     TextFormField(
                       controller: emailController,
-                      decoration: const InputDecoration(
-                        labelText: 'Email*',
-                        border: OutlineInputBorder(
+                      decoration:  InputDecoration(
+                        labelText: 'Email*',labelStyle: TextStyle(fontSize: 13.w),
+                        border:  OutlineInputBorder(
                           borderRadius: BorderRadius.all(
-                            Radius.circular(12),
+                            Radius.circular(12.w),
                           ),
                         ),
                       ),
@@ -468,11 +468,11 @@ class _JoinUsScreenState extends State<JoinUsScreen> {
                     verticalSpace(20),
                     TextFormField(
                       controller: messageController,
-                      decoration: const InputDecoration(
-                        hintText: "Message (Optional)",
+                      decoration:  InputDecoration(
+                        hintText: "Message (Optional)",labelStyle: TextStyle(fontSize: 13.w),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.all(
-                            Radius.circular(12),
+                            Radius.circular(12.w),
                           ),
                         ),
                       ),
