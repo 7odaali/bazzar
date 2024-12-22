@@ -20,7 +20,9 @@ class _SetUpScreenState extends State<SetUpScreen> {
       backgroundColor: Colors.black,
       body: Stack(
         children: [
-          Image.asset("assets/BG.png"),
+          SizedBox(height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              child: Image.asset("assets/BG.png",fit: BoxFit.cover,)),
           Positioned(
             right: 0,
             bottom: 30.h,

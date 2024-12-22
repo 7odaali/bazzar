@@ -43,7 +43,6 @@ class _CategoryProductsState extends State<CategoryProducts> {
         .doc(widget.detailsCategoryId)
         .collection('products');
     context.read<CartCubit>().loadCartFromLocal();
-
   }
 
   void _applyFilter() async {
@@ -90,7 +89,7 @@ class _CategoryProductsState extends State<CategoryProducts> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) =>  const CartScreen(),
+                      builder: (context) => const CartScreen(),
                     ),
                   );
                 },
@@ -133,6 +132,7 @@ class _CategoryProductsState extends State<CategoryProducts> {
                     decoration: InputDecoration(
                       prefixIcon: const Icon(Icons.search),
                       hintText: "Search for products...",
+                      hintStyle: TextStyle(fontSize: 13.w),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20.w),
                       ),
@@ -185,7 +185,7 @@ class _CategoryProductsState extends State<CategoryProducts> {
                     crossAxisCount: 2,
                     crossAxisSpacing: 10.w,
                     mainAxisSpacing: 10.h,
-                    childAspectRatio: 0.9,
+                    childAspectRatio: 0.8,
                   ),
                   itemCount: products.length,
                   itemBuilder: (context, index) {
@@ -281,20 +281,20 @@ class _CategoryProductsState extends State<CategoryProducts> {
                               ),
                               SizedBox(height: 10.h),
                               Padding(
-                                padding: const EdgeInsets.all(8.0),
+                                padding: EdgeInsets.all(8.0.w),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
                                   children: [
                                     Text(
                                       product['name'],
-                                      style: const TextStyle(fontSize: 16),
+                                      style: TextStyle(fontSize: 15.w),
                                       overflow: TextOverflow.ellipsis,
                                     ),
                                     Text(
                                       "\$${product['price']}",
-                                      style: const TextStyle(
-                                        fontSize: 14,
+                                      style: TextStyle(
+                                        fontSize: 13.w,
                                       ),
                                     ),
                                   ],

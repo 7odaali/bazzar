@@ -63,7 +63,7 @@ class _DetailsCategoryScreenState extends State<DetailsCategoryScreen> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) =>  CartScreen(),
+                      builder: (context) =>  const CartScreen(),
                     ),
                   );
                 },
@@ -115,7 +115,7 @@ class _DetailsCategoryScreenState extends State<DetailsCategoryScreen> {
               crossAxisCount: 2,
               crossAxisSpacing: 10,
               mainAxisSpacing: 10,
-              childAspectRatio: 0.68,
+              childAspectRatio: 0.63,
             ),
             itemCount: detailsCategories.length,
             itemBuilder: (context, index) {

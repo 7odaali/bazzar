@@ -40,7 +40,7 @@ class FavoriteScreen extends StatelessWidget {
               crossAxisCount: 2,
               crossAxisSpacing: 10.w,
               mainAxisSpacing: 10.h,
-              childAspectRatio: 1,
+              childAspectRatio: 0.95,
             ),
             itemCount: favorites.length,
             itemBuilder: (context, index) {
@@ -72,7 +72,7 @@ class FavoriteScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding:  EdgeInsets.all(8.0.w),
                         child: Stack(
                           children: [
                             ClipRRect(
@@ -87,16 +87,16 @@ class FavoriteScreen extends StatelessWidget {
                                         fit: BoxFit.fill,
                                         errorBuilder:
                                             (context, error, stackTrace) {
-                                          return const Icon(
+                                          return  Icon(
                                             Icons.broken_image,
-                                            size: 50,
+                                            size: 50.w,
                                             color: Colors.grey,
                                           );
                                         },
                                       )
-                                    : const Icon(
+                                    :  Icon(
                                         Icons.image_not_supported,
-                                        size: 50,
+                                        size: 50.w,
                                         color: Colors.grey,
                                       ),
                               ),
@@ -125,7 +125,7 @@ class FavoriteScreen extends StatelessWidget {
                             Text(
                               product['name'],
                               style: TextStyle(
-                                fontSize: 16.sp,
+                                fontSize: 15.w,
                                 fontWeight: FontWeight.w600,
                               ),
                               overflow: TextOverflow.ellipsis,
@@ -133,7 +133,7 @@ class FavoriteScreen extends StatelessWidget {
                             Text(
                               "\$${product['price']}",
                               style: TextStyle(
-                                fontSize: 14.sp,
+                                fontSize: 13.w,
                                 color: Colors.grey,
                               ),
                             ),

@@ -130,7 +130,7 @@ class _LangScreenState extends State<LangScreen> {
               ),
               const Spacer(),
               MaterialButton(
-                height: 40.h,
+                height: 50.h,
                 minWidth: 1000.w,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(5.w)),
