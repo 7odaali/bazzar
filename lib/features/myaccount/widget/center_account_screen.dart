@@ -209,7 +209,7 @@ class _CenterAccountScreenState extends State<CenterAccountScreen> {
                         ),
                         content: SizedBox(
                           width: 250.w,
-                          height: 160.h,
+                          height: 200.h,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -222,10 +222,10 @@ class _CenterAccountScreenState extends State<CenterAccountScreen> {
                                     color: Colors.grey,
                                   ),
                                   horizontalSpace(5.w),
-                                  const Expanded(
+                                   Expanded(
                                     child: Text(
                                       "For each 10 KWD you spend you will gain 1 PT",
-                                      style: TextStyle(color: Colors.grey),
+                                      style: TextStyle(color: Colors.grey,fontSize: 10.w),
                                       softWrap: true,
                                     ),
                                   ),
@@ -241,10 +241,10 @@ class _CenterAccountScreenState extends State<CenterAccountScreen> {
                                     color: Colors.grey,
                                   ),
                                   horizontalSpace(5.w),
-                                  const Expanded(
+                                   Expanded(
                                     child: Text(
                                       "For redeeming 10 PT = 1 KWD",
-                                      style: TextStyle(color: Colors.grey),
+                                      style: TextStyle(color: Colors.grey,fontSize: 10.w),
                                       softWrap: true,
                                     ),
                                   ),
@@ -260,10 +260,10 @@ class _CenterAccountScreenState extends State<CenterAccountScreen> {
                                     color: Colors.grey,
                                   ),
                                   horizontalSpace(5.w),
-                                  const Expanded(
+                                   Expanded(
                                     child: Text(
                                       "Bazzar Points are available for Kuwait ONLY.",
-                                      style: TextStyle(color: Colors.grey),
+                                      style: TextStyle(color: Colors.grey,fontSize: 10.w),
                                       softWrap: true,
                                     ),
                                   ),
@@ -378,10 +378,10 @@ class _CenterAccountScreenState extends State<CenterAccountScreen> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.w),
                         ),
-                        title: const Center(
+                        title:  Center(
                           child: Text(
                             "Confirm Logout",
-                            style: TextStyle(
+                            style: TextStyle(fontSize: 17.w,
                               fontWeight: FontWeight.bold,
                               color: ColorsManager.darkBlue,
                             ),

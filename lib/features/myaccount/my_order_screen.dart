@@ -274,6 +274,7 @@ class _MyOrderScreenState extends State<MyOrderScreen> {
                                                         ColorsManager.darkBlue),
                                               ),
                                             ),
+/*
                                             MaterialButton(
                                               minWidth: 45.w,
                                               shape: RoundedRectangleBorder(
@@ -289,8 +290,9 @@ class _MyOrderScreenState extends State<MyOrderScreen> {
                                                 color: Colors.yellow,
                                               ),
                                             ),
+*/
                                             MaterialButton(
-                                              minWidth: 45.w,
+                                              minWidth: 70.w,
                                               shape: RoundedRectangleBorder(
                                                 borderRadius: BorderRadius.all(
                                                   Radius.circular(15.w),

@@ -201,10 +201,15 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
                                             final confirm = await showDialog(
                                               context: context,
                                               builder: (context) => AlertDialog(
-                                                title: const Center(
+                                                shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            12.w)),
+                                                title: Center(
                                                   child: Text(
                                                     "Delete Address",
                                                     style: TextStyle(
+                                                        fontSize: 11.w,
                                                         color: ColorsManager
                                                             .darkBlue),
                                                   ),
@@ -212,9 +217,12 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
                                                 content: SizedBox(
                                                   height: 50.h,
                                                   width: 10000.w,
-                                                  child: const Center(
+                                                  child: Center(
                                                     child: Text(
-                                                        "Are you sure you want to delete this address?"),
+                                                      "Are you sure you want to delete this address?",
+                                                      style: TextStyle(
+                                                          fontSize: 9.w),
+                                                    ),
                                                   ),
                                                 ),
                                                 actions: [
