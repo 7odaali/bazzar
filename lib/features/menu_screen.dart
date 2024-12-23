@@ -3,6 +3,7 @@ import 'package:bazzar/features/stores/Favorite_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -11,6 +12,7 @@ import '../core/theming/colors.dart';
 import '../core/helpers/spacing.dart';
 import '../core/theming/styles.dart';
 import '../core/utils/country_utils.dart';
+import '../dark_mode_cubit.dart';
 import 'menuScreens/change_country_screen.dart';
 import 'menuScreens/cubit/notification_service.dart';
 import 'menuScreens/join_us_screen.dart';
@@ -26,6 +28,8 @@ class MenuScreen extends StatefulWidget {
 class _MenuScreenState extends State<MenuScreen> {
   String selectedLanguage = 'en';
   bool notificationsEnabled = false;
+
+  bool isDarkMode = false;
 
   @override
   void initState() {
@@ -73,7 +77,9 @@ class _MenuScreenState extends State<MenuScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+/*
       backgroundColor: const Color(0xFFFAFAFA),
+*/
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -120,6 +126,25 @@ class _MenuScreenState extends State<MenuScreen> {
                         ),
                       )
                     ],
+                  ),
+                  verticalSpace(10), _menuItem(
+                    title: "Dark Mode",
+                    icon: Icons.dark_mode,
+                    trailing: IconButton(
+                      icon:
+                      Icon(isDarkMode ? Icons.light_mode : Icons.dark_mode),
+                      onPressed: () {
+                        context.read<DarkModeCubit>().toggleDarkMode();
+                      },
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const FavoriteScreen(),
+                        ),
+                      );
+                    },
                   ),
                   verticalSpace(10),
                   _menuItem(
@@ -225,6 +250,7 @@ class _MenuScreenState extends State<MenuScreen> {
                       );
                     },
                   ),
+
                   _menuItem(
                     onTap: () {
                       Navigator.push(
@@ -425,11 +451,11 @@ class _MenuScreenState extends State<MenuScreen> {
                           'Mahmoud ali ebaid .........',
                         );
                       } else {
-                        print("........Notifications are off. Enable notifications first.");
+                        print(
+                            "........Notifications are off. Enable notifications first.");
                       }
                     },
                   ),
-
                 ],
               ),
             ),
