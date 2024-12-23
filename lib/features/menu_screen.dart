@@ -146,7 +146,7 @@ class _MenuScreenState extends State<MenuScreen> {
                       );
                     },
                   ),
-                  verticalSpace(10),
+                  SizedBox(width: 10.w),
                   _menuItem(
                     title: "Language",
                     icon: Icons.language,
