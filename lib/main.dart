@@ -13,6 +13,7 @@ import 'features/menuScreens/cubit/notification_service.dart';
 import 'features/stores/cubit/favorite_cubit.dart';
 import 'firebase_options.dart';
 import 'product_model.dart';
+import 'dark_mode_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,17 +24,24 @@ void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(ProductModelAdapter());
   await Hive.openBox<ProductModel>('favoritesBox');
-/*
-  await Hive.openBox<ProductModel>('cartBox');
-*/
   await NotificationService.initialize();
+
+  final darkModeCubit = DarkModeCubit();
+  await darkModeCubit.loadDarkMode();
 
   runApp(
     EasyLocalization(
       supportedLocales: const [Locale('en'), Locale('ar')],
       path: 'assets/lang',
       fallbackLocale: const Locale('en'),
-      child: const MyApp(),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider<DarkModeCubit>(create: (_) => darkModeCubit),
+          BlocProvider<FavoritesCubit>(create: (_) => FavoritesCubit()),
+          BlocProvider<CartCubit>(create: (_) => CartCubit()),
+        ],
+        child: const MyApp(),
+      ),
     ),
   );
 }
@@ -48,26 +56,27 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (_, child) {
-        return MultiBlocProvider(
-          providers: [
-            BlocProvider<FavoritesCubit>(create: (_) => FavoritesCubit()),
-            BlocProvider<CartCubit>(create: (_) => CartCubit()),
-          ],
-          child: MaterialApp(
-            localizationsDelegates: context.localizationDelegates,
-            supportedLocales: context.supportedLocales,
-            locale: context.locale,
-            debugShowCheckedModeBanner: false,
-            home: FirebaseAuth.instance.currentUser != null &&
-                    FirebaseAuth.instance.currentUser!.emailVerified
-                ? const BottomNavigationBarScreen()
-                : const SplashScreen(),
-            routes: {
-              "homescreen": (_) => const HomeScreen(),
-              "BottomNavigationBarScreen": (_) =>
-                  const BottomNavigationBarScreen(),
-            },
-          ),
+        return BlocBuilder<DarkModeCubit, bool>(
+          builder: (context, isDarkMode) {
+            return MaterialApp(
+              theme: ThemeData.light(),
+              darkTheme: ThemeData.dark(),
+              themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
+              localizationsDelegates: context.localizationDelegates,
+              supportedLocales: context.supportedLocales,
+              locale: context.locale,
+              debugShowCheckedModeBanner: false,
+              home: FirebaseAuth.instance.currentUser != null &&
+                  FirebaseAuth.instance.currentUser!.emailVerified
+                  ? const BottomNavigationBarScreen()
+                  : const SplashScreen(),
+              routes: {
+                "homescreen": (_) => const HomeScreen(),
+                "BottomNavigationBarScreen": (_) =>
+                const BottomNavigationBarScreen(),
+              },
+            );
+          },
         );
       },
     );
