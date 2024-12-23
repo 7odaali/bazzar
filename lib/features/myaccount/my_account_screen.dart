@@ -19,7 +19,9 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
     User? user = FirebaseAuth.instance.currentUser;
 
     return Scaffold(
+/*
       backgroundColor: Colors.white,
+*/
       body: SingleChildScrollView(
         child: Column(
           children: [

@@ -302,7 +302,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                               ],
                             ),
-                            SizedBox(height: 10.h),
                           ],
                         ),
                       ),
@@ -312,6 +311,7 @@ class _HomeScreenState extends State<HomeScreen> {
               },
             ),
           ),
+          verticalSpace(10),
         ],
       ),
     );
