@@ -137,7 +137,7 @@ class _LangScreenState extends State<LangScreen> {
                 ),
                 color: ColorsManager.darkBlue,
                 onPressed: () {
-                  Navigator.push(
+                  Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
                       builder: (context) => const LoginScreen(),

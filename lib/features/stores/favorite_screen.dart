@@ -84,7 +84,7 @@ class FavoriteScreen extends StatelessWidget {
                                         product['image'].isNotEmpty
                                     ? Image.network(
                                         product['image'],
-                                        fit: BoxFit.fill,
+                                        fit: BoxFit.cover,
                                         errorBuilder:
                                             (context, error, stackTrace) {
                                           return  Icon(

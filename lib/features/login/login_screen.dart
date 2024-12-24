@@ -268,7 +268,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           height: 50.h,
                           child: ElevatedButton(
                             onPressed: () {
-                              Navigator.push(
+                              Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => const SignUpScreen(),

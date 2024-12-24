@@ -121,7 +121,7 @@ class _CategoryProductsState extends State<CategoryProducts> {
                 ),
                 SizedBox(
                   height: 45.h,
-                  width: 320.w,
+                  width: 300.w,
                   child: TextField(
                     controller: _searchController,
                     onChanged: (value) {
@@ -230,7 +230,7 @@ class _CategoryProductsState extends State<CategoryProducts> {
                                                 product['image'].isNotEmpty
                                             ? Image.network(
                                                 product['image'],
-                                                fit: BoxFit.fill,
+                                                fit: BoxFit.cover,
                                                 width: double.infinity,
                                                 errorBuilder: (context, error,
                                                     stackTrace) {

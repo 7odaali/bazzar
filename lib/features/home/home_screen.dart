@@ -148,7 +148,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           verticalSpace(22),
           SizedBox(
-            height: 560.h,
+            height: 520.h,
             child: StreamBuilder<QuerySnapshot>(
               stream: productsQuery.snapshots(),
               builder: (context, snapshot) {
@@ -235,7 +235,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               product['image'].isNotEmpty
                                           ? Image.network(
                                               product['image'],
-                                              fit: BoxFit.fill,
+                                              fit: BoxFit.cover,
                                               errorBuilder: (context, error,
                                                   stackTrace) {
                                                 return Center(

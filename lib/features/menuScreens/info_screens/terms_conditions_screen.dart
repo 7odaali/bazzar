@@ -22,74 +22,72 @@ class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFFAFAFA),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const AppBarProfileScreen(),
-            verticalSpace(20),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15.w),
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      Text(
-                        "Terms & Conditions",
-                        style: TextStyle(
-                          color: ColorsManager.darkBlue,
-                          fontSize: 19.w,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      )
-                    ],
-                  ),
-                  verticalSpace(0),
-                  StreamBuilder<QuerySnapshot>(
-                    stream: termsAndConditionsRef.snapshots(),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Center(child: CircularProgressIndicator());
-                      }
+      body: Column(
+        children: [
+          const AppBarProfileScreen(),
+          verticalSpace(20),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 15.w),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Text(
+                      "Terms & Conditions",
+                      style: TextStyle(
+                        color: ColorsManager.darkBlue,
+                        fontSize: 19.w,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    )
+                  ],
+                ),
+                verticalSpace(0),
+                StreamBuilder<QuerySnapshot>(
+                  stream: termsAndConditionsRef.snapshots(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
 
-                      if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-                        return const Center(
-                          child: Text(""),
-                        );
-                      }
-                      final termsAndConditions = snapshot.data!.docs;
-
-                      return SizedBox(
-                        height: 700,
-                        child: ListView.builder(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemCount: termsAndConditions.length,
-                            itemBuilder: (context, i) {
-                              final oneTermsAndCondition =
-                                  termsAndConditions[i];
-                              final content =
-                                  oneTermsAndCondition['content'] ?? '';
-                              return Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    content,
-                                    style: TextStyles.font15RegularLightGray
-                                        .copyWith(fontSize: 13,color: const Color(0xFF041A31),),
-                                  ),
-                                  verticalSpace(20),
-                                ],
-                              );
-                            }),
+                    if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                      return const Center(
+                        child: Text(""),
                       );
-                    },
-                  ),
-                  verticalSpace(40),
-                ],
-              ),
-            )
-          ],
-        ),
+                    }
+                    final termsAndConditions = snapshot.data!.docs;
+
+                    return SizedBox(
+                      height: 560,
+                      child: ListView.builder(
+                         /* shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),*/
+                          itemCount: termsAndConditions.length,
+                          itemBuilder: (context, i) {
+                            final oneTermsAndCondition =
+                                termsAndConditions[i];
+                            final content =
+                                oneTermsAndCondition['content'] ?? '';
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  content,
+                                  style: TextStyles.font15RegularLightGray
+                                      .copyWith(fontSize: 13,color: const Color(0xFF041A31),),
+                                ),
+                                verticalSpace(20),
+                              ],
+                            );
+                          }),
+                    );
+                  },
+                ),
+                verticalSpace(40),
+              ],
+            ),
+          )
+        ],
       ),
     );
   }

@@ -22,83 +22,81 @@ class _AboutBazzarScreenState extends State<AboutBazzarScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFFAFAFA),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const AppBarProfileScreen(),
-            verticalSpace(20),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15.w),
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      Text(
-                        "About Bazzar",
-                        style: TextStyle(
-                          color: ColorsManager.darkBlue,
-                          fontSize: 19.w,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      )
-                    ],
+      body: Column(
+        children: [
+          const AppBarProfileScreen(),
+          verticalSpace(20),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 15.w),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Text(
+                      "About Bazzar",
+                      style: TextStyle(
+                        color: ColorsManager.darkBlue,
+                        fontSize: 19.w,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    )
+                  ],
+                ),
+                verticalSpace(20),
+                Center(
+                  child: Image.asset(
+                    "assets/LOGO1.png",
+                    height: 100.h,
                   ),
-                  verticalSpace(20),
-                  Center(
-                    child: Image.asset(
-                      "assets/LOGO1.png",
-                      height: 100.h,
-                    ),
-                  ),
-                  verticalSpace(20),
-                  StreamBuilder<QuerySnapshot>(
-                      stream: aboutbazzarRef.snapshots(),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return const Center(
-                              child: CircularProgressIndicator());
-                        }
+                ),
+                verticalSpace(20),
+                StreamBuilder<QuerySnapshot>(
+                    stream: aboutbazzarRef.snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState ==
+                          ConnectionState.waiting) {
+                        return const Center(
+                            child: CircularProgressIndicator());
+                      }
 
-                        if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-                          return const Center(
-                            child: Text(""),
-                          );
-                        }
-                        final aboutBazzar = snapshot.data!.docs;
-
-                        return SizedBox(
-                          height: 700,
-                          child: ListView.builder(
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemCount: aboutBazzar.length,
-                              itemBuilder: (context, i) {
-                                final oneAboutBazzar = aboutBazzar[i];
-                                final content = oneAboutBazzar['content'] ?? '';
-                                return Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      content,
-                                      style: TextStyles.font15RegularLightGray
-                                          .copyWith(
-                                        fontSize: 13,
-                                        color: const Color(0xFF041A31),
-                                      ),
-                                    ),
-                                    verticalSpace(20),
-                                  ],
-                                );
-                              }),
+                      if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                        return const Center(
+                          child: Text(""),
                         );
-                      }),
-                  verticalSpace(40),
-                ],
-              ),
-            )
-          ],
-        ),
+                      }
+                      final aboutBazzar = snapshot.data!.docs;
+
+                      return SizedBox(
+                        height: 445,
+                        child: ListView.builder(
+                           /* shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),*/
+                            itemCount: aboutBazzar.length,
+                            itemBuilder: (context, i) {
+                              final oneAboutBazzar = aboutBazzar[i];
+                              final content = oneAboutBazzar['content'] ?? '';
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    content,
+                                    style: TextStyles.font15RegularLightGray
+                                        .copyWith(
+                                      fontSize: 13,
+                                      color: const Color(0xFF041A31),
+                                    ),
+                                  ),
+                                  verticalSpace(20),
+                                ],
+                              );
+                            }),
+                      );
+                    }),
+                verticalSpace(40),
+              ],
+            ),
+          )
+        ],
       ),
     );
   }

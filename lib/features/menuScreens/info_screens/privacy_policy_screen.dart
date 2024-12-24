@@ -22,72 +22,70 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFFAFAFA),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const AppBarProfileScreen(),
-            verticalSpace(20),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15.w),
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      Text(
-                        "Privacy Policy",
-                        style: TextStyle(
-                          color: ColorsManager.darkBlue,
-                          fontSize: 19.w,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      )
-                    ],
-                  ),
-                  verticalSpace(0),
-                  StreamBuilder<QuerySnapshot>(
-                    stream: privacyPolicyRef.snapshots(),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Center(child: CircularProgressIndicator());
-                      }
+      body: Column(
+        children: [
+          const AppBarProfileScreen(),
+          verticalSpace(20),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 15.w),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Text(
+                      "Privacy Policy",
+                      style: TextStyle(
+                        color: ColorsManager.darkBlue,
+                        fontSize: 19.w,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    )
+                  ],
+                ),
+                verticalSpace(0),
+                StreamBuilder<QuerySnapshot>(
+                  stream: privacyPolicyRef.snapshots(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
 
-                      if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-                        return const Center(
-                          child: Text(""),
-                        );
-                      }
-                      final privacyPolicy = snapshot.data!.docs;
-
-                      return SizedBox(
-                        height: 700,
-                        child: ListView.builder(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemCount: privacyPolicy.length,
-                            itemBuilder: (context, i) {
-                              final onePrivacyPolicy = privacyPolicy[i];
-                              final content = onePrivacyPolicy['content'] ?? '';
-                              return Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    content,
-                                    style: TextStyles.font15RegularLightGray
-                                        .copyWith(fontSize: 13,color: const Color(0xFF041A31)),
-                                  ),
-                                  verticalSpace(20),
-                                ],
-                              );
-                            }),
+                    if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                      return const Center(
+                        child: Text(""),
                       );
-                    },
-                  ),
-                  verticalSpace(40),
-                ],
-              ),
-            )
-          ],
-        ),
+                    }
+                    final privacyPolicy = snapshot.data!.docs;
+
+                    return SizedBox(
+                      height: 560,
+                      child: ListView.builder(
+                         /* shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),*/
+                          itemCount: privacyPolicy.length,
+                          itemBuilder: (context, i) {
+                            final onePrivacyPolicy = privacyPolicy[i];
+                            final content = onePrivacyPolicy['content'] ?? '';
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  content,
+                                  style: TextStyles.font15RegularLightGray
+                                      .copyWith(fontSize: 13,color: const Color(0xFF041A31)),
+                                ),
+                                verticalSpace(20),
+                              ],
+                            );
+                          }),
+                    );
+                  },
+                ),
+                verticalSpace(40),
+              ],
+            ),
+          )
+        ],
       ),
     );
   }

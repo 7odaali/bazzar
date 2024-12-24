@@ -62,7 +62,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               product['image'],
                               height: 250.h,
                               width: double.infinity,
-                              fit: BoxFit.fill,
+                              fit: BoxFit.cover,
                               errorBuilder: (context, error, stackTrace) {
                                 return Center(
                                   child: Icon(

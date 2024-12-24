@@ -80,7 +80,7 @@ class _StoreScreenState extends State<StoreScreen> {
           ),
           verticalSpace(30),
           SizedBox(
-            height: 630.h,
+            height: 610.h,
             child: StreamBuilder<QuerySnapshot>(
               stream: productsRef.snapshots(),
               builder: (context, snapshot) {
@@ -102,7 +102,7 @@ class _StoreScreenState extends State<StoreScreen> {
                     crossAxisCount: 2,
                     crossAxisSpacing: 10.w,
                     mainAxisSpacing: 10.h,
-                    childAspectRatio: 0.75,
+                    childAspectRatio: 0.8,
                   ),
                   itemBuilder: (context, i) {
                     final category = categories[i];
