@@ -58,7 +58,7 @@ class _ReturnPolicyScreenState extends State<ReturnPolicyScreen> {
                     final returnPolicy = snapshot.data!.docs;
 
                     return SizedBox(
-                      height: 560,
+                      height: 500,
                       child: ListView.builder(
                           /*shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),*/

@@ -67,7 +67,7 @@ class _AboutBazzarScreenState extends State<AboutBazzarScreen> {
                       final aboutBazzar = snapshot.data!.docs;
 
                       return SizedBox(
-                        height: 445,
+                        height: 405,
                         child: ListView.builder(
                            /* shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),*/

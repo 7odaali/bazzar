@@ -147,8 +147,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           verticalSpace(22),
-          SizedBox(
-            height: 520.h,
+          Expanded(
             child: StreamBuilder<QuerySnapshot>(
               stream: productsQuery.snapshots(),
               builder: (context, snapshot) {

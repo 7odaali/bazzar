@@ -65,7 +65,7 @@ class _FaqScreenState extends State<FaqScreen> {
                     }
 
                     return SizedBox(
-                      height: 560,
+                      height: 500,
                       child: ListView.builder(
                         itemCount: questionsAndAnswers.length,
                         itemBuilder: (context, i) {
