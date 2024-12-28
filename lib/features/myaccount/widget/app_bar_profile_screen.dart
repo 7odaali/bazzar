@@ -18,7 +18,8 @@ class _AppBarProfileScreenState extends State<AppBarProfileScreen> {
       height: 150.h,
       width: double.infinity,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(30.w),
+        borderRadius: BorderRadius.only( bottomRight: Radius.circular(30.w),
+          bottomLeft: Radius.circular(30.w),),
         color: ColorsManager.darkBlue,
       ),
       child: Column(

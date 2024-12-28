@@ -42,7 +42,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     height: 250.h,
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30.w),
+                      borderRadius: BorderRadius.only( bottomRight: Radius.circular(30.w),
+                        bottomLeft: Radius.circular(30.w),),
                       color: ColorsManager.darkBlue,
                     ),
                     child: Image.asset("assets/Logo.png"),

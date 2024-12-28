@@ -32,7 +32,8 @@ class _LoginScreenState extends State<LoginScreen> {
               height: 250.h,
               width: 10000000000.w,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30.w),
+                borderRadius: BorderRadius.only( bottomRight: Radius.circular(30.w),
+                  bottomLeft: Radius.circular(30.w),),
                 color: ColorsManager.darkBlue,
               ),
               child: Image.asset("assets/Logo.png"),

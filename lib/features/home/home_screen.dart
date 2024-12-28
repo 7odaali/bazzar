@@ -61,7 +61,10 @@ class _HomeScreenState extends State<HomeScreen> {
             height: 150.h,
             width: double.infinity,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(30.w),
+              borderRadius: BorderRadius.only(
+                bottomRight: Radius.circular(30.w),
+                bottomLeft: Radius.circular(30.w),
+              ),
               color: ColorsManager.darkBlue,
             ),
             child: Padding(
@@ -185,7 +188,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 final favorites = context.watch<FavoritesCubit>().state;
 
                 return GridView.builder(
-                 /* shrinkWrap: true,
+                  /* shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),*/
                   itemCount: products.length,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -228,15 +231,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                     height: 130.h,
                                     width: 200.w,
                                     child: ClipRRect(
-                                      borderRadius:
-                                          BorderRadius.circular(10.w),
+                                      borderRadius: BorderRadius.circular(10.w),
                                       child: product['image'] != null &&
                                               product['image'].isNotEmpty
                                           ? Image.network(
                                               product['image'],
                                               fit: BoxFit.cover,
-                                              errorBuilder: (context, error,
-                                                  stackTrace) {
+                                              errorBuilder:
+                                                  (context, error, stackTrace) {
                                                 return Center(
                                                   child: Icon(
                                                     Icons.broken_image,
@@ -267,8 +269,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           'price': product['price'],
                                           'oldprice': product['oldprice'],
                                           'image': product['image'],
-                                          'description':
-                                              product['description'],
+                                          'description': product['description'],
                                           'secimages': product['secimages'],
                                         });
                                       },
@@ -288,8 +289,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             SizedBox(height: 10.h),
                             Row(
-                              mainAxisAlignment:
-                                  MainAxisAlignment.spaceAround,
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 Text(
                                   product['name'],
