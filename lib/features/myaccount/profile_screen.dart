@@ -139,102 +139,104 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFFAFAFA),
-      body: Column(
-        children: [
-          Column(
-            children: [
-              const AppBarProfileScreen(),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15.0.w),
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    children: [
-                      verticalSpace(20),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Edit Profile",
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Column(
+              children: [
+                const AppBarProfileScreen(),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 15.0.w),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        verticalSpace(20),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Edit Profile",
+                              style: TextStyle(
+                                color: ColorsManager.darkBlue,
+                                fontSize: 19.w,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                        verticalSpace(30),
+                        TextFormField(
+                          controller: _nameController,
+                          decoration: InputDecoration(
+                            labelText: 'Name*',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12.0),
+                            ),
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter your name';
+                            }
+                            return null;
+                          },
+                        ),
+                        verticalSpace(20),
+                        TextFormField(
+                          controller: _emailController,
+                          decoration: InputDecoration(
+                            labelText: 'Email Address*',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12.0),
+                            ),
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter your email';
+                            } else if (!RegExp(r'^[^@]+@[^@]+\.[^@]+')
+                                .hasMatch(value)) {
+                              return 'Please enter a valid email address';
+                            }
+                            return null;
+                          },
+                        ),
+                        verticalSpace(300),
+                        MaterialButton(
+                          minWidth: 1000.w,
+                          height: 50.h,
+                          onPressed: isLoading ? null : _updateProfile,
+                          color: Colors.yellow,
+                          textColor: ColorsManager.darkBlue,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 20.w,
+                            vertical: 10.h,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16.0.w),
+                          ),
+                          child: Text(
+                            isLoading ? 'Updating...' : 'Update Profile',
                             style: TextStyle(
-                              color: ColorsManager.darkBlue,
                               fontSize: 19.w,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                        ],
-                      ),
-                      verticalSpace(30),
-                      TextFormField(
-                        controller: _nameController,
-                        decoration: InputDecoration(
-                          labelText: 'Name*',
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12.0),
-                          ),
                         ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter your name';
-                          }
-                          return null;
-                        },
-                      ),
-                      verticalSpace(20),
-                      TextFormField(
-                        controller: _emailController,
-                        decoration: InputDecoration(
-                          labelText: 'Email Address*',
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12.0),
-                          ),
-                        ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter your email';
-                          } else if (!RegExp(r'^[^@]+@[^@]+\.[^@]+')
-                              .hasMatch(value)) {
-                            return 'Please enter a valid email address';
-                          }
-                          return null;
-                        },
-                      ),
-                      verticalSpace(300),
-                      MaterialButton(
-                        minWidth: 1000.w,
-                        height: 50.h,
-                        onPressed: isLoading ? null : _updateProfile,
-                        color: Colors.yellow,
-                        textColor: ColorsManager.darkBlue,
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 20.w,
-                          vertical: 10.h,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16.0.w),
-                        ),
-                        child: Text(
-                          isLoading ? 'Updating...' : 'Update Profile',
-                          style: TextStyle(
-                            fontSize: 19.w,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
-          ),
-          if (isLoading)
-            Container(
-              color: Colors.black.withOpacity(0.5),
-              child: const Center(
-                child: CircularProgressIndicator(),
-              ),
+              ],
             ),
-        ],
+            if (isLoading)
+              Container(
+                color: Colors.black.withOpacity(0.5),
+                child: const Center(
+                  child: CircularProgressIndicator(),
+                ),
+              ),
+          ],
+        ),
       ),
     );
   }
