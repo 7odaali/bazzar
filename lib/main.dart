@@ -69,7 +69,7 @@ class MyApp extends StatelessWidget {
               home: FirebaseAuth.instance.currentUser != null &&
                   FirebaseAuth.instance.currentUser!.emailVerified
                   ? const BottomNavigationBarScreen()
-                  : const SplashScreen(),
+                  : const HomeScreen(),
               routes: {
                 "homescreen": (_) => const HomeScreen(),
                 "BottomNavigationBarScreen": (_) =>

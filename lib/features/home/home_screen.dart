@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -150,6 +151,265 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           verticalSpace(22),
+/*
+          Expanded(
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                return StreamBuilder<QuerySnapshot>(
+                  stream: productsQuery.snapshots(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+
+                    if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                      return const Center(child: Text("No products available"));
+                    }
+
+                    var products = snapshot.data!.docs.where((product) {
+                      final name = (product['name'] as String).toLowerCase();
+                      final data = product.data() as Map<String, dynamic>;
+                      final category = data.containsKey('category')
+                          ? data['category'] as String
+                          : '';
+                      final price = num.tryParse(data['price'].toString()) ?? 0;
+
+                      final matchesSearch = name.contains(_searchText);
+                      final matchesCategory = _selectedCategories.isEmpty ||
+                          _selectedCategories.contains(category);
+                      final matchesPrice =
+                          (_minPrice == null || price >= _minPrice!) &&
+                              (_maxPrice == null || price <= _maxPrice!);
+
+                      return matchesSearch && matchesCategory && matchesPrice;
+                    }).toList();
+
+                    if (products.isEmpty) {
+                      return const Center(
+                          child: Text("No products match the filter"));
+                    }
+
+                    final favorites = context.watch<FavoritesCubit>().state;
+
+                    return GridView.builder(
+                      itemCount: products.length,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: getCrossAxisCount(constraints.maxWidth),
+                        crossAxisSpacing: 10.w,
+                        mainAxisSpacing: 10.h,
+                        childAspectRatio:
+                            getChildAspectRatio(constraints.maxWidth),
+                      ),
+                      itemBuilder: (context, index) {
+                        final product = products[index];
+                        bool isFavorite = favorites
+                            .any((item) => item['name'] == product['name']);
+
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ProductDetailsScreen(
+                                  productDetails: {
+                                    'name': product['name'],
+                                    'price': product['price'],
+                                    'image': product['image'],
+                                    'oldprice': product['oldprice'],
+                                    'description': product['description'],
+                                    'secimages': product['secimages'],
+                                  },
+                                ),
+                              ),
+                            );
+                          },
+                          child: */
+/*Card(
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Stack(
+                                    children: [
+                                      SizedBox(
+                                        height: 130.h,
+                                        width: 200.w,
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(10.w),
+                                          child: product['image'] != null &&
+                                              product['image'].isNotEmpty
+                                              ? Image.network(
+                                            product['image'],
+                                            fit: BoxFit.cover,
+                                            errorBuilder:
+                                                (context, error, stackTrace) {
+                                              return Center(
+                                                child: Icon(
+                                                  Icons.broken_image,
+                                                  color: Colors.grey,
+                                                  size: 50.h,
+                                                ),
+                                              );
+                                            },
+                                          )
+                                              : Center(
+                                            child: Icon(
+                                              Icons.image_not_supported,
+                                              size: 50.h,
+                                              color: Colors.grey,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Positioned(
+                                        bottom: 0,
+                                        right: 0,
+                                        child: IconButton(
+                                          onPressed: () {
+                                            context
+                                                .read<FavoritesCubit>()
+                                                .updateFavorite({
+                                              'name': product['name'],
+                                              'price': product['price'],
+                                              'oldprice': product['oldprice'],
+                                              'image': product['image'],
+                                              'description': product['description'],
+                                              'secimages': product['secimages'],
+                                            });
+                                          },
+                                          icon: Icon(
+                                            isFavorite
+                                                ? Icons.favorite
+                                                : Icons.favorite_border_outlined,
+                                            color: isFavorite
+                                                ? Colors.red
+                                                : Colors.green,
+                                            size: 30.h,
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),*/
+          /*                  Card(
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Stack(
+                                    children: [
+                                      SizedBox(
+                                        height: getImageHeight(
+                                            constraints.maxWidth),
+                                        width:
+                                            getImageWidth(constraints.maxWidth),
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(10.w),
+                                          child: product['image'] != null &&
+                                                  product['image'].isNotEmpty
+                                              ? Image.network(
+                                                  product['image'],
+                                                  fit: BoxFit.cover,
+                                                  errorBuilder: (context, error,
+                                                      stackTrace) {
+                                                    return Center(
+                                                      child: Icon(
+                                                        Icons.broken_image,
+                                                        color: Colors.grey,
+                                                        size: 50.h,
+                                                      ),
+                                                    );
+                                                  },
+                                                )
+                                              : Center(
+                                                  child: Icon(
+                                                    Icons.image_not_supported,
+                                                    size: 50.h,
+                                                    color: Colors.grey,
+                                                  ),
+                                                ),
+                                        ),
+                                      ),
+                                      Positioned(
+                                        bottom: 0,
+                                        right: 0,
+                                        child: IconButton(
+                                          onPressed: () {
+                                            context
+                                                .read<FavoritesCubit>()
+                                                .updateFavorite({
+                                              'name': product['name'],
+                                              'price': product['price'],
+                                              'oldprice': product['oldprice'],
+                                              'image': product['image'],
+                                              'description':
+                                                  product['description'],
+                                              'secimages': product['secimages'],
+                                            });
+                                          },
+                                          icon: Icon(
+                                            isFavorite
+                                                ? Icons.favorite
+                                                : Icons
+                                                    .favorite_border_outlined,
+                                            color: isFavorite
+                                                ? Colors.red
+                                                : Colors.green,
+                                            size: 30.h,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(height: 10.h),
+                                */
+/* Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Text(
+                                      product['name'],
+                                      style: TextStyle(fontSize: 14.sp),
+                                    ),
+                                    Text(
+                                      "\$${product['price']}",
+                                      style: TextStyle(fontSize: 14.sp),
+                                    ),
+                                  ],
+                                ),*/
+          /*
+
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Text(
+                                      product['name'],
+                                      style: TextStyle(
+                                        fontSize: kIsWeb ? 8.sp : 14.sp,
+                                      ),
+                                    ),
+                                    Text(
+                                      "\$${product['price']}",
+                                      style: TextStyle(
+                                        fontSize: kIsWeb ? 8.sp : 14.sp,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  },
+                );
+              },
+            ),
+          ),
+*/
           Expanded(
             child: StreamBuilder<QuerySnapshot>(
               stream: productsQuery.snapshots(),
@@ -315,4 +575,56 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+/*
+  int getCrossAxisCount(double maxWidth) {
+    if (maxWidth > 1300) {
+      return 4;
+    } else if (maxWidth > 800) {
+      return 3;
+    } else if (maxWidth > 500) {
+      return 2;
+    } else {
+      return 1;
+    }
+  }
+
+  double getImageWidth(double maxWidth) {
+    if (maxWidth > 1200) {
+      return 3000.w;
+    } else if (maxWidth > 800) {
+      return 240.w;
+    } else if (maxWidth > 600) {
+      return 180.w;
+    } else {
+      return 400.w;
+    }
+  }
+
+  double getImageHeight(double maxWidth) {
+    if (maxWidth > 1300) {
+      return 250.h;
+    } else if (maxWidth > 1000) {
+      return 240.h;
+    } else if (maxWidth > 800) {
+      return 200.h;
+    } else if (maxWidth > 600) {
+      return 150.h;
+    } else {
+      return 300.h;
+    }
+  }
+
+  double getChildAspectRatio(double maxWidth) {
+    if (maxWidth > 1300) {
+      return 1;
+    } else if (maxWidth > 1000) {
+      return 1.25;
+    } else if (maxWidth > 800) {
+      return 1.4;
+    } else if (maxWidth > 600) {
+      return 1.37;
+    } else {
+      return 1.4;
+    }
+  }*/
 }
