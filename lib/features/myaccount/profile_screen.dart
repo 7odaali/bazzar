@@ -27,7 +27,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       ),
     );
   }
-
   Future<void> _updateProfile() async {
     if (!_formKey.currentState!.validate()) {
       _showSnackBar("Please fill all fields correctly.");
