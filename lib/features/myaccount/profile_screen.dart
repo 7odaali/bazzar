@@ -20,8 +20,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   bool isLoading = false;
 
   void _showSnackBar(String message, {bool isSuccess = false}) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(message),
         backgroundColor: isSuccess ? Colors.green : Colors.red,
       ),
