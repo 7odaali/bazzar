@@ -7,6 +7,7 @@ class DarkModeCubit extends Cubit<bool> {
   Future<void> loadDarkMode() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool isDarkMode = prefs.getBool('isDarkMode') ?? false;
+
     emit(isDarkMode);
   }
 
